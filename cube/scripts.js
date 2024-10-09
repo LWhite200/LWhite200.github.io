@@ -17,6 +17,7 @@ let scale = 100;
 let dragging = false;
 let dragStartX, dragStartY;
 let offsetX = 0, offsetY = 0;
+let viewMode = 'wireframe';
 
 // Create lines for the cube
 function createLines() {
@@ -85,8 +86,61 @@ function rotateCube() {
         vertex.z = y * Math.sin(angleX) + z2 * Math.cos(angleX);
     });
 
-    updateLines();
+    if (viewMode === 'wireframe') {
+        updateLines();
+    } else {
+        drawFilledFaces();
+    }
 }
+
+// Draw filled faces of the cube
+function drawFilledFaces() {
+    // Clear any existing polygons
+    svg.querySelectorAll('polygon').forEach(polygon => polygon.remove());
+
+    // Define the faces of the cube (each face is a group of 4 vertices)
+    const faces = [
+        [0, 1, 2, 3], // Front face
+        [4, 5, 6, 7], // Back face
+        [0, 1, 5, 4], // Bottom face
+        [2, 3, 7, 6], // Top face
+        [1, 2, 6, 5], // Right face
+        [0, 3, 7, 4]  // Left face
+    ];
+
+    faces.forEach(face => {
+        const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+        polygon.setAttribute('fill', 'lightblue');
+        polygon.setAttribute('fill-opacity', '0.6'); // Add transparency to the filled faces
+        polygon.setAttribute('stroke', 'blue');
+        polygon.setAttribute('stroke-width', '2');
+        polygon.setAttribute('points', face.map(i => {
+            const p = project(vertices[i]);
+            return `${p.x},${p.y}`;
+        }).join(' '));
+        svg.appendChild(polygon);
+    });
+}
+
+
+// Toggle between wireframe and filled views
+function toggleViewMode() {
+    if (viewMode === 'wireframe') {
+        lines.forEach(line => line.style.display = 'inline');
+        svg.querySelectorAll('polygon').forEach(polygon => polygon.remove());
+    } else {
+        lines.forEach(line => line.style.display = 'none');
+        drawFilledFaces();
+    }
+}
+
+// Listen for changes on the radio buttons
+document.querySelectorAll('input[name="viewMode"]').forEach(radio => {
+    radio.addEventListener('change', (e) => {
+        viewMode = e.target.value;
+        toggleViewMode();
+    });
+});
 
 // Handle dragging to move the cube
 svg.addEventListener('mousedown', (e) => {
