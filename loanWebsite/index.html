@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loan Amortization Calculator</title>
+<link rel="stylesheet" href="styles.css">
+<script src="scripts.js"></script>
+</head>
+<div id="formSection"> 
+<h2>Loan and Amortization Calculator</h2>
+
+<table>
+    <tr>
+        <th><label>Borrowing Year</label></th>
+        <th><label>Loan Amount</label></th>
+    </tr>
+    <tr> 
+        <td><input type="number" id="borrowingYear1" required placeholder="Borrowing Year 1" oninput="updateYears()"><br><br></td>
+        <td><input type="number" id="loanAmt1" step="0.01" required placeholder="Loan Amount 1"><br><br></td>
+    </tr>
+    <tr> 
+        <td><input type="number" id="borrowingYear2" readonly style="border: 2px dotted black;"><br><br></td>
+        <td><input type="number" id="loanAmt2" step="0.01" required placeholder="Loan Amount 2"><br><br></td>
+    </tr>
+    <tr>
+        <td><input type="number" id="borrowingYear3" readonly style="border: 2px dotted black;"><br><br></td>
+        <td><input type="number" id="loanAmt3" step="0.01" required placeholder="Loan Amount 3"><br><br></td>
+    </tr>
+    <tr>
+        <td><input type="number" id="borrowingYear4" readonly style="border: 2px dotted black;"><br><br></td>
+        <td><input type="number" id="loanAmt4" step="0.01" required placeholder="Loan Amount 4"><br><br></td>
+    </tr>
+</table>
+<button type="button" onclick="calculateDebt()">Calculate</button>
+
+</div>
+
+<div id="resultsSection">
+
+    
+    <h3>Results</h3>
+<p id="totalDebt">Total Debt: </p>
+<p id="amortization">Annual Amortization Payments: </p>
+
+<table>
+    <tr>
+        <th><label>Year</label></th>
+        <th><label>Payment</label></th>
+        <th><label>Interest</label></th>
+        <th><label>Principal</label></th>
+        <th><label>Remaining Debt</label></th>
+    </tr>
+
+    <tr> 
+        <td><label>Year 1</label></td>
+        <td><label id="pay1"></label></td>
+        <td><label id="intr1"></label></td>
+        <td><label id="prin1"></label></td>
+        <td><label id="reD1"></label></td>
+    </tr>
+
+    <tr> 
+        <td><label>Year 2</label></td>
+        <td><label id="pay2"></label></td>
+        <td><label id="intr2"></label></td>
+        <td><label id="prin2"></label></td>
+        <td><label id="reD2"></label></td>
+    </tr>
+
+    <tr> 
+        <td><label>Year 3</label></td>
+        <td><label id="pay3"></label></td>
+        <td><label id="intr3"></label></td>
+        <td><label id="prin3"></label></td>
+        <td><label id="reD3"></label></td>
+    </tr>
+
+    <tr> 
+        <td><label>Year 4</label></td>
+        <td><label id="pay4"></label></td>
+        <td><label id="intr4"></label></td>
+        <td><label id="prin4"></label></td>
+        <td><label id="reD4"></label></td>
+    </tr>
+
+    <tr> 
+        <td><label>Year 5</label></td>
+        <td><label id="pay5"></label></td>
+        <td><label id="intr5"></label></td>
+        <td><label id="prin5"></label></td>
+        <td><label id="reD5"></label></td>
+    </tr>
+
+    <tr> 
+        <td><label>Year 6</label></td>
+        <td><label id="pay6"></label></td>
+        <td><label id="intr6"></label></td>
+        <td><label id="prin6"></label></td>
+        <td><label id="reD6"></label></td>
+    </tr>
+
+    <tr> 
+        <td><label>Year 7</label></td>
+        <td><label id="pay7"></label></td>
+        <td><label id="intr7"></label></td>
+        <td><label id="prin7"></label></td>
+        <td><label id="reD7"></label></td>
+    </tr>
+
+    <tr> 
+        <td><label>Year 8</label></td>
+        <td><label id="pay8"></label></td>
+        <td><label id="intr8"></label></td>
+        <td><label id="prin8"></label></td>
+        <td><label id="reD8"></label></td>
+    </tr>
+
+    <tr> 
+        <td><label>Year 9</label></td>
+        <td><label id="pay9"></label></td>
+        <td><label id="intr9"></label></td>
+        <td><label id="prin9"></label></td>
+        <td><label id="reD9"></label></td>
+    </tr>
+
+    <tr> 
+        <td><label>Year 10</label></td>
+        <td><label id="pay10"></label></td>
+        <td><label id="intr10"></label></td>
+        <td><label id="prin10"></label></td>
+        <td><label id="reD1p"></label></td>
+    </tr>
+</table>
+
+</div>
+
+</html>
