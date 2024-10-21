@@ -1,4 +1,6 @@
 function calculateDebt() {
+
+
     document.getElementById('formSection').style.display = 'none';
     document.getElementById('resultsSection').style.display = 'block';
 
@@ -51,6 +53,27 @@ function updateYears() {
     }
 }
 
+function checkThenDebt() {
+    const bYear1 = parseInt(document.getElementById('borrowingYear1').value);
+    const loanAmt1 = parseFloat(document.getElementById('loanAmt1').value);
+    const loanAmt2 = parseFloat(document.getElementById('loanAmt2').value);
+    const loanAmt3 = parseFloat(document.getElementById('loanAmt3').value);
+    const loanAmt4 = parseFloat(document.getElementById('loanAmt4').value);
+    
+    // Check if at least one of the inputs is valid
+    if (!isNaN(bYear1) && bYear1 >= 0 || 
+        !isNaN(loanAmt1) && loanAmt1 > 0 || 
+        !isNaN(loanAmt2) && loanAmt2 > 0 || 
+        !isNaN(loanAmt3) && loanAmt3 > 0 || 
+        !isNaN(loanAmt4) && loanAmt4 > 0) {
+        calculateDebt();
+    } else {
+        // Optionally handle the case where all inputs are invalid
+        alert("Please enter at least one valid input.");
+    }
+}
 
+
+checkThenDebt
 calculateDebt();
 updateYears();
