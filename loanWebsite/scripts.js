@@ -61,15 +61,15 @@ function checkThenDebt() {
     const loanAmt4 = parseFloat(document.getElementById('loanAmt4').value);
     
     // Check if at least one of the inputs is valid
-    if (!isNaN(bYear1) && bYear1 >= 0 || 
-        !isNaN(loanAmt1) && loanAmt1 > 0 || 
-        !isNaN(loanAmt2) && loanAmt2 > 0 || 
-        !isNaN(loanAmt3) && loanAmt3 > 0 || 
+    if (!isNaN(bYear1) && bYear1 >= 0 && 
+        !isNaN(loanAmt1) && loanAmt1 > 0 && 
+        !isNaN(loanAmt2) && loanAmt2 > 0 && 
+        !isNaN(loanAmt3) && loanAmt3 > 0 && 
         !isNaN(loanAmt4) && loanAmt4 > 0) {
         calculateDebt();
     } else {
         // Optionally handle the case where all inputs are invalid
-        alert("Please enter at least one valid input.");
+        alert("Please Enter Valid Input.");
     }
 }
 
