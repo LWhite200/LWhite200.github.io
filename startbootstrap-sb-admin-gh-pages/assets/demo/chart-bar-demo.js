@@ -4,12 +4,8 @@ Chart.defaults.global.defaultFontColor = '#292b2c';
 
 //-_-=-=-=-=-=-=-=--=-=-=-=--=-=-=-=--=-=--=-=-=--=-=-=-
 // Declare variables, then pull from the webstie into a json boob, then set these to be those
-var Cute = fetchData(cute);
-var Orange = 100;
-var Fluffy = 100;
-var Sleepy = 100;
-var Silly = 100;
-var Bread = 100;
+
+
 
 async function fetchData(tag) {
   try {
@@ -19,7 +15,7 @@ async function fetchData(tag) {
     }
 
     const data = await response.json();    // comes in as a JSON
-    alert(data.length);
+   // alert(data.length);
     return data.length;                    // return the number of objects
   }
   catch (error) {
@@ -29,45 +25,56 @@ async function fetchData(tag) {
 
 
 
-// Bar Chart Example
-var ctx = document.getElementById("myBarChart");
-var myLineChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: ["Cute", "Orange", "Fluffy", "Sleepy", "Silly", "bread"],
-    datasets: [{
-      label: "Revenue",
-      backgroundColor: "rgba(2,117,216,1)",
-      borderColor: "rgba(2,117,216,1)",
-      data: [Cute, Orange, Fluffy, Sleepy, Silly, Bread],
-    }],
-  },
-  options: {
-    scales: {
-      xAxes: [{
-        time: {
-          unit: 'month'
-        },
-        gridLines: {
-          display: false
-        },
-        ticks: {
-          maxTicksLimit: 6
-        }
-      }],
-      yAxes: [{
-        ticks: {
-          min: 0,
-          max: 150,
-          maxTicksLimit: 5
-        },
-        gridLines: {
-          display: true
-        }
+// since data retrival is async, so must this
+async function initializeChart() {
+
+  Cute = await fetchData("cute");
+  Orange = await fetchData("orange");
+  Fluffy = await fetchData("fluffy");
+  Sleepy = await fetchData("sleepy");
+  Silly = await fetchData("silly");
+  Bread = await fetchData("bread");
+
+  var ctx = document.getElementById("myBarChart");
+  var myLineChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [Cute, Orange, Fluffy, Sleepy, Silly, Bread],
+      datasets: [{
+        label: "Revenue",
+        backgroundColor: "rgba(2,117,216,1)",
+        borderColor: "rgba(2,117,216,1)",
+        data: [Cute, Orange, Fluffy, Sleepy, Silly, Bread],
       }],
     },
-    legend: {
-      display: false
+    options: {
+      scales: {
+        xAxes: [{
+          time: {
+            unit: 'month'
+          },
+          gridLines: {
+            display: false
+          },
+          ticks: {
+            maxTicksLimit: 6
+          }
+        }],
+        yAxes: [{
+          ticks: {
+            min: 0,
+            max: 50,
+            maxTicksLimit: 5
+          },
+          gridLines: {
+            display: true
+          }
+        }],
+      },
+      legend: {
+        display: false
+      }
     }
-  }
-});
+  });
+}
+initializeChart();
