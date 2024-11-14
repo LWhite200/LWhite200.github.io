@@ -1,5 +1,3 @@
-
-
 window.addEventListener('DOMContentLoaded', event => {
 
     const tableBody = document.querySelector("#datatablesSimple tbody");
@@ -26,7 +24,10 @@ window.addEventListener('DOMContentLoaded', event => {
         new simpleDatatables.DataTable(datatablesSimple);
     }
 
+    
+
 });
+
 
 
 const tableData = [
@@ -116,4 +117,13 @@ document.getElementById("ageRangeForm").addEventListener("submit", function (eve
 
     document.getElementById("averageSalary").textContent = 
         `Number of Entries: ${entryCount}, Average Salary: $${averageSalary}`;
+
+    // Pick a random name from the filtered data as we already have a list of the filtered data
+    const randomIndex = Math.floor(Math.random() * filteredData.length);
+    const randomName = filteredData[randomIndex].name;
+
+    const nameLine = document.getElementById('nameName');
+    if (nameLine) {
+        nameLine.innerHTML = randomName;
+    }
 });
