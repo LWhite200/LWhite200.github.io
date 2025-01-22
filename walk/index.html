@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step Counter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        #step-count {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        #status {
+            font-size: 14px;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Step Counter</h1>
+        <p id="step-count">Steps: 0</p>
+        <p id="status">Waiting for movement...</p>
+    </div>
+
+    <script>
+        let stepCount = 0; // Initial step count
+        let lastX = 0, lastY = 0, lastZ = 0; // Initial acceleration values
+
+        // Function to detect motion and increase step count
+        function handleMotion(event) {
+            const acceleration = event.accelerationIncludingGravity;
+            const x = acceleration.x;
+            const y = acceleration.y;
+            const z = acceleration.z;
+
+            // Calculate the change in acceleration
+            const deltaX = Math.abs(x - lastX);
+            const deltaY = Math.abs(y - lastY);
+            const deltaZ = Math.abs(z - lastZ);
+
+            // Simple threshold to detect step-like movement (you can adjust this)
+            if (deltaX > 1.5 || deltaY > 1.5 || deltaZ > 1.5) {
+                stepCount++;
+                document.getElementById('step-count').textContent = `Steps: ${stepCount}`;
+            }
+
+            // Update last position for the next motion event
+            lastX = x;
+            lastY = y;
+            lastZ = z;
+        }
+
+        // Check if the DeviceMotionEvent is supported
+        if (window.DeviceMotionEvent) {
+            window.addEventListener('devicemotion', handleMotion, false);
+            document.getElementById('status').textContent = 'Tracking steps...';
+        } else {
+            document.getElementById('status').textContent = 'DeviceMotionEvent not supported on this device.';
+        }
+    </script>
+</body>
+</html>
