@@ -3,96 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Step Counter</title>
+    <title>Walking Simulator</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f9;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
         }
 
-        .container {
-            text-align: center;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        #walker {
+            background-color: #b0b0b0;
+            padding: 30px;
+            border-radius: 100px;
+            width: 300px;
+            margin: 100px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
+            color: #8f87ff;
+        }
+
+        #screen {
+            background-color: #d2d2d2;
+            color: #fff;
+            width: 100%;
+            height: 100px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             font-size: 24px;
-            margin-bottom: 10px;
+            border-radius: 5px;
         }
 
-        #step-count {
-            font-size: 20px;
-            margin-bottom: 10px;
+        button {
+            padding: 25px 25px;
+            font-size: 18px;
+            margin-top: 10px;
+            background-color: #cfcfcf;
+            color: rgb(130, 130, 130);
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
-        #status {
-            font-size: 14px;
-            color: gray;
+        button:hover {
+            background-color: #717171;
         }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Step Counter</h1>
-        <p id="step-count">Steps: 0</p>
-        <p id="status">Waiting for movement...</p>
+    <div id="walker">
+        <h1>WALK</h1>
+        <div id="screen">
+            <span id="step-count-display">Steps: 0</span>
+        </div>
+
+        <div id="controls">
+            <button id="left-btn"></button>
+            <button id="middle-btn"></button>
+            <button id="right-btn"></button>
+        </div>
     </div>
 
     <script>
         let stepCount = 0;
-        let lastX = 0, lastY = 0, lastZ = 0; // Initial acceleration values
-        let threshold = 15;  // Adjust this threshold to control step sensitivity
-        let lastTime = 0;
 
-        // Function to handle motion events
-        function handleMotion(event) {
-            const acceleration = event.accelerationIncludingGravity;
-            const x = acceleration.x;
-            const y = acceleration.y;
-            const z = acceleration.z;
+        const stepCountDisplay = document.getElementById('step-count-display');
+        const lBtn = document.getElementById('left-btn');
+        const mBtn = document.getElementById('middle-btn');
+        const rBtn = document.getElementById('right-btn');
 
-            const currentTime = new Date().getTime();
-            const timeDiff = currentTime - lastTime;
-            
-            // Only detect steps if there is a noticeable change and a reasonable amount of time has passed
-            if (timeDiff > 100) {
-                const deltaX = Math.abs(x - lastX);
-                const deltaY = Math.abs(y - lastY);
-                const deltaZ = Math.abs(z - lastZ);
+        lBtn.addEventListener('click', () => {
+  
+        });
 
-                // Basic motion detection: if the change in acceleration exceeds the threshold, it's likely a step
-                if (deltaX > threshold || deltaY > threshold || deltaZ > threshold) {
-                    stepCount++;
-                    document.getElementById('step-count').textContent = `Steps: ${stepCount}`;
-                    lastTime = currentTime;  // Update last time of step detection
-                }
-            }
+        mBtn.addEventListener('click', () => {
+            if (stepCount < 25) stepCount++;
+            updateStepDisplay();
+        });
 
-            // Update last position for the next motion event
-            lastX = x;
-            lastY = y;
-            lastZ = z;
-        }
+        rBtn.addEventListener('click', () => {
 
-        // Check if the DeviceMotionEvent is supported
-        if (window.DeviceMotionEvent) {
-            window.addEventListener('devicemotion', handleMotion, false);
-            document.getElementById('status').textContent = 'Tracking steps...';
-        } else {
-            document.getElementById('status').textContent = 'DeviceMotionEvent not supported on this device.';
+        });
+
+        // Function to update the step display
+        function updateStepDisplay() {
+            stepCountDisplay.textContent = `Steps: ${stepCount}`;
         }
     </script>
 </body>
