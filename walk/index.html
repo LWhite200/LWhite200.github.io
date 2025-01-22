@@ -52,25 +52,33 @@
     </div>
 
     <script>
-        let stepCount = 0; // Initial step count
+        let stepCount = 0;
         let lastX = 0, lastY = 0, lastZ = 0; // Initial acceleration values
+        let threshold = 15;  // Adjust this threshold to control step sensitivity
+        let lastTime = 0;
 
-        // Function to detect motion and increase step count
+        // Function to handle motion events
         function handleMotion(event) {
             const acceleration = event.accelerationIncludingGravity;
             const x = acceleration.x;
             const y = acceleration.y;
             const z = acceleration.z;
 
-            // Calculate the change in acceleration
-            const deltaX = Math.abs(x - lastX);
-            const deltaY = Math.abs(y - lastY);
-            const deltaZ = Math.abs(z - lastZ);
+            const currentTime = new Date().getTime();
+            const timeDiff = currentTime - lastTime;
+            
+            // Only detect steps if there is a noticeable change and a reasonable amount of time has passed
+            if (timeDiff > 100) {
+                const deltaX = Math.abs(x - lastX);
+                const deltaY = Math.abs(y - lastY);
+                const deltaZ = Math.abs(z - lastZ);
 
-            // Simple threshold to detect step-like movement (you can adjust this)
-            if (deltaX > 1.5 || deltaY > 1.5 || deltaZ > 1.5) {
-                stepCount++;
-                document.getElementById('step-count').textContent = `Steps: ${stepCount}`;
+                // Basic motion detection: if the change in acceleration exceeds the threshold, it's likely a step
+                if (deltaX > threshold || deltaY > threshold || deltaZ > threshold) {
+                    stepCount++;
+                    document.getElementById('step-count').textContent = `Steps: ${stepCount}`;
+                    lastTime = currentTime;  // Update last time of step detection
+                }
             }
 
             // Update last position for the next motion event
