@@ -1,44 +1,17 @@
 /* =========================
-   CUSTOM FONTS
+   GLOBAL RESET
    ========================= */
-
-/* Karla (local download) */
-/* =========================
-   CUSTOM FONTS (SINGLE FILES)
-   ========================= */
-
-/* Karla (single file, regular) */
-@font-face {
-  font-family: "KarlaCustom";
-  src: url("fonts/Karla.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
+* {
+  box-sizing: border-box;
 }
-
-/* Manrope (single file, regular) */
-@font-face {
-  font-family: "ManropeCustom";
-  src: url("fonts/Manrope.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-/* Anton (single file, regular) */
-@font-face {
-  font-family: "AntonCustom";
-  src: url("fonts/Roboto.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
 
 /* =========================
    GENERAL PAGE STYLES
    ========================= */
 
-/* BODY = Karla (techy, readable) */
+/* BODY = Inter (clean, readable, techy) */
 body {
-  font-family: "KarlaCustom", "Karla", sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   margin: 0;
   padding: 40px 0;
   line-height: 1.6;
@@ -51,6 +24,10 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  text-decoration: underline;
+}
+
 /* =========================
    PAGE CONTAINER (CARD)
    ========================= */
@@ -58,11 +35,13 @@ a {
   max-width: 900px;
   margin: auto;
   background-color: #fff;
+
+  /* ✅ Border now guaranteed visible */
   border: 12px solid #3f51b5;
   border-radius: 24px;
+
   padding: 20px 30px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  box-sizing: border-box;
 }
 
 /* =========================
@@ -70,7 +49,7 @@ a {
    ========================= */
 header {
   text-align: center;
-  padding: 10px 20px 10px;
+  padding: 10px 20px;
 }
 
 .profile-photo {
@@ -81,18 +60,18 @@ header {
   margin-bottom: 20px;
 }
 
-/* Name = Anton (important) with subtle stroke */
+/* Name = Anton (strong display font) */
 header h1 {
   margin: 0 0 10px 0;
   font-size: 4em;
   color: #3f51b5;
-  font-family: "AntonCustom", sans-serif;   /* 👈 CHANGED FONT */
-  font-weight: normal;
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
 }
 
 header p {
   margin: 5px 0;
-  font-family: "KarlaCustom", sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 /* =========================
@@ -100,7 +79,7 @@ header p {
    ========================= */
 main {
   padding: 10px 20px;
-  font-family: "KarlaCustom", sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 main section:first-of-type h2 {
@@ -109,7 +88,7 @@ main section:first-of-type h2 {
 
 /* Section headings = Manrope */
 h2 {
-  font-family: "ManropeCustom", sans-serif;
+  font-family: 'Manrope', sans-serif;
   border-bottom: 1px solid #ddd;
   padding-bottom: 5px;
   margin-top: 40px;
@@ -128,7 +107,7 @@ ul {
    RESUME BUTTON
    ========================= */
 section.resume button {
-  font-family: "ManropeCustom", sans-serif;
+  font-family: 'Manrope', sans-serif;
   background-color: #3f51b5;
   color: white;
   border: none;
@@ -158,12 +137,14 @@ section.resume button:hover {
   flex-direction: column;
   align-items: center;
   text-align: center;
+
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 10px;
+
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  font-family: "KarlaCustom", sans-serif;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: 'Inter', sans-serif;
 }
 
 .project-item:hover {
@@ -179,12 +160,12 @@ section.resume button:hover {
   margin-bottom: 10px;
 }
 
-/* Project titles = slightly more important */
+/* Project titles */
 .project-item h3 {
   font-size: 1em;
   margin: 0;
   color: #3f51b5;
-  font-family: "ManropeCustom", sans-serif;
+  font-family: 'Manrope', sans-serif;
 }
 
 /* =========================
@@ -193,5 +174,9 @@ section.resume button:hover {
 @media (max-width: 600px) {
   .project-buttons {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  header h1 {
+    font-size: 2.5em;
   }
 }
