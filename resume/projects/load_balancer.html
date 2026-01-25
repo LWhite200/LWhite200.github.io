@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Load-Balanced Distributed System - Lukas White</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+  <!-- PAGE CONTAINER (matches index.html layout) -->
+
+  <div class="page-container">
+
+```
+<header>
+  <button onclick="location.href='../index.html'">Back to Home</button>
+  <h1>Load-Balanced Distributed System</h1>
+
+  <!-- MAIN HEADER IMAGE -->
+  <img src="../images/loadbalancer_overview.png" alt="Distributed system architecture overview">
+  <!-- IMAGE IDEA: Diagram showing multiple nodes, server, clients, heartbeats, and load balancing flow -->
+</header>
+
+<main>
+
+<!-- ABOUT SECTION -->
+<section>
+  <h2>About This Project</h2>
+  <p>
+    This project is a <strong>custom-built distributed system</strong> written in Java that implements
+    <strong>dynamic node discovery</strong>, <strong>heartbeat monitoring</strong>, <strong>fault detection</strong>,
+    and <strong>load-balanced client coordination</strong> using raw sockets.
+  </p>
+
+  <p>
+    Nodes automatically join the system, register with the server, exchange metadata, and
+    participate in a shared network where availability is tracked in real time using
+    heartbeat signals. The server actively monitors node health and dynamically updates
+    all connected clients when nodes join, fail, or recover.
+  </p>
+
+  <p>
+    The system is designed to simulate the core principles of <strong>distributed computing</strong>,
+    <strong>fault tolerance</strong>, and <strong>high availability architectures</strong> used in real-world
+    cloud systems and microservice infrastructures.
+  </p>
+</section>
+
+<!-- SYSTEM FEATURES SECTION -->
+<section>
+  <h2>System Features</h2>
+  <ul>
+    <li><strong>Dynamic node registration</strong> (nodes auto-join on connection)</li>
+    <li><strong>Centralized coordination server</strong></li>
+    <li><strong>Heartbeat-based failure detection</strong></li>
+    <li><strong>Automatic node recovery detection</strong></li>
+    <li><strong>Real-time node list synchronization</strong></li>
+    <li><strong>Fault-tolerant architecture design</strong></li>
+    <li><strong>Socket-based communication</strong> (no frameworks)</li>
+  </ul>
+</section>
+
+<!-- WHY IT'S IMPRESSIVE -->
+<section>
+  <h2>Why This Project Is Impressive</h2>
+  <ul>
+    <li>
+      <strong>Built without frameworks</strong> — implemented directly using Java sockets,
+      threads, and low-level networking primitives.
+    </li>
+    <li>
+      <strong>Real distributed system concepts</strong> — heartbeats, fault detection,
+      node discovery, synchronization, and recovery.
+    </li>
+    <li>
+      <strong>Automatic failure detection</strong> using timed heartbeat monitoring.
+    </li>
+    <li>
+      <strong>Live system state propagation</strong> — all clients receive updated node lists in real time.
+    </li>
+    <li>
+      <strong>Scalable architecture design</strong> that can grow with more nodes and clients.
+    </li>
+    <li>
+      <strong>Production-style patterns</strong> similar to service discovery systems (e.g., Kubernetes, Consul, Zookeeper).
+    </li>
+  </ul>
+</section>
+
+<!-- TECHNICAL ARCHITECTURE -->
+<section>
+  <h2>Technical Architecture</h2>
+  <ul>
+    <li><strong>ServerSocket</strong> for centralized node coordination</li>
+    <li><strong>ClientHandler threads</strong> for concurrent client management</li>
+    <li><strong>Node objects</strong> representing distributed system participants</li>
+    <li><strong>Heartbeat threads</strong> for liveness detection</li>
+    <li><strong>Monitor threads</strong> for failure detection and recovery</li>
+    <li><strong>Shared state synchronization</strong> across all nodes</li>
+  </ul>
+</section>
+
+<!-- CHALLENGES SECTION -->
+<section>
+  <h2>Challenges Faced</h2>
+  <ul>
+    <li>Designing a <strong>reliable heartbeat protocol</strong> without false positives</li>
+    <li>Preventing <strong>race conditions</strong> in shared node lists</li>
+    <li>Handling <strong>node recovery</strong> without system restarts</li>
+    <li>Managing <strong>concurrent socket connections</strong></li>
+    <li>Maintaining <strong>system consistency</strong> across distributed clients</li>
+    <li>Detecting failures while avoiding unnecessary node removal</li>
+  </ul>
+</section>
+
+<!-- SCREENSHOTS / DIAGRAMS SECTION -->
+<section>
+  <h2>Screenshots & Diagrams</h2>
+  <p>Visual system documentation and architecture diagrams:</p>
+
+  <div class="screenshot-grid">
+
+    <img src="images/architecture.png" alt="System architecture diagram">
+    <!-- IMAGE IDEA: Architecture diagram showing Server, Nodes, Clients, heartbeat flow -->
+
+    <img src="images/heartbeat_flow.png" alt="Heartbeat monitoring flow">
+    <!-- IMAGE IDEA: Diagram showing heartbeat signals, timeout detection, failure marking -->
+
+    <img src="images/node_list.png" alt="Node list synchronization">
+    <!-- IMAGE IDEA: Screenshot of terminal showing synchronized node list across clients -->
+
+    <img src="images/failure_detection.png" alt="Failure detection demo">
+    <!-- IMAGE IDEA: Console output showing node failure and recovery messages -->
+
+  </div>
+</section>
+
+<!-- CLIENT ROLE SECTION -->
+<section>
+  <h2>Client Responsibilities</h2>
+  <p>
+    Each client in the system represents an <strong>active distributed node</strong>. Clients are not passive —
+    they actively participate in system health reporting, state synchronization, and fault simulation.
+  </p>
+
+  <ul>
+    <li><strong>Establishes socket connection</strong> to the coordination server</li>
+    <li><strong>Registers itself dynamically</strong> upon connection</li>
+    <li><strong>Sends periodic heartbeats</strong> to signal liveness</li>
+    <li><strong>Receives real-time node list updates</strong></li>
+    <li><strong>Detects system-wide changes</strong> without polling</li>
+    <li><strong>Simulates failure and recovery</strong> via heartbeat control</li>
+  </ul>
+
+  <p>
+    Clients maintain a synchronized view of the distributed system by listening for
+    server-pushed updates and dynamically rebuilding their local node registry.
+  </p>
+</section>
+
+<!-- CLIENT CONTROL & TESTING -->
+<section>
+  <h2>Fault Simulation & Testing</h2>
+  <p>
+    The client application includes <strong>manual controls</strong> to simulate
+    real-world failure scenarios:
+  </p>
+
+  <ul>
+    <li><code>sh</code> — Stop heartbeat (simulate node failure)</li>
+    <li><code>st</code> — Restart heartbeat (simulate node recovery)</li>
+    <li><code>leave</code> — Gracefully leave the system</li>
+  </ul>
+
+  <p>
+    These controls allow testing of <strong>failure detection accuracy</strong>,
+    <strong>timeout behavior</strong>, and <strong>recovery handling</strong>
+    without restarting the system.
+  </p>
+</section>
+
+<!-- CLIENT FLOW DIAGRAMS -->
+<section>
+  <h2>Client Interaction Flow</h2>
+  <div class="screenshot-grid">
+
+    <img src="images/client_connection.png" alt="Client connection flow">
+    <!-- IMAGE IDEA: Flow diagram showing client connecting, registering, receiving node list -->
+
+    <img src="images/client_heartbeat.png" alt="Client heartbeat loop">
+    <!-- IMAGE IDEA: Diagram showing heartbeat thread sending signals every 2 seconds -->
+
+    <img src="images/client_commands.png" alt="Client command interface">
+    <!-- IMAGE IDEA: Terminal screenshot showing sh / st / leave commands -->
+
+  </div>
+</section>
+
+<!-- CODE SHOWCASE SECTION -->
+<section>
+  <h2>Code Architecture</h2>
+  <p>
+    The client-side architecture mirrors real distributed systems by separating
+    responsibilities into independent concurrent components:
+  </p>
+  <ul>
+    <li><strong>Main Thread</strong> → User input and lifecycle management</li>
+    <li><strong>Heartbeat Thread</strong> → Liveness signaling</li>
+    <li><strong>Listener Thread</strong> → Server-pushed state updates</li>
+    <li><strong>NodeObj Model</strong> → Local system representation</li>
+  </ul>
+
+  <p>
+    This separation ensures responsiveness, fault isolation, and scalability
+    as the number of nodes grows.
+  </p>
+</section>
+
+<!-- FINAL IMPACT SECTION -->
+<section>
+  <h2>Project Impact</h2>
+  <p>
+    This project demonstrates real-world understanding of:
+  </p>
+  <ul>
+    <li>Distributed systems engineering</li>
+    <li>Network programming</li>
+    <li>Fault-tolerant design</li>
+    <li>Concurrency</li>
+    <li>System resilience</li>
+    <li>Scalable architecture</li>
+  </ul>
+
+  <p>
+    It reflects the same architectural principles used in modern cloud systems,
+    microservice platforms, and high-availability infrastructures.
+  </p>
+</section>
+```
+
+  </main>
+
+  </div> <!-- END PAGE CONTAINER -->
+
+</body>
+</html>

@@ -3,20 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project 1 - Lukas White</title>
-  <link rel="stylesheet" href="style.css">
+  <title>3D Island Generator - Lukas White</title>
+  <link rel="stylesheet" href="../style.css">
 </head>
+
 <body>
   <header>
-    <h1>Project 1</h1>
-    <p>Short description of Project 1 goes here.</p>
     <button onclick="location.href='../index.html'">Back to Home</button>
+    <h1>3D Island Generator (Nintendo Wii Homebrew)</h1>
+    <img src="../images/islandGen.png" alt="3D Island Generator">
   </header>
 
   <main>
+    <!-- ABOUT SECTION -->
     <section>
-      <h2>About this Project</h2>
-      <p>Details, screenshots, links, or demo of the project can go here.</p>
+      <h2>About This Project</h2>
+      <p>
+        This project is a fully custom real-time 3D island generation engine developed for the 
+        <strong>Nintendo Wii Homebrew</strong> environment using <code>devkitPro</code>, 
+        <code>libogc</code>, and the low-level <code>GX</code> graphics pipeline.  
+        All rendering, physics, terrain generation, entity behavior, and input handling were implemented 
+        from scratch in C without any game engine.
+      </p>
+
+      <p>
+        The system procedurally generates islands, spawns interactable objects, simulates 
+        wave-affected boat movement, provides boat↔player switching, and renders the world every frame 
+        using Wii’s hardware FIFO and double-buffering system.
+      </p>
+    </section>
+
+    <!-- IMPRESSIVE SECTION -->
+    <section>
+      <h2>Why This Project Is Impressive</h2>
+      <ul>
+        <li>
+          <strong>Built without a game engine</strong> — everything from terrain, rendering, movement, 
+          camera, and object management was coded directly on top of GX and libogc.
+        </li>
+        <li>
+          <strong>Procedural world generation</strong>: islands are created algorithmically with 
+          collision detection, height evaluation, and body placement.
+        </li>
+        <li>
+          <strong>Custom water and wave simulation</strong> that affects physics and visuals in real-time.
+        </li>
+        <li>
+          <strong>Full custom camera system</strong> attached dynamically to either player or boat.
+        </li>
+        <li>
+          <strong>Memory-safe object management</strong>, including body pools, island managers, and 
+          frame-by-frame updates.
+        </li>
+        <li>
+          <strong>Runs smoothly on original Wii hardware</strong> using FIFO, double-buffering, 
+          and efficient GX state management.
+        </li>
+      </ul>
+    </section>
+
+    <!-- CHALLENGES SECTION -->
+    <section>
+      <h2>Challenges Faced</h2>
+      <ul>
+        <li>
+          Understanding and configuring the <strong>GX pipeline</strong>, which requires manually managing 
+          vertex descriptors, TEV stages, matrices, and framebuffers.
+        </li>
+        <li>
+          Implementing stable <strong>procedural island generation</strong> that avoids overlapping 
+          meshes and ensures navigable terrain.
+        </li>
+        <li>
+          Handling smooth <strong>boat physics on dynamic waves</strong> while maintaining collisions 
+          between the player, bodies, and terrain.
+        </li>
+        <li>
+          Building a robust <strong>body and island manager system</strong> for spawning, updating, 
+          and culling in real-time.
+        </li>
+        <li>
+          Maintaining performance on a <strong>limited hardware GPU</strong> with strict memory constraints.
+        </li>
+      </ul>
+    </section>
+
+    <!-- SCREENSHOT SECTION -->
+    <section>
+      <h2>Screenshots</h2>
+      <p>You can place images here. Example:</p>
+
+      <div class="screenshot-grid">
+        <img src="images/island1.png" alt="Generated island screenshot">
+        <img src="images/island2.png" alt="Boat on water screenshot">
+        <img src="images/island3.png" alt="Player on land screenshot">
+      </div>
     </section>
   </main>
 </body>
