@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>JavaScript Syntax Reference</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>JavaScript Syntax + Data Structures</h1>
+  <p>Quick Reference</p>
+</header>
+
+<section>
+<h2>Basic Variable Types</h2>
+<pre><code><span class="keyword">let</span> x = <span class="number">5</span>;
+<span class="keyword">const</span> pi = <span class="number">3.14</span>;
+<span class="keyword">let</span> name = <span class="string">"Lukas"</span>;
+<span class="keyword">let</span> flag = <span class="keyword">true</span>;</code></pre>
+</section>
+
+<section>
+<h2>Console Output / Input</h2>
+<pre><code>console.log(<span class="string">"Hello"</span>);
+<span class="comment">// Browser input</span>
+<span class="keyword">let</span> name = prompt(<span class="string">"Enter name"</span>);</code></pre>
+</section>
+
+<section>
+<h2>Conditionals</h2>
+<pre><code><span class="keyword">if</span> (x &gt; <span class="number">10</span>) { }
+<span class="keyword">else if</span> (x === <span class="number">10</span>) { }
+<span class="keyword">else</span> { }</code></pre>
+</section>
+
+<section>
+<h2>For Loop</h2>
+<pre><code><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) { }</code></pre>
+</section>
+
+<section>
+<h2>While Loop</h2>
+<pre><code><span class="keyword">while</span> (x &gt; <span class="number">0</span>) { x--; }</code></pre>
+</section>
+
+<section>
+<h2>Functions</h2>
+<pre><code><span class="keyword">function</span> add(a, b) {
+  <span class="keyword">return</span> a + b;
+}</code></pre>
+</section>
+
+<section>
+<h2>Arrow Function</h2>
+<pre><code><span class="keyword">const</span> add = (a, b) =&gt; a + b;</code></pre>
+</section>
+
+<section>
+<h2>Recursion</h2>
+<pre><code><span class="keyword">function</span> factorial(n) {
+  <span class="keyword">if</span> (n === <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;
+  <span class="keyword">return</span> n * factorial(n - <span class="number">1</span>);
+}</code></pre>
+</section>
+
+<section>
+<h2>Array</h2>
+<pre><code><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];
+arr.push(<span class="number">4</span>);
+arr.pop();</code></pre>
+</section>
+
+<section>
+<h2>Map (Hash Map)</h2>
+<pre><code><span class="keyword">let</span> map = <span class="keyword">new</span> Map();
+map.set(<span class="string">"a"</span>, <span class="number">1</span>);</code></pre>
+</section>
+
+<section>
+<h2>Set</h2>
+<pre><code><span class="keyword">let</span> set = <span class="keyword">new</span> Set();</code></pre>
+</section>
+
+<section>
+<h2>Stack / Queue</h2>
+<pre><code><span class="comment">// Stack</span>
+<span class="keyword">let</span> stack = [];
+stack.push(<span class="number">1</span>);
+stack.pop();
+
+<span class="comment">// Queue</span>
+<span class="keyword">let</span> queue = [];
+queue.push(<span class="number">1</span>);
+queue.shift();</code></pre>
+</section>
+
+<section>
+<h2>Class (Object)</h2>
+<pre><code><span class="keyword">class</span> Person {
+  constructor(name) {
+    this.name = name;
+  }
+}</code></pre>
+</section>
+
+<section>
+<h2>Linked List Node</h2>
+<pre><code><span class="keyword">class</span> ListNode {
+  constructor(val, next = null) {
+    this.val = val;
+    this.next = next;
+  }
+}</code></pre>
+</section>
+
+<section>
+<h2>Binary Tree Node</h2>
+<pre><code><span class="keyword">class</span> TreeNode {
+  constructor(val, left = null, right = null) {
+    this.val = val;
+    this.left = left;
+    this.right = right;
+  }
+}</code></pre>
+</section>
+
+<section>
+<h2>Trie Node</h2>
+<pre><code><span class="keyword">class</span> TrieNode {
+  constructor() {
+    this.children = {};
+    this.isEnd = false;
+  }
+}</code></pre>
+</section>
+
+<section>
+<h2>Format Number as Money</h2>
+<pre><code><span class="keyword">let</span> price = <span class="number">1234.5</span>;
+price.toLocaleString(<span class="string">"en-US"</span>, { style: <span class="string">"currency"</span>, currency: <span class="string">"USD"</span> });</code></pre>
+</section>
+
+<section>
+<h2>JavaScript-Specific Features</h2>
+
+<h3>Destructuring</h3>
+<pre><code><span class="keyword">const</span> [a, b] = [<span class="number">1</span>, <span class="number">2</span>];</code></pre>
+
+<h3>Spread Operator</h3>
+<pre><code><span class="keyword">let</span> arr2 = [...arr, <span class="number">4</span>];</code></pre>
+
+<h3>Promises</h3>
+<pre><code><span class="keyword">fetch</span>(url).then(r =&gt; r.json());</code></pre>
+
+<h3>Async / Await</h3>
+<pre><code><span class="keyword">async function</span> load() {
+  <span class="keyword">let</span> data = <span class="keyword">await</span> fetch(url);
+}</code></pre>
+
+<h3>Truthy / Falsy</h3>
+<pre><code><span class="keyword">if</span> (<span class="string">""</span>) { <span class="comment">// false</span> }</code></pre>
+
+</section>
+
+<footer><a href="python.html">→ Python Guide</a></footer>
+</div>
+</body>
+</html>

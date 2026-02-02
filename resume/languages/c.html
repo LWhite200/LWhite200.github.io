@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>C Syntax Reference</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>C Syntax + Data Structures</h1>
+  <p>Quick Reference</p>
+</header>
+
+<section>
+<h2>Basic Variable Types</h2>
+<pre><code><span class="type">int</span> x = <span class="number">5</span>;
+<span class="type">float</span> pi = <span class="number">3.14f</span>;
+<span class="type">char</span> letter = <span class="string">'A'</span>;
+<span class="type">int</span> flag = <span class="number">1</span>; <span class="comment">// boolean style</span></code></pre>
+</section>
+
+<section>
+<h2>Console Output / Input</h2>
+<pre><code>printf(<span class="string">"Hello\n"</span>);
+scanf(<span class="string">"%d"</span>, &amp;x);</code></pre>
+</section>
+
+<section>
+<h2>Conditionals</h2>
+<pre><code><span class="keyword">if</span> (x &gt; <span class="number">10</span>) { }
+<span class="keyword">else if</span> (x == <span class="number">10</span>) { }
+<span class="keyword">else</span> { }</code></pre>
+</section>
+
+<section>
+<h2>For Loop</h2>
+<pre><code><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) { }</code></pre>
+</section>
+
+<section>
+<h2>While Loop</h2>
+<pre><code><span class="keyword">while</span> (x &gt; <span class="number">0</span>) { x--; }</code></pre>
+</section>
+
+<section>
+<h2>Do-While Loop</h2>
+<pre><code><span class="keyword">do</span> { x--; } <span class="keyword">while</span> (x &gt; <span class="number">0</span>);</code></pre>
+</section>
+
+<section>
+<h2>Functions</h2>
+<pre><code><span class="type">int</span> add(<span class="type">int</span> a, <span class="type">int</span> b) {
+    <span class="keyword">return</span> a + b;
+}</code></pre>
+</section>
+
+<section>
+<h2>Recursion</h2>
+<pre><code><span class="type">int</span> factorial(<span class="type">int</span> n) {
+    <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;
+    <span class="keyword">return</span> n * factorial(n - <span class="number">1</span>);
+}</code></pre>
+</section>
+
+<section>
+<h2>Array</h2>
+<pre><code><span class="type">int</span> arr[3] = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>};</code></pre>
+</section>
+
+<section>
+<h2>Struct (Object-like)</h2>
+<pre><code><span class="keyword">struct</span> Person {
+    <span class="type">char</span> name[50];
+    <span class="type">int</span> age;
+};</code></pre>
+</section>
+
+<section>
+<h2>Linked List Node</h2>
+<pre><code><span class="keyword">struct</span> ListNode {
+    <span class="type">int</span> val;
+    <span class="keyword">struct</span> ListNode* next;
+};</code></pre>
+</section>
+
+<section>
+<h2>Binary Tree Node</h2>
+<pre><code><span class="keyword">struct</span> TreeNode {
+    <span class="type">int</span> val;
+    <span class="keyword">struct</span> TreeNode* left;
+    <span class="keyword">struct</span> TreeNode* right;
+};</code></pre>
+</section>
+
+<section>
+<h2>Dynamic Memory</h2>
+<pre><code><span class="type">int</span>* ptr = malloc(<span class="keyword">sizeof</span>(<span class="type">int</span>) * <span class="number">5</span>);
+free(ptr);</code></pre>
+</section>
+
+<section>
+<h2>Format Number as Money</h2>
+<pre><code><span class="type">double</span> price = <span class="number">1234.5</span>;
+printf(<span class="string">"$%.2f"</span>, price);</code></pre>
+</section>
+
+<section>
+<h2>C-Specific Features</h2>
+
+<h3>Pointers</h3>
+<pre><code><span class="type">int</span> x = <span class="number">10</span>;
+<span class="type">int</span>* p = &amp;x;</code></pre>
+
+<h3>Header Include</h3>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;</code></pre>
+
+<h3>Macros</h3>
+<pre><code>#define PI 3.14</code></pre>
+
+<h3>Main Function</h3>
+<pre><code><span class="type">int</span> main() {
+    return 0;
+}</code></pre>
+
+</section>
+
+<footer><a href="php.html">→ PHP Guide</a></footer>
+</div>
+</body>
+</html>

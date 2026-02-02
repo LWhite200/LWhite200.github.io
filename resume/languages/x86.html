@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>x86 Assembly Reference</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>x86 Assembly (Intel Syntax)</h1>
+  <p>Low-Level Programming & Computer Fundamentals</p>
+</header>
+
+<section>
+<h2>What Is Assembly?</h2>
+<p>Assembly is a human-readable form of machine code. Every instruction maps almost 1:1 to a CPU operation.</p>
+<ul>
+  <li>No variables — only <strong>registers</strong> and <strong>memory</strong></li>
+  <li>No loops/ifs — only <strong>jumps</strong></li>
+  <li>You control the CPU directly</li>
+</ul>
+</section>
+
+<section>
+<h2>General Purpose Registers</h2>
+<pre><code><span class="comment">64-bit Registers</span>
+RAX  RBX  RCX  RDX
+RSI  RDI  RBP  RSP
+
+<span class="comment">Lower parts</span>
+EAX (32-bit)
+AX  (16-bit)
+AL  (8-bit)</code></pre>
+<p><strong>RAX</strong> is often used for return values.  
+<strong>RSP</strong> is the stack pointer.  
+<strong>RBP</strong> is used for stack frames.</p>
+</section>
+
+<section>
+<h2>Basic Program Structure (Linux)</h2>
+<pre><code>section .data
+    msg db "Hello", 10
+
+section .text
+    global _start
+
+_start:
+    mov rax, 60      <span class="comment">; sys_exit</span>
+    mov rdi, 0
+    syscall</code></pre>
+</section>
+
+<section>
+<h2>Moving Data</h2>
+<pre><code>mov rax, 5        <span class="comment">; rax = 5</span>
+mov rbx, rax      <span class="comment">; copy rax into rbx</span>
+mov [rbp-4], eax  <span class="comment">; store into memory</span></code></pre>
+<p><code>[]</code> means "memory at this address".</p>
+</section>
+
+<section>
+<h2>Arithmetic</h2>
+<pre><code>add rax, 2
+sub rax, 1
+imul rax, rbx
+idiv rbx     <span class="comment">; divides RDX:RAX by rbx</span></code></pre>
+</section>
+
+<section>
+<h2>Stack Operations</h2>
+<pre><code>push rax
+pop rbx</code></pre>
+<p>The stack grows <strong>downward</strong> in memory.</p>
+</section>
+
+<section>
+<h2>Comparisons</h2>
+<pre><code>cmp rax, rbx   <span class="comment">; sets CPU flags</span>
+je equal
+jne notequal
+jg greater
+jl less</code></pre>
+<p><code>cmp</code> subtracts internally and sets flags — jumps read those flags.</p>
+</section>
+
+<section>
+<h2>Loop Example</h2>
+<pre><code>mov rcx, 5
+loop_start:
+    ; do something
+    dec rcx
+    jnz loop_start</code></pre>
+</section>
+
+<section>
+<h2>If Statement</h2>
+<pre><code>cmp rax, 10
+jle small
+
+mov rbx, 1
+jmp done
+
+small:
+mov rbx, 0
+
+done:</code></pre>
+</section>
+
+<section>
+<h2>Functions</h2>
+<pre><code>call myFunc
+
+myFunc:
+    push rbp
+    mov rbp, rsp
+    ; function body
+    pop rbp
+    ret</code></pre>
+<p><code>call</code> pushes return address. <code>ret</code> pops it back.</p>
+</section>
+
+<section>
+<h2>Function Arguments (Linux x86-64)</h2>
+<ul>
+  <li>1st → RDI</li>
+  <li>2nd → RSI</li>
+  <li>3rd → RDX</li>
+  <li>4th → RCX</li>
+  <li>5th → R8</li>
+  <li>6th → R9</li>
+</ul>
+</section>
+
+<section>
+<h2>Memory Addressing</h2>
+<pre><code>mov rax, [rbx]        <span class="comment">; value at address in rbx</span>
+mov rax, [rbx+8]      <span class="comment">; offset</span>
+mov rax, [rbx+rcx*4]  <span class="comment">; array indexing</span></code></pre>
+</section>
+
+<section>
+<h2>System Call (Linux Write)</h2>
+<pre><code>mov rax, 1      <span class="comment">; sys_write</span>
+mov rdi, 1      <span class="comment">; stdout</span>
+mov rsi, msg    <span class="comment">; address</span>
+mov rdx, 5      <span class="comment">; length</span>
+syscall</code></pre>
+</section>
+
+<section>
+<h2>Common Instructions</h2>
+<pre><code>inc rax
+dec rax
+and rax, rbx
+or rax, rbx
+xor rax, rax    <span class="comment">; zero a register</span>
+nop             <span class="comment">; no operation</span></code></pre>
+</section>
+
+<section>
+<h2>Assembly Mindset</h2>
+<ul>
+  <li>You are managing CPU state manually</li>
+  <li>Everything is numbers and addresses</li>
+  <li>There is no safety net</li>
+  <li>Bugs = crashes or silent corruption</li>
+</ul>
+</section>
+
+<section>
+<h2>How This Maps to C Code</h2>
+<p>C:</p>
+<pre><code>int x = a + b;</code></pre>
+
+<p>Assembly idea:</p>
+<pre><code>mov eax, [a]
+add eax, [b]
+mov [x], eax</code></pre>
+</section>
+
+<section>
+<h2>Why Learn Assembly?</h2>
+<ul>
+  <li>Understand compilers</li>
+  <li>Debug crashes</li>
+  <li>Reverse engineering</li>
+  <li>Performance optimization</li>
+  <li>Exploit development & security research</li>
+</ul>
+</section>
+
+<footer><a href="c.html">← Back to C Guide</a></footer>
+</div>
+</body>
+</html>

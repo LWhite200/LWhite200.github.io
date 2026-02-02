@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Python Syntax Reference</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>Python Syntax + Data Structures</h1>
+  <p>Complete Quick Reference</p>
+</header>
+
+<section>
+<h2>Basic Variable Types</h2>
+<pre><code>x = <span class="number">5</span>
+y = <span class="number">3.14</span>
+name = <span class="string">"Lukas"</span>
+flag = <span class="keyword">True</span></code></pre>
+</section>
+
+<section>
+<h2>Console Output / Input</h2>
+<pre><code><span class="func">print</span>(<span class="string">"Hello"</span>)
+name = <span class="func">input</span>(<span class="string">"Enter name: "</span>)</code></pre>
+</section>
+
+<section>
+<h2>Conditionals</h2>
+<pre><code><span class="keyword">if</span> x &gt; <span class="number">10</span>:
+    <span class="func">print</span>(<span class="string">"Big"</span>)
+<span class="keyword">elif</span> x == <span class="number">10</span>:
+    <span class="func">print</span>(<span class="string">"Equal"</span>)
+<span class="keyword">else</span>:
+    <span class="func">print</span>(<span class="string">"Small"</span>)</code></pre>
+</section>
+
+<section>
+<h2>For Loop</h2>
+<pre><code><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):
+    <span class="func">print</span>(i)</code></pre>
+</section>
+
+<section>
+<h2>While Loop</h2>
+<pre><code><span class="keyword">while</span> x &gt; <span class="number">0</span>:
+    x -= <span class="number">1</span></code></pre>
+</section>
+
+<section>
+<h2>Functions</h2>
+<pre><code><span class="keyword">def</span> <span class="func">add</span>(a, b):
+    <span class="keyword">return</span> a + b
+
+result = add(<span class="number">2</span>, <span class="number">3</span>)</code></pre>
+</section>
+
+<section>
+<h2>Recursion</h2>
+<pre><code><span class="keyword">def</span> <span class="func">factorial</span>(n):
+    <span class="keyword">if</span> n == <span class="number">0</span>:
+        <span class="keyword">return</span> <span class="number">1</span>
+    <span class="keyword">return</span> n * factorial(n - <span class="number">1</span>)</code></pre>
+</section>
+
+<section>
+<h2>Array (Typed, Fixed)</h2>
+<pre><code><span class="keyword">import</span> array
+arr = array.array(<span class="string">'i'</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</code></pre>
+</section>
+
+<section>
+<h2>List (Dynamic Array)</h2>
+<pre><code>nums = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]
+nums.append(<span class="number">4</span>)
+nums.pop()</code></pre>
+</section>
+
+<section>
+<h2>Stack</h2>
+<pre><code>stack = []
+stack.append(<span class="number">10</span>)
+stack.pop()</code></pre>
+</section>
+
+<section>
+<h2>Queue</h2>
+<pre><code><span class="keyword">from</span> collections <span class="keyword">import</span> deque
+q = deque()
+q.append(<span class="number">1</span>)
+q.popleft()</code></pre>
+</section>
+
+<section>
+<h2>Dictionary (Hash Map)</h2>
+<pre><code>mp = {<span class="string">"a"</span>: <span class="number">1</span>}
+mp[<span class="string">"b"</span>] = <span class="number">2</span></code></pre>
+</section>
+
+<section>
+<h2>Set</h2>
+<pre><code>s = {<span class="number">1</span>, <span class="number">2</span>}
+s.add(<span class="number">3</span>)</code></pre>
+</section>
+
+<section>
+<h2>Class (Object)</h2>
+<pre><code><span class="keyword">class</span> Person:
+    <span class="keyword">def</span> __init__(self, name):
+        self.name = name
+
+p = Person(<span class="string">"Lukas"</span>)</code></pre>
+</section>
+
+<section>
+<h2>Linked List Node</h2>
+<pre><code><span class="keyword">class</span> ListNode:
+    <span class="keyword">def</span> __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next</code></pre>
+</section>
+
+<section>
+<h2>Binary Tree Node</h2>
+<pre><code><span class="keyword">class</span> TreeNode:
+    <span class="keyword">def</span> __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right</code></pre>
+</section>
+
+<section>
+<h2>Trie Node</h2>
+<pre><code><span class="keyword">class</span> TrieNode:
+    <span class="keyword">def</span> __init__(self):
+        self.children = {}
+        self.is_end = <span class="keyword">False</span></code></pre>
+</section>
+
+<section>
+<h2>Format Number as Money</h2>
+<pre><code>price = <span class="number">1234.5</span>
+formatted = f<span class="string">"${price:,.2f}"</span></code></pre>
+</section>
+
+<section>
+<h2>Python-Specific Features</h2>
+
+<h3>List Comprehension</h3>
+<pre><code>squares = [x*x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">5</span>)]</code></pre>
+
+<h3>Multiple Assignment</h3>
+<pre><code>a, b = <span class="number">5</span>, <span class="number">10</span>
+a, b = b, a</code></pre>
+
+<h3>Enumerate</h3>
+<pre><code><span class="keyword">for</span> i, val <span class="keyword">in</span> enumerate(arr):
+    <span class="func">print</span>(i, val)</code></pre>
+
+<h3>Lambda</h3>
+<pre><code>add = <span class="keyword">lambda</span> a, b: a + b</code></pre>
+
+<h3>Slicing</h3>
+<pre><code>arr[<span class="number">1</span>:<span class="number">4</span>]
+arr[::-<span class="number">1</span>]</code></pre>
+
+<h3>Indentation Defines Scope</h3>
+<pre><code><span class="keyword">if</span> x &gt; <span class="number">0</span>:
+    <span class="func">print</span>(<span class="string">"Inside block"</span>)</code></pre>
+
+</section>
+
+<footer><a href="csharp.html">→ C# Guide</a></footer>
+</div>
+</body>
+</html>

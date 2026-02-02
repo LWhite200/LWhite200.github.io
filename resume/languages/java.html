@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Java Syntax Reference</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>Java Syntax + Data Structures</h1>
+  <p>Quick Reference</p>
+</header>
+
+<section>
+<h2>Basic Variable Types</h2>
+<pre><code><span class="type">int</span> x = <span class="number">5</span>;
+<span class="type">double</span> pi = <span class="number">3.14</span>;
+<span class="type">String</span> name = <span class="string">"Lukas"</span>;
+<span class="type">boolean</span> flag = <span class="keyword">true</span>;</code></pre>
+</section>
+
+<section>
+<h2>Console Output / Input</h2>
+<pre><code>System.out.println(<span class="string">"Hello"</span>);
+
+Scanner sc = <span class="keyword">new</span> Scanner(System.in);
+<span class="type">String</span> input = sc.nextLine();</code></pre>
+</section>
+
+<section>
+<h2>Conditionals</h2>
+<pre><code><span class="keyword">if</span> (x &gt; <span class="number">10</span>) { }
+<span class="keyword">else if</span> (x == <span class="number">10</span>) { }
+<span class="keyword">else</span> { }</code></pre>
+</section>
+
+<section>
+<h2>For Loop</h2>
+<pre><code><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) { }</code></pre>
+</section>
+
+<section>
+<h2>While Loop</h2>
+<pre><code><span class="keyword">while</span> (x &gt; <span class="number">0</span>) { x--; }</code></pre>
+</section>
+
+<section>
+<h2>Do-While Loop</h2>
+<pre><code><span class="keyword">do</span> { x--; } <span class="keyword">while</span> (x &gt; <span class="number">0</span>);</code></pre>
+</section>
+
+<section>
+<h2>Functions (Methods)</h2>
+<pre><code><span class="keyword">static</span> <span class="type">int</span> add(<span class="type">int</span> a, <span class="type">int</span> b) {
+    <span class="keyword">return</span> a + b;
+}</code></pre>
+</section>
+
+<section>
+<h2>Recursion</h2>
+<pre><code><span class="keyword">static</span> <span class="type">int</span> factorial(<span class="type">int</span> n) {
+    <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;
+    <span class="keyword">return</span> n * factorial(n - <span class="number">1</span>);
+}</code></pre>
+</section>
+
+<section>
+<h2>Array (Fixed Size)</h2>
+<pre><code><span class="type">int</span>[] arr = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>};</code></pre>
+</section>
+
+<section>
+<h2>ArrayList (Dynamic)</h2>
+<pre><code>ArrayList&lt;<span class="type">Integer</span>&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();
+list.add(<span class="number">5</span>);</code></pre>
+</section>
+
+<section>
+<h2>HashMap</h2>
+<pre><code>HashMap&lt;<span class="type">String</span>, <span class="type">Integer</span>&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();
+map.put(<span class="string">"a"</span>, <span class="number">1</span>);</code></pre>
+</section>
+
+<section>
+<h2>HashSet</h2>
+<pre><code>HashSet&lt;<span class="type">Integer</span>&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</code></pre>
+</section>
+
+<section>
+<h2>Stack</h2>
+<pre><code>Stack&lt;<span class="type">Integer</span>&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</code></pre>
+</section>
+
+<section>
+<h2>Queue</h2>
+<pre><code>Queue&lt;<span class="type">Integer</span>&gt; q = <span class="keyword">new</span> LinkedList&lt;&gt;();</code></pre>
+</section>
+
+<section>
+<h2>Class (Object)</h2>
+<pre><code><span class="keyword">class</span> Person {
+    <span class="type">String</span> name;
+}</code></pre>
+</section>
+
+<section>
+<h2>Linked List Node</h2>
+<pre><code><span class="keyword">class</span> ListNode {
+    <span class="type">int</span> val;
+    ListNode next;
+}</code></pre>
+</section>
+
+<section>
+<h2>Binary Tree Node</h2>
+<pre><code><span class="keyword">class</span> TreeNode {
+    <span class="type">int</span> val;
+    TreeNode left, right;
+}</code></pre>
+</section>
+
+<section>
+<h2>Trie Node</h2>
+<pre><code><span class="keyword">class</span> TrieNode {
+    HashMap&lt;<span class="type">Character</span>, TrieNode&gt; children = <span class="keyword">new</span> HashMap&lt;&gt;();
+    <span class="type">boolean</span> isEnd;
+}</code></pre>
+</section>
+
+<section>
+<h2>Format Number as Money</h2>
+<pre><code><span class="type">double</span> price = <span class="number">1234.5</span>;
+System.out.printf(<span class="string">"$%,.2f"</span>, price);</code></pre>
+</section>
+
+<section>
+<h2>Java-Specific Features</h2>
+
+<h3>Main Method</h3>
+<pre><code><span class="keyword">public static void</span> main(String[] args) {
+    System.out.println(<span class="string">"Start"</span>);
+}</code></pre>
+
+<h3>Try-Catch</h3>
+<pre><code><span class="keyword">try</span> { }
+<span class="keyword">catch</span> (Exception e) { }</code></pre>
+
+<h3>Interfaces</h3>
+<pre><code><span class="keyword">interface</span> Animal {
+    <span class="type">void</span> speak();
+}</code></pre>
+
+<h3>Generics</h3>
+<pre><code><span class="keyword">class</span> Box&lt;T&gt; {
+    T value;
+}</code></pre>
+
+</section>
+
+<footer><a href="javascript.html">→ JavaScript Guide</a></footer>
+</div>
+</body>
+</html>

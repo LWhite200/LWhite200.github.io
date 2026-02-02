@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fortran Syntax Reference</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>Fortran Syntax + Data Structures</h1>
+  <p>Quick Reference (Modern Fortran)</p>
+</header>
+
+<section>
+<h2>Basic Variable Types</h2>
+<pre><code><span class="type">integer</span> :: x = <span class="number">5</span>
+<span class="type">real</span> :: pi = <span class="number">3.14</span>
+<span class="type">character(len=20)</span> :: name = <span class="string">"Lukas"</span>
+<span class="type">logical</span> :: flag = <span class="keyword">.true.</span></code></pre>
+</section>
+
+<section>
+<h2>Console Output / Input</h2>
+<pre><code><span class="func">print</span> *, <span class="string">"Hello"</span>
+<span class="func">read</span> *, x</code></pre>
+</section>
+
+<section>
+<h2>Conditionals</h2>
+<pre><code><span class="keyword">if</span> (x &gt; <span class="number">10</span>) <span class="keyword">then</span>
+    <span class="func">print</span> *, <span class="string">"Big"</span>
+<span class="keyword">else if</span> (x == <span class="number">10</span>) <span class="keyword">then</span>
+    <span class="func">print</span> *, <span class="string">"Equal"</span>
+<span class="keyword">else</span>
+    <span class="func">print</span> *, <span class="string">"Small"</span>
+<span class="keyword">end if</span></code></pre>
+</section>
+
+<section>
+<h2>For Loop</h2>
+<pre><code><span class="keyword">do</span> i = <span class="number">1</span>, <span class="number">5</span>
+    <span class="func">print</span> *, i
+<span class="keyword">end do</span></code></pre>
+</section>
+
+<section>
+<h2>While Loop</h2>
+<pre><code><span class="keyword">do while</span> (x &gt; <span class="number">0</span>)
+    x = x - <span class="number">1</span>
+<span class="keyword">end do</span></code></pre>
+</section>
+
+<section>
+<h2>Functions</h2>
+<pre><code><span class="keyword">function</span> add(a, b) <span class="keyword">result</span>(res)
+    <span class="type">integer</span>, intent(in) :: a, b
+    <span class="type">integer</span> :: res
+    res = a + b
+<span class="keyword">end function</span></code></pre>
+</section>
+
+<section>
+<h2>Recursion</h2>
+<pre><code><span class="keyword">recursive function</span> fact(n) <span class="keyword">result</span>(res)
+    <span class="type">integer</span>, intent(in) :: n
+    <span class="type">integer</span> :: res
+    <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="keyword">then</span>
+        res = <span class="number">1</span>
+    <span class="keyword">else</span>
+        res = n * fact(n-<span class="number">1</span>)
+    <span class="keyword">end if</span>
+<span class="keyword">end function</span></code></pre>
+</section>
+
+<section>
+<h2>Array</h2>
+<pre><code><span class="type">integer</span>, dimension(3) :: arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</code></pre>
+</section>
+
+<section>
+<h2>Dynamic Array</h2>
+<pre><code><span class="type">integer</span>, allocatable :: arr(:)
+<span class="func">allocate</span>(arr(<span class="number">5</span>))</code></pre>
+</section>
+
+<section>
+<h2>Derived Type (Struct)</h2>
+<pre><code><span class="keyword">type</span> :: Person
+    <span class="type">character(len=20)</span> :: name
+    <span class="type">integer</span> :: age
+<span class="keyword">end type</span></code></pre>
+</section>
+
+<section>
+<h2>Linked List Node</h2>
+<pre><code><span class="keyword">type</span> :: ListNode
+    <span class="type">integer</span> :: val
+    <span class="keyword">type(ListNode), pointer</span> :: next
+<span class="keyword">end type</span></code></pre>
+</section>
+
+<section>
+<h2>Format Number as Money</h2>
+<pre><code><span class="type">real</span> :: price = <span class="number">1234.5</span>
+<span class="func">write</span>(*, '(A,F10.2)') <span class="string">"$"</span>, price</code></pre>
+</section>
+
+<section>
+<h2>Fortran-Specific Features</h2>
+
+<h3>Program Structure</h3>
+<pre><code><span class="keyword">program</span> main
+    <span class="func">print</span> *, <span class="string">"Hello"</span>
+<span class="keyword">end program</span></code></pre>
+
+<h3>Modules</h3>
+<pre><code><span class="keyword">module</span> mathmod
+contains
+    <span class="keyword">function</span> square(x)
+        square = x*x
+    <span class="keyword">end function</span>
+<span class="keyword">end module</span></code></pre>
+
+<h3>Array Slicing</h3>
+<pre><code>arr(2:4)</code></pre>
+
+<h3>No Curly Braces</h3>
+<pre><code><span class="keyword">end do</span>, <span class="keyword">end if</span>, <span class="keyword">end function</span></code></pre>
+
+</section>
+
+<footer><a href="vb.html">→ Visual Basic Guide</a></footer>
+</div>
+</body>
+</html>

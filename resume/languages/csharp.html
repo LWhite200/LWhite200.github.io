@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>C# Syntax Reference</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>C# Syntax + Data Structures</h1>
+  <p>Complete Quick Reference</p>
+</header>
+
+<section>
+<h2>Basic Variable Types</h2>
+<pre><code><span class="type">int</span> x = <span class="number">5</span>;
+<span class="type">double</span> pi = <span class="number">3.14</span>;
+<span class="type">string</span> name = <span class="string">"Lukas"</span>;
+<span class="type">bool</span> flag = <span class="keyword">true</span>;</code></pre>
+</section>
+
+<section>
+<h2>Console Output / Input</h2>
+<pre><code>Console.WriteLine(<span class="string">"Hello"</span>);
+<span class="type">string</span> name = Console.ReadLine();</code></pre>
+</section>
+
+<section>
+<h2>Conditionals</h2>
+<pre><code><span class="keyword">if</span> (x &gt; <span class="number">10</span>) { }
+<span class="keyword">else if</span> (x == <span class="number">10</span>) { }
+<span class="keyword">else</span> { }</code></pre>
+</section>
+
+<section>
+<h2>For Loop</h2>
+<pre><code><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) { }</code></pre>
+</section>
+
+<section>
+<h2>While Loop</h2>
+<pre><code><span class="keyword">while</span> (x &gt; <span class="number">0</span>) { x--; }</code></pre>
+</section>
+
+<section>
+<h2>Do-While Loop</h2>
+<pre><code><span class="keyword">do</span> { x--; } <span class="keyword">while</span> (x &gt; <span class="number">0</span>);</code></pre>
+</section>
+
+<section>
+<h2>Functions</h2>
+<pre><code><span class="type">int</span> Add(<span class="type">int</span> a, <span class="type">int</span> b) { <span class="keyword">return</span> a + b; }</code></pre>
+</section>
+
+<section>
+<h2>Recursion</h2>
+<pre><code><span class="type">int</span> Factorial(<span class="type">int</span> n)
+{
+    <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;
+    <span class="keyword">return</span> n * Factorial(n - <span class="number">1</span>);
+}</code></pre>
+</section>
+
+<section>
+<h2>Array (Fixed Size)</h2>
+<pre><code><span class="type">int</span>[] arr = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">3</span>];</code></pre>
+</section>
+
+<section>
+<h2>List (Dynamic)</h2>
+<pre><code>List&lt;<span class="type">int</span>&gt; list = <span class="keyword">new</span>();</code></pre>
+</section>
+
+<section>
+<h2>Dictionary</h2>
+<pre><code>Dictionary&lt;<span class="type">string</span>, <span class="type">int</span>&gt; map = <span class="keyword">new</span>();</code></pre>
+</section>
+
+<section>
+<h2>HashSet</h2>
+<pre><code>HashSet&lt;<span class="type">int</span>&gt; set = <span class="keyword">new</span>();</code></pre>
+</section>
+
+<section>
+<h2>Stack</h2>
+<pre><code>Stack&lt;<span class="type">int</span>&gt; stack = <span class="keyword">new</span>();</code></pre>
+</section>
+
+<section>
+<h2>Queue</h2>
+<pre><code>Queue&lt;<span class="type">int</span>&gt; q = <span class="keyword">new</span>();</code></pre>
+</section>
+
+<section>
+<h2>Class (Object)</h2>
+<pre><code><span class="keyword">class</span> Person
+{
+    <span class="keyword">public</span> <span class="type">string</span> Name;
+}</code></pre>
+</section>
+
+<section>
+<h2>Struct (Value Type)</h2>
+<pre><code><span class="keyword">struct</span> Point
+{
+    <span class="keyword">public</span> <span class="type">int</span> X;
+    <span class="keyword">public</span> <span class="type">int</span> Y;
+}</code></pre>
+</section>
+
+<section>
+<h2>Linked List Node</h2>
+<pre><code><span class="keyword">class</span> ListNode
+{
+    <span class="keyword">public</span> <span class="type">int</span> val;
+    <span class="keyword">public</span> ListNode next;
+}</code></pre>
+</section>
+
+<section>
+<h2>Binary Tree Node</h2>
+<pre><code><span class="keyword">class</span> TreeNode
+{
+    <span class="keyword">public</span> <span class="type">int</span> val;
+    <span class="keyword">public</span> TreeNode left, right;
+}</code></pre>
+</section>
+
+<section>
+<h2>Trie Node</h2>
+<pre><code><span class="keyword">class</span> TrieNode
+{
+    <span class="keyword">public</span> Dictionary&lt;<span class="type">char</span>, TrieNode&gt; children = <span class="keyword">new</span>();
+    <span class="keyword">public</span> <span class="type">bool</span> isEnd;
+}</code></pre>
+</section>
+
+<section>
+<h2>Format Number as Money</h2>
+<pre><code><span class="type">decimal</span> price = <span class="number">1234.5m</span>;
+Console.WriteLine(price.ToString(<span class="string">"C"</span>));</code></pre>
+</section>
+
+<section>
+<h2>C#-Specific Features</h2>
+
+<h3>Properties</h3>
+<pre><code><span class="keyword">public</span> <span class="type">string</span> Name { get; set; }</code></pre>
+
+<h3>LINQ</h3>
+<pre><code><span class="keyword">using</span> System.Linq;
+var evens = nums.Where(x =&gt; x % <span class="number">2</span> == <span class="number">0</span>).ToList();</code></pre>
+
+<h3>Nullable Types</h3>
+<pre><code><span class="type">int</span>? maybeNumber = <span class="keyword">null</span>;</code></pre>
+
+<h3>Using Statement</h3>
+<pre><code><span class="keyword">using</span> (StreamReader sr = <span class="keyword">new</span> StreamReader(<span class="string">"file.txt"</span>)) { }</code></pre>
+
+<h3>Method Overloading</h3>
+<pre><code><span class="type">int</span> Add(<span class="type">int</span> a, <span class="type">int</span> b) { }
+<span class="type">double</span> Add(<span class="type">double</span> a, <span class="type">double</span> b) { }</code></pre>
+
+<h3>Main Entry Point</h3>
+<pre><code><span class="keyword">static</span> <span class="type">void</span> Main(<span class="type">string</span>[] args)
+{
+    Console.WriteLine(<span class="string">"Start"</span>);
+}</code></pre>
+
+</section>
+
+<footer><a href="python.html">→ Python Guide</a></footer>
+</div>
+</body>
+</html>

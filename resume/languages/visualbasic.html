@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Visual Basic .NET Syntax Reference</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>Visual Basic .NET Syntax</h1>
+  <p>Quick Reference</p>
+</header>
+
+<section>
+<h2>Basic Variable Types</h2>
+<pre><code><span class="keyword">Dim</span> x <span class="keyword">As</span> <span class="type">Integer</span> = <span class="number">5</span>
+<span class="keyword">Dim</span> pi <span class="keyword">As</span> <span class="type">Double</span> = <span class="number">3.14</span>
+<span class="keyword">Dim</span> name <span class="keyword">As</span> <span class="type">String</span> = <span class="string">"Lukas"</span>
+<span class="keyword">Dim</span> flag <span class="keyword">As</span> <span class="type">Boolean</span> = <span class="keyword">True</span></code></pre>
+</section>
+
+<section>
+<h2>Console Output / Input</h2>
+<pre><code>Console.WriteLine(<span class="string">"Hello"</span>)
+<span class="keyword">Dim</span> input <span class="keyword">As</span> <span class="type">String</span> = Console.ReadLine()</code></pre>
+</section>
+
+<section>
+<h2>Conditionals</h2>
+<pre><code><span class="keyword">If</span> x &gt; <span class="number">10</span> <span class="keyword">Then</span>
+ElseIf x = <span class="number">10</span> <span class="keyword">Then</span>
+Else
+<span class="keyword">End If</span></code></pre>
+</section>
+
+<section>
+<h2>Loops</h2>
+<pre><code><span class="keyword">For</span> i = <span class="number">0</span> <span class="keyword">To</span> <span class="number">4</span>
+<span class="keyword">Next</span>
+
+<span class="keyword">While</span> x &gt; <span class="number">0</span>
+    x -= <span class="number">1</span>
+<span class="keyword">End While</span>
+
+<span class="keyword">Do</span>
+    x -= <span class="number">1</span>
+<span class="keyword">Loop While</span> x &gt; <span class="number">0</span></code></pre>
+</section>
+
+<section>
+<h2>Functions</h2>
+<pre><code><span class="keyword">Function</span> Add(a <span class="keyword">As</span> <span class="type">Integer</span>, b <span class="keyword">As</span> <span class="type">Integer</span>) <span class="keyword">As</span> <span class="type">Integer</span>
+    <span class="keyword">Return</span> a + b
+<span class="keyword">End Function</span></code></pre>
+</section>
+
+<section>
+<h2>Array</h2>
+<pre><code><span class="keyword">Dim</span> arr() <span class="keyword">As</span> <span class="type">Integer</span> = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>}</code></pre>
+</section>
+
+<section>
+<h2>List</h2>
+<pre><code><span class="keyword">Dim</span> list <span class="keyword">As New</span> List(Of <span class="type">Integer</span>)</code></pre>
+</section>
+
+<section>
+<h2>Dictionary</h2>
+<pre><code><span class="keyword">Dim</span> dict <span class="keyword">As New</span> Dictionary(Of <span class="type">String</span>, <span class="type">Integer</span>)</code></pre>
+</section>
+
+<section>
+<h2>Class</h2>
+<pre><code><span class="keyword">Class</span> Person
+    <span class="keyword">Public</span> Name <span class="keyword">As</span> <span class="type">String</span>
+<span class="keyword">End Class</span></code></pre>
+</section>
+
+<section>
+<h2>Structure (Struct)</h2>
+<pre><code><span class="keyword">Structure</span> Point
+    <span class="keyword">Public</span> X <span class="keyword">As</span> <span class="type">Integer</span>
+    <span class="keyword">Public</span> Y <span class="keyword">As</span> <span class="type">Integer</span>
+<span class="keyword">End Structure</span></code></pre>
+</section>
+
+<section>
+<h2>Format Number as Money</h2>
+<pre><code><span class="keyword">Dim</span> price <span class="keyword">As</span> <span class="type">Decimal</span> = <span class="number">1234.5D</span>
+Console.WriteLine(price.ToString(<span class="string">"C"</span>))</code></pre>
+</section>
+
+<section>
+<h2>VB-Specific Features</h2>
+
+<h3>Main Entry</h3>
+<pre><code><span class="keyword">Sub</span> Main()
+    Console.WriteLine(<span class="string">"Start"</span>)
+<span class="keyword">End Sub</span></code></pre>
+
+<h3>With Statement</h3>
+<pre><code><span class="keyword">With</span> obj
+    .Name = <span class="string">"Test"</span>
+<span class="keyword">End With</span></code></pre>
+
+<h3>Handles Event</h3>
+<pre><code><span class="keyword">Private Sub</span> Button_Click(...) <span class="keyword">Handles</span> Button.Click
+<span class="keyword">End Sub</span></code></pre>
+
+<h3>No Semicolons Needed</h3>
+<pre><code>' Each line is a statement</code></pre>
+
+</section>
+
+<footer><a href="python.html">→ Python Guide</a></footer>
+</div>
+</body>
+</html>

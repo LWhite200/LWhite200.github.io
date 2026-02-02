@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PHP Syntax Reference</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>PHP Syntax + Data Structures</h1>
+  <p>Quick Reference</p>
+</header>
+
+<section>
+<h2>Basic Variable Types</h2>
+<pre><code>$x = <span class="number">5</span>;
+$pi = <span class="number">3.14</span>;
+$name = <span class="string">"Lukas"</span>;
+$flag = <span class="keyword">true</span>;</code></pre>
+</section>
+
+<section>
+<h2>Output / Input</h2>
+<pre><code><span class="keyword">echo</span> <span class="string">"Hello"</span>;
+$name = readline(<span class="string">"Enter name: "</span>);</code></pre>
+</section>
+
+<section>
+<h2>Conditionals</h2>
+<pre><code><span class="keyword">if</span> ($x &gt; <span class="number">10</span>) { }
+<span class="keyword">elseif</span> ($x == <span class="number">10</span>) { }
+<span class="keyword">else</span> { }</code></pre>
+</section>
+
+<section>
+<h2>Loops</h2>
+<pre><code><span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt; <span class="number">5</span>; $i++) { }
+
+<span class="keyword">while</span> ($x &gt; <span class="number">0</span>) { $x--; }
+
+<span class="keyword">do</span> { $x--; } <span class="keyword">while</span> ($x &gt; <span class="number">0</span>);</code></pre>
+</section>
+
+<section>
+<h2>Functions</h2>
+<pre><code><span class="keyword">function</span> add($a, $b) {
+    <span class="keyword">return</span> $a + $b;
+}</code></pre>
+</section>
+
+<section>
+<h2>Recursion</h2>
+<pre><code><span class="keyword">function</span> factorial($n) {
+    <span class="keyword">if</span> ($n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;
+    <span class="keyword">return</span> $n * factorial($n - <span class="number">1</span>);
+}</code></pre>
+</section>
+
+<section>
+<h2>Array</h2>
+<pre><code>$arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</code></pre>
+</section>
+
+<section>
+<h2>Associative Array (Hash Map)</h2>
+<pre><code>$map = ["a" =&gt; <span class="number">1</span>];
+$map["b"] = <span class="number">2</span>;</code></pre>
+</section>
+
+<section>
+<h2>Set (Using Array Keys)</h2>
+<pre><code>$set = [];
+$set[$value] = true;</code></pre>
+</section>
+
+<section>
+<h2>Stack / Queue</h2>
+<pre><code>// Stack
+array_push($arr, <span class="number">1</span>);
+array_pop($arr);
+
+// Queue
+array_push($arr, <span class="number">1</span>);
+array_shift($arr);</code></pre>
+</section>
+
+<section>
+<h2>Class (Object)</h2>
+<pre><code><span class="keyword">class</span> Person {
+    public $name;
+}</code></pre>
+</section>
+
+<section>
+<h2>Linked List Node</h2>
+<pre><code><span class="keyword">class</span> ListNode {
+    public $val;
+    public $next;
+}</code></pre>
+</section>
+
+<section>
+<h2>Format Number as Money</h2>
+<pre><code>$price = <span class="number">1234.5</span>;
+echo "$" . number_format($price, <span class="number">2</span>);</code></pre>
+</section>
+
+<section>
+<h2>PHP-Specific Features</h2>
+
+<h3>Superglobals</h3>
+<pre><code>$_GET["id"];
+$_POST["name"];</code></pre>
+
+<h3>String Concatenation</h3>
+<pre><code>$full = $first . " " . $last;</code></pre>
+
+<h3>Include Files</h3>
+<pre><code><span class="keyword">include</span> "file.php";</code></pre>
+
+<h3>Loose Typing</h3>
+<pre><code>$x = "5" + 5; <span class="comment">// 10</span></code></pre>
+
+<h3>Start PHP Block</h3>
+<pre><code>&lt;?php
+echo "Hello";
+?&gt;</code></pre>
+
+</section>
+
+<footer><a href="python.html">→ Python Guide</a></footer>
+</div>
+</body>
+</html>

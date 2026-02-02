@@ -5,32 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lukas White - Portfolio</title>
 
-  <!-- Google Font (reliable on GitHub Pages) -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Anton&family=Manrope&display=swap" rel="stylesheet">
 
-  <!-- Main site stylesheet -->
+  <!-- Unified CSS -->
   <link rel="stylesheet" href="./style.css">
 </head>
+<body class="homepage">
 
-<body>
-
-  <!-- 
-    PAGE CONTAINER
-    This wraps the entire visible site.
-    The BODY controls the page background.
-    This container controls the "card" look (border, background, padding).
-  -->
   <div class="page-container">
 
+    <!-- HEADER -->
     <header>
-      <!-- <img src="images/profile.png" alt="Lukas White" class="profile-photo"> -->
       <h1>Lukas A. White</h1>
-      <p>
-        Auburn, MI | (989) 450-8703 |
-        <a href="mailto:lukaswhite200@gmail.com">lukaswhite200@gmail.com</a>
-      </p>
+      <p>Auburn, MI | (989) 450-8703 | <a href="mailto:lukaswhite200@gmail.com">lukaswhite200@gmail.com</a></p>
       <p>
         <a href="https://github.com/LWhite200" target="_blank">GitHub</a> |
         <a href="https://linkedin.com/in/lukas-white" target="_blank">LinkedIn</a>
@@ -39,31 +29,29 @@
 
     <main>
 
+      <!-- ABOUT ME -->
       <section class="info">
-        <h2>Who Am I</h2>
+        <h2>About Me</h2>
         <p>
-          I’m Lukas White, a computer science major at Saginaw Valley State University,
-          expecting to graduate in Spring 2026. I have over seven years of hands-on
-          experience in software development, during which I’ve led and contributed
-          to several collaborative projects.
+          I’m Lukas White, a Computer Science major at Saginaw Valley State University,
+          graduating Spring 2026. I have 7+ years of hands-on experience in software development,
+          contributing to a variety of collaborative projects.
         </p>
         <p>
-          I enjoy problem-solving, teamwork, and learning new technologies.
-          Recently, I completed an independent study exploring AI and AI agents.
+          My passions include problem-solving, learning new technologies, and working in
+          collaborative environments. Recently, I explored AI and AI agents in an independent study.
         </p>
       </section>
 
+      <!-- RESUME -->
       <section class="resume">
         <h2>Resume</h2>
-        <button onclick="location.href='data/resume.pdf'">
-          View Resume
-        </button>
+        <button onclick="location.href='data/resume.pdf'">View Resume</button>
       </section>
 
+      <!-- PROJECTS -->
       <section class="projects">
         <h2>Projects</h2>
-
-        <!-- Grid container for project cards -->
         <div class="project-buttons">
 
           <div class="project-item" onclick="location.href='projects/qa_capstone.html'">
@@ -72,13 +60,13 @@
           </div>
 
           <div class="project-item" onclick="location.href='projects/load_balancer.html'">
-            <img src="images/DistributedSystem.png" alt="Load-Balanced Distributed System">
-            <h3>Load-Balanced Distributed System</h3>
+            <img src="images/DistributedSystem.png" alt="Load-Balanced System">
+            <h3>Load-Balanced System</h3>
           </div>
 
           <div class="project-item" onclick="location.href='projects/kernel_module.html'">
-            <img src="images/LinuxKernel.png" alt="Linux Kernel Module Development">
-            <h3>Linux Kernel Module Development</h3>
+            <img src="images/LinuxKernel.png" alt="Linux Kernel Module">
+            <h3>Linux Kernel Module</h3>
           </div>
 
           <div class="project-item" onclick="location.href='projects/island_gen.html'">
@@ -87,8 +75,8 @@
           </div>
 
           <div class="project-item" onclick="location.href='projects/web_app.html'">
-            <img src="images/webApp.png" alt="Web Application Node.js">
-            <h3>Web Application (Node.js)</h3>
+            <img src="images/webApp.png" alt="Web App Node.js">
+            <h3>Web App (Node.js)</h3>
           </div>
 
           <div class="project-item" onclick="location.href='projects/ai_study.html'">
@@ -103,26 +91,76 @@
 
           <div class="project-item" onclick="location.href='projects/scheduler.html'">
             <img src="images/projectTemp.png" alt="Scheduling Application">
-            <h3>Scheduling Application</h3>
+            <h3>Scheduling App</h3>
           </div>
 
         </div>
       </section>
 
+      <!-- LANGUAGE GUIDE -->
+      <section class="projects">
+        <h2>Programming Languages</h2>
+        <div class="project-buttons">
+
+          <div class="project-item" onclick="location.href='languages/python.html'">
+            <img src="images/python.png" alt="Python">
+            <h3>Python</h3>
+          </div>
+
+          <div class="project-item" onclick="location.href='languages/c.html'">
+            <img src="images/c.png" alt="C">
+            <h3>C</h3>
+          </div>
+
+          <div class="project-item" onclick="location.href='languages/csharp.html'">
+            <img src="images/csharp.png" alt="C#">
+            <h3>C#</h3>
+          </div>
+
+          <div class="project-item" onclick="location.href='languages/java.html'">
+            <img src="images/java.png" alt="Java">
+            <h3>Java</h3>
+          </div>
+
+          <div class="project-item" onclick="location.href='languages/javascript.html'">
+            <img src="images/javascript.png" alt="JavaScript">
+            <h3>JavaScript</h3>
+          </div>
+
+          <div class="project-item" onclick="location.href='languages/visualbasic.html'">
+            <img src="images/visualbasic.png" alt="Visual Basic">
+            <h3>Visual Basic</h3>
+          </div>
+
+          <div class="project-item" onclick="location.href='languages/fortran.html'">
+            <img src="images/fortran.png" alt="Fortran">
+            <h3>Fortran</h3>
+          </div>
+
+          <div class="project-item" onclick="location.href='languages/php.html'">
+            <img src="images/php.png" alt="PHP">
+            <h3>PHP</h3>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- EDUCATION & ACTIVITIES -->
       <section class="about">
         <h2>Education</h2>
         <p>Saginaw Valley State University, University Center, MI</p>
-        <p>B.S. in Computer Science (Anticipated May 2026), GPA: 3.52 / 4.0</p>
+        <p>B.S. in Computer Science (Expected May 2026), GPA: 3.52 / 4.0</p>
 
         <h2>Activities</h2>
         <p><strong>Game Design Club (SVSU)</strong></p>
         <ul>
-          <li>Introduced new gameplay ideas.</li>
-          <li>Built prototypes collaboratively.</li>
+          <li>Introduced new gameplay ideas and mechanics.</li>
+          <li>Built collaborative prototypes and demos.</li>
         </ul>
       </section>
 
     </main>
   </div>
+
 </body>
 </html>
