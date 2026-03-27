@@ -1,166 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lukas White - Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome - Lukas White</title>
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Anton&family=Manrope&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700&family=Manrope&display=swap" rel="stylesheet">
 
-  <!-- Unified CSS -->
-  <link rel="stylesheet" href="./style.css">
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  background: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#bg-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* =========================
+   WELCOME PANEL
+   ========================= */
+.welcome-container {
+  position: relative;
+  z-index: 1;
+  max-width: 500px;
+  width: 80%;
+  background: rgba(30, 30, 30, 0.55);
+  padding: 60px 40px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 0 60px rgba(0,0,0,0.7);
+  color: #d4d4d4;
+
+  /* Start invisible */
+  opacity: 0;
+  transform: translateY(20px);
+
+  /* Animate fade-in */
+  animation: fadeIn 4.0s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.welcome-container h1 {
+  font-family: 'Anton', sans-serif;
+  font-size: 3rem;
+  color: #569cd6;
+  margin-bottom: 20px;
+}
+
+.welcome-container p {
+  font-size: 1.2rem;
+  color: #9cdcfe;
+  margin-bottom: 30px;
+}
+
+.continue-btn {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1rem;
+  padding: 14px 30px;
+  border: none;
+  border-radius: 8px;
+  background-color: #3f51b5;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.continue-btn:hover {
+  background-color: #303f9f;
+  transform: translateY(-2px);
+}
+</style>
 </head>
-<body class="homepage">
+<body>
 
-  <div class="page-container">
+<canvas id="bg-canvas"></canvas>
 
-    <!-- HEADER -->
-    <header>
-      <h1>Lukas A. White</h1>
-      <p>Auburn, MI | (989) 450-8703 | <a href="mailto:lukaswhite200@gmail.com">lukaswhite200@gmail.com</a></p>
-      <p>
-        <a href="https://github.com/LWhite200" target="_blank">GitHub</a> |
-        <a href="https://linkedin.com/in/lukas-white" target="_blank">LinkedIn</a>
-      </p>
-    </header>
+<div class="welcome-container">
+  <h1>Welcome!</h1>
+  <p>Hi, I’m Lukas White.<br>Explore my portfolio to see projects, skills, and more.</p>
+  <button class="continue-btn" onclick="goHome()">Continue</button>
+</div>
 
-    <main>
+<script src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script>
+<script>
+const canvas = document.getElementById('bg-canvas');
+const scene = new THREE.Scene();
 
-      <!-- ABOUT ME -->
-      <section class="info">
-        <h2>About Me</h2>
-        <p>
-          I’m Lukas White, a Computer Science major at Saginaw Valley State University,
-          graduating Spring 2026. I have 7+ years of hands-on experience in software development,
-          contributing to a variety of collaborative projects.
-        </p>
-        <p>
-          My passions include problem-solving, learning new technologies, and working in
-          collaborative environments. Recently, I explored AI and AI agents in an independent study.
-        </p>
-      </section>
+// Camera
+const camera = new THREE.PerspectiveCamera(50, window.innerWidth/window.innerHeight, 0.1, 1000);
+camera.position.z = 6;
 
-      <!-- RESUME -->
-      <section class="resume">
-        <h2>Resume</h2>
-        <button onclick="location.href='data/resume.pdf'">View Resume</button>
-      </section>
+// Renderer
+const renderer = new THREE.WebGLRenderer({canvas, alpha: true, antialias: true});
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
 
-      <!-- PROJECTS -->
-      <section class="projects">
-        <h2>Projects</h2>
-        <div class="project-buttons">
+// Cube with thick edges
+const geometry = new THREE.BoxGeometry(3, 3, 3);
+const edges = new THREE.EdgesGeometry(geometry);
+const material = new THREE.LineBasicMaterial({ color: 0x569cd6, linewidth: 2 });
+const cube = new THREE.LineSegments(edges, material);
+scene.add(cube);
 
-          <div class="project-item" onclick="location.href='projects/qa_capstone.html'">
-            <img src="images/QACapstone.png" alt="QA Capstone">
-            <h3>QA Capstone</h3>
-          </div>
+// Lights
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+scene.add(ambientLight);
 
-          <div class="project-item" onclick="location.href='projects/load_balancer.html'">
-            <img src="images/DistributedSystem.png" alt="Load-Balanced System">
-            <h3>Load-Balanced System</h3>
-          </div>
+const pointLight = new THREE.PointLight(0xffffff, 0.8);
+pointLight.position.set(5,5,5);
+scene.add(pointLight);
 
-          <div class="project-item" onclick="location.href='projects/kernel_module.html'">
-            <img src="images/LinuxKernel.png" alt="Linux Kernel Module">
-            <h3>Linux Kernel Module</h3>
-          </div>
+// Animate cube
+function animate() {
+    requestAnimationFrame(animate);
+    cube.rotation.x += 0.004;
+    cube.rotation.y += 0.006;
+    renderer.render(scene, camera);
+}
+animate();
 
-          <div class="project-item" onclick="location.href='projects/island_gen.html'">
-            <img src="images/3Disland.png" alt="3D Island Wii Homebrew">
-            <h3>3D Island (Wii Homebrew)</h3>
-          </div>
+// Resize
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
 
-          <div class="project-item" onclick="location.href='projects/web_app.html'">
-            <img src="images/webApp.png" alt="Web App Node.js">
-            <h3>Web App (Node.js)</h3>
-          </div>
-
-          <div class="project-item" onclick="location.href='projects/ai_study.html'">
-            <img src="images/AIstudy.png" alt="AI Independent Study">
-            <h3>AI Independent Study</h3>
-          </div>
-
-          <div class="project-item" onclick="location.href='projects/terrarium.html'">
-            <img src="images/simulation.png" alt="Terrarium Simulation">
-            <h3>Terrarium Simulation</h3>
-          </div>
-
-          <div class="project-item" onclick="location.href='projects/scheduler.html'">
-            <img src="images/projectTemp.png" alt="Scheduling Application">
-            <h3>Scheduling App</h3>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- LANGUAGE GUIDE -->
-      <section class="projects">
-        <h2>Programming Languages</h2>
-        <div class="project-buttons">
-
-          <div class="project-item" onclick="location.href='languages/python.html'">
-            <img src="images/python.png" alt="Python">
-            <h3>Python</h3>
-          </div>
-
-          <div class="project-item" onclick="location.href='languages/c.html'">
-            <img src="images/c.png" alt="C">
-            <h3>C</h3>
-          </div>
-
-          <div class="project-item" onclick="location.href='languages/csharp.html'">
-            <img src="images/csharp.png" alt="C#">
-            <h3>C#</h3>
-          </div>
-
-          <div class="project-item" onclick="location.href='languages/java.html'">
-            <img src="images/java.png" alt="Java">
-            <h3>Java</h3>
-          </div>
-
-          <div class="project-item" onclick="location.href='languages/javascript.html'">
-            <img src="images/javascript.png" alt="JavaScript">
-            <h3>JavaScript</h3>
-          </div>
-
-          <div class="project-item" onclick="location.href='languages/visualbasic.html'">
-            <img src="images/visualbasic.png" alt="Visual Basic">
-            <h3>Visual Basic</h3>
-          </div>
-
-          <div class="project-item" onclick="location.href='languages/fortran.html'">
-            <img src="images/fortran.png" alt="Fortran">
-            <h3>Fortran</h3>
-          </div>
-
-          <div class="project-item" onclick="location.href='languages/php.html'">
-            <img src="images/php.png" alt="PHP">
-            <h3>PHP</h3>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- EDUCATION & ACTIVITIES -->
-      <section class="about">
-        <h2>Education</h2>
-        <p>Saginaw Valley State University, University Center, MI</p>
-        <p>B.S. in Computer Science (Expected May 2026), GPA: 3.52 / 4.0</p>
-
-        <h2>Activities</h2>
-        <p><strong>Game Design Club (SVSU)</strong></p>
-        <ul>
-          <li>Introduced new gameplay ideas and mechanics.</li>
-          <li>Built collaborative prototypes and demos.</li>
-        </ul>
-      </section>
-
-    </main>
-  </div>
+// Button
+function goHome() {
+    window.location.href = 'home.html';
+}
+</script>
 
 </body>
 </html>

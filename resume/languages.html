@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Languages - Lukas White</title>
+  <link rel="stylesheet" href="./style.css">
+
+  <style>
+    .project-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      justify-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .project-buttons {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .project-buttons {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-container fade-in">
+    <header>
+      <h1>Programming Languages</h1>
+      <p><a href="home.html">← Home</a></p>
+    </header>
+
+    <main>
+
+      <!-- Languages Grid -->
+      <div class="project-buttons">
+
+        <div class="project-item" onclick="location.href='languages/python.html'">
+          <img src="images/python.png" alt="Python">
+          <h3>Python</h3>
+        </div>
+
+        <div class="project-item" onclick="location.href='languages/c.html'">
+          <img src="images/c.png" alt="C">
+          <h3>C</h3>
+        </div>
+
+        <div class="project-item" onclick="location.href='languages/csharp.html'">
+          <img src="images/csharp.png" alt="C#">
+          <h3>C#</h3>
+        </div>
+
+        <div class="project-item" onclick="location.href='languages/java.html'">
+          <img src="images/java.png" alt="Java">
+          <h3>Java</h3>
+        </div>
+
+        <div class="project-item" onclick="location.href='languages/javascript.html'">
+          <img src="images/javascript.png" alt="JavaScript">
+          <h3>JavaScript</h3>
+        </div>
+
+        <div class="project-item" onclick="location.href='languages/visualbasic.html'">
+          <img src="images/visualbasic.png" alt="Visual Basic">
+          <h3>Visual Basic</h3>
+        </div>
+
+        <div class="project-item" onclick="location.href='languages/fortran.html'">
+          <img src="images/fortran.png" alt="Fortran">
+          <h3>Fortran</h3>
+        </div>
+
+        <div class="project-item" onclick="location.href='languages/php.html'">
+          <img src="images/php.png" alt="PHP">
+          <h3>PHP</h3>
+        </div>
+
+      </div>
+
+      <!-- Technical Skills Section -->
+      <section style="margin-top: 60px;">
+        <h2 style="text-align:center;">Technical Experience & Tools</h2>
+
+        <div style="max-width: 900px; margin: 30px auto; display: flex; flex-direction: column; gap: 30px;">
+
+          <!-- Systems / Low-Level -->
+          <div style="background:#1e1e1e; padding:25px; border-radius:12px;">
+            <h3 style="color:#4ec9b0;">Systems & Low-Level Development</h3>
+            <p>
+              Experience working close to hardware and system internals, including <strong>Assembly</strong>, 
+              low-level C programming, and development environments such as <strong>devkitPPC + GRRLIB</strong> 
+              for Wii homebrew. These tools were used to better understand memory management, performance, 
+              and how software interacts with hardware at a foundational level.
+            </p>
+          </div>
+
+          <!-- Backend / Databases -->
+          <div style="background:#1e1e1e; padding:25px; border-radius:12px;">
+            <h3 style="color:#4ec9b0;">Backend Development & Data Systems</h3>
+            <p>
+              Built and worked with backend systems using <strong>Node.js</strong>, <strong>PHP</strong>, and relational databases 
+              with <strong>SQL</strong>. Experience includes designing APIs, handling data flow, and structuring applications 
+              for scalability and maintainability.
+            </p>
+          </div>
+
+          <!-- Frameworks -->
+          <div style="background:#1e1e1e; padding:25px; border-radius:12px;">
+            <h3 style="color:#4ec9b0;">Frameworks & Application Development</h3>
+            <p>
+              Developed desktop and application-based solutions using <strong>.NET Framework</strong>, <strong>JavaFX</strong>, 
+              and object-oriented design principles. Focused on building maintainable architectures and responsive user interfaces.
+            </p>
+          </div>
+
+          <!-- AI / Modern Tools -->
+          <div style="background:#1e1e1e; padding:25px; border-radius:12px;">
+            <h3 style="color:#4ec9b0;">AI & Modern Development Tools</h3>
+            <p>
+              Explored AI development and tooling through platforms such as <strong>Ollama</strong> and <strong>Hugging Face</strong>. 
+              Worked with local models, experimentation workflows, and integrating AI capabilities into projects.
+            </p>
+          </div>
+
+          <!-- Productivity / Automation -->
+          <div style="background:#1e1e1e; padding:25px; border-radius:12px;">
+            <h3 style="color:#4ec9b0;">Automation & Productivity Tools</h3>
+            <p>
+              Experience with automation and productivity tools including <strong>Power Automate</strong>, <strong>VBA</strong>, 
+              and advanced usage of <strong>Microsoft Office (Excel, Word)</strong>. Built scripts and workflows to streamline tasks 
+              and improve efficiency.
+            </p>
+          </div>
+
+          <!-- Dev Environment -->
+          <div style="background:#1e1e1e; padding:25px; border-radius:12px;">
+            <h3 style="color:#4ec9b0;">Development Environment</h3>
+            <p>
+              Primary development performed in <strong>Visual Studio Code</strong> and Visual Studio, with experience managing 
+              multi-language projects, debugging workflows, and integrating various tools into a cohesive development environment.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+</body>
+</html>

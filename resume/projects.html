@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects - Lukas White</title>
+  <link rel="stylesheet" href="./style.css">
+
+  <style>
+    /* 3 per row for main projects */
+    .project-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      justify-items: center;
+    }
+
+    /* Other Projects Grid */
+    .other-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .other-card {
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease;
+    }
+
+    .other-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .other-card h3 {
+      margin-bottom: 10px;
+      color: #4ec9b0;
+    }
+
+    .other-card p {
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 900px) {
+      .project-buttons,
+      .other-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .project-buttons,
+      .other-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-container fade-in">
+    <header>
+      <h1>Projects</h1>
+      <p><a href="home.html">← Home</a></p>
+    </header>
+
+    <main>
+
+      <!-- Main Projects -->
+      <div class="project-buttons">
+
+        <div class="project-item" onclick="location.href='projects/qa_capstone.html'">
+          <img src="images/QACapstone.png" alt="QA Capstone">
+          <h3>QA Capstone Lead</h3>
+        </div>
+
+        <div class="project-item" onclick="location.href='projects/load_balancer.html'">
+          <img src="images/DistributedSystem.png" alt="Load-Balanced System">
+          <h3>Load-Balanced System</h3>
+        </div>
+
+        <div class="project-item" onclick="location.href='projects/island_gen.html'">
+          <img src="images/3Disland.png" alt="3D Island Wii Homebrew">
+          <h3>3D Island (Wii Homebrew)</h3>
+        </div>
+
+        <div class="project-item" onclick="location.href='projects/web_app.html'">
+          <img src="images/webApp.png" alt="Web App Node.js">
+          <h3>Web App (Node.js)</h3>
+        </div>
+
+        <div class="project-item" onclick="location.href='projects/ai_study.html'">
+          <img src="images/AIstudy.png" alt="AI Independent Study">
+          <h3>AI Independent Study</h3>
+        </div>
+
+        <div class="project-item" onclick="location.href='projects/scheduler.html'">
+          <img src="images/ScheduleApp.png" alt="Scheduling Application">
+          <h3>Scheduling App</h3>
+        </div>
+
+      </div>
+
+      <!-- Other Projects -->
+      <!-- Other Projects -->
+      <section style="margin-top: 60px;">
+        <h2 style="text-align:center;">Other Projects</h2>
+
+        <div style="max-width: 900px; margin: 30px auto; display: flex; flex-direction: column; gap: 40px;">
+
+          <!-- Kernel Module -->
+          <div style="background:#1e1e1e; padding:25px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+            <h3 style="color:#4ec9b0; margin-bottom:15px;">Linux Kernel Module</h3>
+
+            <p style="line-height:1.6; margin-bottom:10px;">
+              To better understand how operating systems function at a low level, I explored development within the Linux kernel environment. 
+              This project focused on interacting directly with core system components rather than user-space applications.
+            </p>
+
+            <p style="line-height:1.6; margin-bottom:10px;">
+              The goal was to design and implement a functional kernel module that could safely integrate with the OS while maintaining stability. 
+              This required careful planning due to the risks associated with kernel-level development.
+            </p>
+
+            <p style="line-height:1.6; margin-bottom:10px;">
+              I developed the module in C, working with memory access, kernel structures, and system-level debugging tools. 
+              Testing involved iterative loading and unloading of the module while monitoring system behavior and logs.
+            </p>
+
+            <p style="line-height:1.6;">
+              As a result, I gained hands-on experience with operating system internals, improved my debugging skills in constrained environments, 
+              and developed a deeper understanding of how software interacts with hardware at the system level.
+            </p>
+          </div>
+
+          <!-- Simulations -->
+          <div style="background:#1e1e1e; padding:25px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+            <h3 style="color:#4ec9b0; margin-bottom:15px;">Simulation & Systems Experiments</h3>
+
+            <p style="line-height:1.6; margin-bottom:10px;">
+              I explored simulation development to better understand how systems evolve over time and how individual components interact within defined environments. 
+              These projects were designed to model behavior rather than simply produce static outputs.
+            </p>
+
+            <p style="line-height:1.6; margin-bottom:10px;">
+              The objective was to create flexible simulation frameworks that could represent dynamic interactions between entities and their environment. 
+              This required designing systems that could scale and adapt as complexity increased.
+            </p>
+
+            <p style="line-height:1.6; margin-bottom:10px;">
+              I implemented rule-based logic, state management, and interaction systems, iterating on performance and structure to ensure efficiency. 
+              Multiple versions were developed to test different approaches to system design and optimization.
+            </p>
+
+            <p style="line-height:1.6;">
+              These efforts improved my understanding of emergent behavior, system architecture, and performance trade-offs, while also strengthening my ability 
+              to design scalable and maintainable simulation systems.
+            </p>
+          </div>
+
+          <!-- Collaborative Work -->
+          <div style="background:#1e1e1e; padding:25px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+            <h3 style="color:#4ec9b0; margin-bottom:15px;">Collaborative Development Projects</h3>
+
+            <p style="line-height:1.6; margin-bottom:10px;">
+              Throughout my academic experience, I participated in multiple team-based software and game development projects. 
+              These environments emphasized collaboration, adaptability, and shared ownership of outcomes.
+            </p>
+
+            <p style="line-height:1.6; margin-bottom:10px;">
+              The goal in these projects was to rapidly prototype functional systems while maintaining clear communication and coordination among team members. 
+              Deadlines and evolving requirements required consistent iteration and flexibility.
+            </p>
+
+            <p style="line-height:1.6; margin-bottom:10px;">
+              I contributed by implementing features, debugging issues, and assisting with design decisions. 
+              I also worked closely with teammates to refine ideas and ensure cohesive system integration.
+            </p>
+
+            <p style="line-height:1.6;">
+              As a result, I strengthened my teamwork and communication skills, gained experience working in real-world development workflows, 
+              and improved my ability to contribute effectively in collaborative technical environments.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+</body>
+</html>

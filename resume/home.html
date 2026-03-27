@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lukas White - Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Anton&family=Manrope&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./style.css">
+
+  <style>
+    /* Centering fade-in container */
+    .fade-in {
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    /* Featured grids for uniform layout */
+    .featured .project-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      justify-items: center;
+      margin-top: 20px;
+    }
+
+    /* Centered 3-item grid for games */
+    .featured.games .project-buttons {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .featured h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: #4ec9b0;
+    }
+
+    .featured p a {
+      color: #569cd6;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .featured p a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 1100px) {
+      .featured .project-buttons {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .featured .project-buttons {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body class="homepage">
+
+  <!-- Page Container -->
+  <div class="page-container fade-in">
+
+    <!-- Header -->
+    <header>
+      <h1>Lukas A. White</h1>
+      <p>Auburn, MI | (989) 450-8703 | <a href="mailto:lukaswhite200@gmail.com">lukaswhite200@gmail.com</a></p>
+      <p>
+        <a href="https://github.com/LWhite200" target="_blank">GitHub</a> |
+        <a href="https://linkedin.com/in/lukas-white" target="_blank">LinkedIn</a>
+      </p>
+    </header>
+
+    <main>
+
+      <!-- About Me -->
+      <section class="info">
+        <h2>About Me</h2>
+        <p>
+          I’m Lukas White, a Computer Science major at Saginaw Valley State University,
+          graduating Spring 2026. I have 7+ years of hands-on experience in software development,
+          contributing to a variety of collaborative projects.
+        </p>
+        <p>
+          My passions include problem-solving, learning new technologies, and working in
+          collaborative environments. Recently, I explored AI and AI agents in an independent study.
+        </p>
+      </section>
+
+      <!-- Resume -->
+      <section class="resume">
+        <h2>Resume</h2>
+        <button onclick="location.href='data/resume.pdf'">View Resume</button>
+      </section>
+
+      <!-- Featured Projects -->
+      <section class="featured">
+        <h2>Featured Projects</h2>
+        <div class="project-buttons">
+          <div class="project-item" onclick="location.href='projects/qa_capstone.html'">
+            <img src="images/QACapstone.png" alt="QA Capstone">
+            <h3>QA Capstone</h3>
+          </div>
+          <div class="project-item" onclick="location.href='projects/web_app.html'">
+            <img src="images/webApp.png" alt="Web App Node.js">
+            <h3>Web App (Node.js)</h3>
+          </div>
+          <div class="project-item" onclick="location.href='projects/ai_study.html'">
+            <img src="images/AIstudy.png" alt="AI Independent Study">
+            <h3>AI Independent Study</h3>
+          </div>
+        </div>
+        <p style="text-align:center; margin-top: 15px;">
+          <a href="projects.html">View All Projects →</a>
+        </p>
+      </section>
+
+      <!-- Featured Languages -->
+      <section class="featured">
+        <h2>Languages and Skills</h2>
+        <div class="project-buttons">
+          <div class="project-item" onclick="location.href='languages/python.html'">
+            <img src="images/python.png" alt="Python">
+            <h3>Python</h3>
+          </div>
+          <div class="project-item" onclick="location.href='languages/csharp.html'">
+            <img src="images/csharp.png" alt="C#">
+            <h3>C#</h3>
+          </div>
+          <div class="project-item" onclick="location.href='languages/javascript.html'">
+            <img src="images/javascript.png" alt="JavaScript">
+            <h3>JavaScript</h3>
+          </div>
+        </div>
+        <p style="text-align:center; margin-top: 15px;">
+          <a href="languages.html">View All Skills →</a>
+        </p>
+      </section>
+
+      <!-- Interactive Games -->
+      <!-- Interactive Games -->
+      <section class="featured games">
+        <h2>Interactive Games</h2>
+        <div class="project-buttons">
+          <div class="project-item" onclick="location.href='games/CollectionGame.html'">
+            <img src="images/CollectionGame.png" alt="Game 1">
+            <h3>Collection Game</h3>
+          </div>
+          <div class="project-item" onclick="location.href='games/terrarium.html'">
+            <img src="images/simulation.png" alt="Terrarium Simulation">
+            <h3>Terrarium Simulation</h3>
+          </div>
+          <div class="project-item" onclick="location.href='games/game3.html'">
+            <img src="images/game3.png" alt="Game 3">
+            <h3>Game Three</h3>
+          </div>
+        </div>
+      </section>
+
+      <!-- Education & Activities -->
+      <section class="about">
+        <h2>Activities</h2>
+        <p><strong>SVSU Game Design Team</strong></p>
+          <ul>
+            <li>Introduced new gameplay ideas and mechanics.</li>
+            <li>Built collaborative prototypes and demos.</li>
+          </ul>
+
+          <p><strong>SVSU Formula SAE / Racecar Team</strong></p>
+          <ul>
+            <li>Contributed to the design and development of a Formula-style racecar.</li>
+            <li>Collaborated with teammates on mechanical, electrical, and software systems.</li>
+            <li>Participated in testing, competitions, and problem-solving for real-world performance challenges.</li>
+          </ul>
+
+          <p><strong>The Pledge of the Computing Professional</strong></p>
+          <ul>
+            <li>
+              I acknowledge that my work impacts individuals and society, both now and in the future. Therefore, I commit to uphold ethical principles, act with integrity and respect, and use my skills responsibly and for the public good. I will remain honest about my capabilities, pursue continual learning, and conduct myself with professionalism in all aspects of my work.
+            </li>
+          </ul>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- JS for fade-in -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelector('.fade-in').style.opacity = 1;
+    });
+  </script>
+
+</body>
+</html>

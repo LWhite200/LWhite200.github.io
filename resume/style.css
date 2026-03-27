@@ -3,45 +3,67 @@
    ========================= */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 /* =========================
-   GENERAL PAGE STYLES
+   BODY & BASE STYLES
    ========================= */
-
-/* BODY = Inter (clean, readable, techy) */
 body {
   font-family: 'Inter', system-ui, sans-serif;
-  margin: 0;
-  padding: 40px 0;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
   line-height: 1.6;
-  color: #222;
-  background-color: #000;
+  padding: 40px 20px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 a {
-  color: #3f51b5;
+  color: #569cd6;
   text-decoration: none;
+  transition: color 0.2s;
 }
 
 a:hover {
+  color: #9cdcfe;
   text-decoration: underline;
 }
 
 /* =========================
-   PAGE CONTAINER (CARD)
+   PAGE CONTAINER
    ========================= */
-.page-container {
-  max-width: 900px;
+.container, .page-container, .welcome-container {
+  max-width: 1100px;
   margin: auto;
-  background-color: #fff;
+  background-color: #252526;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+  border: 1px solid #333;
+  transition: box-shadow 0.3s, transform 0.3s, opacity 1.5s;
+  opacity: 1;
+}
 
-  /* ✅ Border now guaranteed visible */
-  border: 12px solid #3f51b5;
-  border-radius: 24px;
+.container:hover, .page-container:hover {
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+}
 
-  padding: 20px 30px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+/* =========================
+   WELCOME CONTAINER FADE-IN
+   ========================= */
+.welcome-container {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 1.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* =========================
@@ -49,7 +71,22 @@ a:hover {
    ========================= */
 header {
   text-align: center;
-  padding: 10px 20px;
+  margin-bottom: 40px;
+}
+
+header h1 {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  color: #569cd6;
+  margin-bottom: 10px;
+}
+
+header p {
+  font-family: 'Inter', sans-serif;
+  color: #9cdcfe;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
 }
 
 .profile-photo {
@@ -58,71 +95,64 @@ header {
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 20px;
-}
-
-/* Name = Anton (strong display font) */
-header h1 {
-  margin: 0 0 10px 0;
-  font-size: 4em;
-  color: #3f51b5;
-  font-family: 'Anton', sans-serif;
-  font-weight: 400;
-}
-
-header p {
-  margin: 5px 0;
-  font-family: 'Inter', sans-serif;
+  border: 2px solid #569cd6;
 }
 
 /* =========================
    MAIN CONTENT
    ========================= */
 main {
-  padding: 10px 20px;
   font-family: 'Inter', sans-serif;
+  padding: 10px 0;
 }
 
-main section:first-of-type h2 {
+h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.8rem;
+  color: #4ec9b0;
+  border-left: 5px solid #569cd6;
+  padding-left: 10px;
+  margin-top: 40px;
+}
+
+h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.2rem;
+  color: #c586c0;
   margin-top: 20px;
 }
 
-/* Section headings = Manrope */
-h2 {
-  font-family: 'Manrope', sans-serif;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 5px;
-  margin-top: 40px;
-  color: #3f51b5;
+p, ul, ol {
+  margin-bottom: 12px;
+  color: #d4d4d4;
 }
 
-p {
-  margin-bottom: 10px;
-}
-
-ul {
+ul, ol {
   padding-left: 20px;
 }
 
 /* =========================
-   RESUME BUTTON
+   BUTTONS
    ========================= */
-section.resume button {
+button, .continue-btn {
   font-family: 'Manrope', sans-serif;
   background-color: #3f51b5;
-  color: white;
+  color: #fff;
   border: none;
-  padding: 10px 20px;
-  font-size: 1em;
-  border-radius: 5px;
+  padding: 12px 26px;
+  font-size: 1rem;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
-section.resume button:hover {
+button:hover, .continue-btn:hover {
   background-color: #303f9f;
+  transform: translateY(-2px);
 }
 
 /* =========================
-   PROJECTS GRID
+   PROJECT GRID
    ========================= */
 .project-buttons {
   display: grid;
@@ -137,19 +167,18 @@ section.resume button:hover {
   flex-direction: column;
   align-items: center;
   text-align: center;
-
-  border: 1px solid #ccc;
+  border: 1px solid #333;
   border-radius: 8px;
-  padding: 10px;
-
+  padding: 15px;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  font-family: 'Inter', sans-serif;
+  transition: transform 0.2s, box-shadow 0.3s, border-color 0.3s;
+  background-color: #2d2d2d;
 }
 
 .project-item:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.5);
+  border-color: #569cd6;
 }
 
 .project-item img {
@@ -160,23 +189,64 @@ section.resume button:hover {
   margin-bottom: 10px;
 }
 
-/* Project titles */
 .project-item h3 {
-  font-size: 1em;
   margin: 0;
-  color: #3f51b5;
   font-family: 'Manrope', sans-serif;
+  color: #9cdcfe;
 }
 
 /* =========================
-   RESPONSIVE (MOBILE)
+   CODE BLOCKS
    ========================= */
-@media (max-width: 600px) {
+pre {
+  background-color: #1e1e1e;
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  border: 1px solid #000000;
+}
+
+code {
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.keyword { color: #569cd6; }
+.string  { color: #ce9178; }
+.number  { color: #b5cea8; }
+.comment { color: #6a9955; font-style: italic; }
+.func    { color: #dcdcaa; }
+.type    { color: #4ec9b0; }
+
+/* =========================
+   FOOTER
+   ========================= */
+footer {
+  text-align: center;
+  margin-top: 40px;
+  color: #9cdcfe;
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+   ========================= */
+@media (max-width: 900px) {
   .project-buttons {
     grid-template-columns: repeat(2, 1fr);
   }
 
   header h1 {
-    font-size: 2.5em;
+    font-size: 2.5rem;
+  }
+
+  .container, .page-container, .welcome-container {
+    padding: 25px;
+  }
+}
+
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 2rem;
   }
 }
