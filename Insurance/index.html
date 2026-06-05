@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flashcards</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans, system-ui, sans-serif); min-height: 100vh; padding: 16px; transition: background 0.5s; }
+body.theme-0 {
+  background: #f5f5f3;
+  color: #111;
+  --bg-card-front: #ffffff;
+  --text-card-main: #111111;
+  --text-card-sub: #0c447c;
+  --text-hint: rgba(0, 0, 0, 0.6);
+}
+
+body.theme-1 {
+  background: #121212;
+  color: #878787;
+  /* Specific fixes for the dark mode cards: */
+  --bg-card-front: #545454;       /* Dark-grey background for the card */
+  --text-card-main: #f5f5f5;      /* Crisp white for the card text */
+  --text-card-sub: #8bc34a;       /* Accessible light green accent for the card back */
+  --text-hint: rgba(255, 255, 255, 0.6); /* Readable hint text */
+}
+
+body.theme-2 {
+  background: linear-gradient(
+    90deg,
+    red,
+    orange,
+    yellow,
+    green,
+    cyan,
+    blue,
+    purple,
+    red
+  );
+  background-size: 800% 800%;
+  animation: rainbowShift 25s linear infinite;
+}
+
+@keyframes rainbowShift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+  h2.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+  .app { max-width: 640px; margin: 0 auto; }
+  .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+  .title { font-size: 18px; font-weight: 500; color: var(--color-text-primary); }
+  .header-right { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .stat { font-size: 12px; color: var(--color-text-secondary); background: var(--color-background-secondary, #ece9e0); padding: 4px 10px; border-radius: 999px; }
+  .stat.warn { color: #A32D2D; background: #FCEBEB; cursor: pointer; }
+  .mode-bar { display: flex; gap: 6px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap; }
+  .mode-btn { padding: 6px 16px; border-radius: 999px; border: 0.5px solid var(--color-border-secondary, rgba(0,0,0,0.3)); background: var(--color-background-primary, #fff); color: var(--color-text-secondary); font-size: 13px; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+  .mode-btn.active { background: var(--color-text-primary, #1a1a1a); color: var(--color-background-primary, #fff); border-color: transparent; }
+  .filter-bar { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; align-items: center; }
+  .filter-bar select { flex: 1; min-width: 130px; padding: 8px 10px; border-radius: 8px; border: 0.5px solid var(--color-border-secondary); background: var(--color-background-primary); color: var(--color-text-primary); font-size: 13px; font-family: inherit; }
+  .btn { padding: 8px 16px; border-radius: 8px; border: 0.5px solid var(--color-border-secondary, rgba(0,0,0,0.3)); background: var(--color-background-primary, #fff); color: var(--color-text-primary); font-size: 13px; cursor: pointer; transition: background 0.15s; font-family: inherit; white-space: nowrap; }
+  .btn:hover { background: var(--color-background-secondary, #ece9e0); }
+  .btn:active { transform: scale(0.97); }
+  .btn.primary { background: #185FA5; color: #fff; border-color: #185FA5; }
+  .btn.primary:hover { background: #0C447C; }
+  .btn.good { background: #3B6D11; color: #fff; border-color: #3B6D11; font-size: 15px; flex: 1; padding: 12px; }
+  .btn.good:hover { background: #27500A; }
+  .btn.bad { background: #A32D2D; color: #fff; border-color: #A32D2D; font-size: 15px; flex: 1; padding: 12px; }
+  .btn.bad:hover { background: #791F1F; }
+  .progress-bar { height: 3px; background: var(--color-border-tertiary, rgba(0,0,0,0.12)); border-radius: 2px; margin-bottom: 10px; overflow: hidden; }
+  .progress-fill { height: 100%; background: #185FA5; border-radius: 2px; transition: width 0.3s; }
+  .section-label { font-size: 12px; font-weight: 500; color: var(--color-text-secondary); letter-spacing: 0.05em; text-transform: uppercase; text-align: center; margin-bottom: 8px; min-height: 16px; }
+  .card-area { perspective: 1200px; margin-bottom: 10px; }
+  .card { width: 100%; min-height: 200px; cursor: pointer; position: relative; transform-style: preserve-3d; transition: transform 0.42s cubic-bezier(0.4,0,0.2,1); border-radius: 16px; }
+  .card.flipped { transform: rotateY(180deg); }
+  .card-face { position: absolute; inset: 0; border-radius: 16px; padding: 28px 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+  .card-front { background: var(--bg-card-front, #fff); border: 0.5px solid var(--color-border-tertiary); }
+  .card-back { background: #E6F1FB; border: 0.5px solid #B5D4F4; transform: rotateY(180deg); }
+  .card-main { font-size: 21px; font-weight: 500; color: var(--text-card-main, #111); line-height: 1.3; }  .card-secondary { font-size: 15px; color: #0C447C; line-height: 1.6; }
+  .card-secondary { font-size: 15px; color: var(--text-card-sub, #0C447C); line-height: 1.6; }
+  .card-spacer { height: 200px; }
+  .card-tap-hint { font-size: 11px; color: var(--text-hint); opacity: 0.6; margin-top: 14px; }  .card-counter { text-align: center; font-size: 12px; color: var(--color-text-secondary); margin-bottom: 6px; }
+  .nav-row { display: flex; gap: 8px; justify-content: center; margin-bottom: 10px; flex-wrap: wrap; }
+  .quiz-row { display: flex; gap: 10px; margin-bottom: 10px; }
+  .quiz-score { display: flex; gap: 10px; justify-content: center; margin-bottom: 10px; }
+  .score-pill { font-size: 13px; padding: 4px 14px; border-radius: 999px; }
+  .score-pill.got { background: #EAF3DE; color: #3B6D11; }
+  .score-pill.missed { background: #FCEBEB; color: #A32D2D; }
+  .broken-section { background: #FCEBEB; border: 0.5px solid #F7C1C1; border-radius: 8px; padding: 10px 14px; margin-top: 14px; }
+  .broken-title { font-size: 12px; font-weight: 500; color: #A32D2D; margin-bottom: 4px; }
+  .broken-list { font-size: 11px; color: #993556; list-style: none; }
+  .broken-list li { padding: 2px 0; font-family: var(--font-mono, monospace); word-break: break-all; }
+  .done-screen { text-align: center; padding: 30px 16px; }
+  .done-title { font-size: 22px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 8px; }
+  .done-sub { font-size: 15px; color: var(--color-text-secondary); margin-bottom: 20px; }
+  .done-stats { display: flex; gap: 12px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
+  .done-stat { padding: 10px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; }
+  .done-stat.got { background: #EAF3DE; color: #3B6D11; }
+  .done-stat.missed { background: #FCEBEB; color: #A32D2D; }
+  .toggle-row { display: flex; gap: 6px; align-items: center; }
+  .toggle-label { font-size: 12px; color: var(--color-text-secondary); }
+  .toggle-wrap { display: flex; align-items: center; gap: 6px; background: var(--color-background-secondary, #ece9e0); border-radius: 999px; padding: 3px 8px; cursor: pointer; border: 0.5px solid var(--color-border-tertiary); }
+  .toggle-wrap input { display: none; }
+  .toggle-track { width: 28px; height: 16px; border-radius: 8px; background: #ccc; position: relative; transition: background 0.2s; }
+  .toggle-track.on { background: #185FA5; }
+  .toggle-thumb { width: 12px; height: 12px; border-radius: 50%; background: #fff; position: absolute; top: 2px; left: 2px; transition: left 0.2s; }
+  .toggle-track.on .toggle-thumb { left: 14px; }
+  .color-btn { font-size: 18px; background: none; border: none; cursor: pointer; padding: 2px 4px; line-height: 1; }
+
+  
+</style>
+</head>
+<body class="theme-0">
+<h2 class="sr-only">Flashcard app — tap a card to flip and reveal its answer.</h2>
+<div class="app">
+  <div class="header">
+    <span class="title">Flashcards</span>
+    <div class="header-right">
+      <span class="stat" id="stat-total">0 cards</span>
+      <span class="stat warn" id="stat-broken" style="display:none" onclick="toggleBroken()"></span>
+      <button class="color-btn" onclick="cycleTheme()" title="Change background color">🎨</button>
+    </div>
+  </div>
+
+  <div class="mode-bar">
+    <button class="mode-btn active" onclick="setMode('study')" id="mode-study">Study</button>
+    <button class="mode-btn" onclick="setMode('quiz')" id="mode-quiz">Quiz</button>
+  </div>
+
+  <div class="filter-bar">
+    <select id="section-filter" onchange="applyFilter()">
+      <option value="all">All sections</option>
+    </select>
+    <div class="toggle-wrap" onclick="toggleFlip()" title="Swap front/back">
+      <div class="toggle-track" id="flip-toggle-track"><div class="toggle-thumb"></div></div>
+      <span style="font-size:12px; color:var(--color-text-secondary);" id="flip-toggle-label">Term first</span>
+    </div>
+  </div>
+
+  <div class="filter-bar" id="study-controls">
+    <button class="btn" onclick="shuffle()">Shuffle</button>
+    <button class="btn" onclick="reset()">Reset</button>
+  </div>
+
+  <div id="study-view">
+    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+    <div class="card-counter" id="card-counter"></div>
+    <div class="section-label" id="current-section"></div>
+    <div class="card-area">
+      <div class="card" id="card" onclick="flipCard()">
+        <div class="card-face card-front"><span class="card-main" id="card-front-text">Loading...</span><span class="card-tap-hint">tap to flip</span></div>
+        <div class="card-face card-back"><span class="card-secondary" id="card-back-text"></span></div>
+      </div>
+      <div class="card-spacer"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn" onclick="navigate(-1)">← Prev</button>
+      <button class="btn" onclick="navigate(1)">Next →</button>
+    </div>
+  </div>
+
+  <div id="quiz-view" style="display:none">
+    <div class="quiz-score">
+      <span class="score-pill got" id="quiz-got">✓ 0 got it</span>
+      <span class="score-pill missed" id="quiz-missed">✗ 0 missed</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="quiz-progress"></div></div>
+    <div class="card-counter" id="quiz-counter"></div>
+    <div class="section-label" id="quiz-section"></div>
+    <div class="card-area">
+      <div class="card" id="quiz-card" onclick="quizFlip()">
+        <div class="card-face card-front"><span class="card-main" id="quiz-front-text"></span><span class="card-tap-hint">tap to reveal</span></div>
+        <div class="card-face card-back"><span class="card-secondary" id="quiz-back-text"></span></div>
+      </div>
+      <div class="card-spacer"></div>
+    </div>
+    <div class="quiz-row" id="quiz-answer-row" style="display:none">
+      <button class="btn bad" onclick="quizAnswer(false)">✗ Missed it</button>
+      <button class="btn good" onclick="quizAnswer(true)">✓ Got it</button>
+    </div>
+    <div class="nav-row" id="quiz-wait-row">
+      <span style="font-size:13px; color:var(--color-text-secondary);">Tap the card to reveal the answer</span>
+    </div>
+  </div>
+
+  <div id="done-screen" style="display:none">
+    <div class="done-screen">
+      <div class="done-title">Round complete!</div>
+      <div class="done-sub" id="done-sub"></div>
+      <div class="done-stats">
+        <div class="done-stat got" id="done-got"></div>
+        <div class="done-stat missed" id="done-missed"></div>
+      </div>
+      <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+        <button class="btn primary" onclick="restartQuiz(false)">Restart all</button>
+        <button class="btn" onclick="restartQuiz(true)" id="retry-missed-btn">Retry missed only</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="broken-container" style="display:none"></div>
+</div>
+
+<script>
+const RAW_NOTES = `---Basic English Terms---
+Intimidation:::The unfair trade practice of using threat or force to restrict fair trade in the transaction of insurance.
+Recipient:::An individual, organization, or entity designated to receive something.
+Sole proprietors:::An unincorporated business owned and run by one individual.
+Mortality:::the frequency of death.
+Morbidity:::measure the frequency of sickness or accidents, not death.
+Insurable interest:::Foundational legal requirement that you must have a genuine financial or personal stake in the person or property being insured.
+Adverse Selection:::An information imbalance (asymmetric information) causes one party to take advantage of undisclosed knowledge.
+Corridor (in relation to universal life insurance):::The gap between the total death benefit and the policy's cash value (the amount the investiment grew) [Death Benefit − Cash Value]
+Indemnity:::A contractual agreement where one party (the indemnitor) guarantees to compensate another party (the indemnitee) for specific losses, damages, or liabilities.
+Assignment:::Concerns the transfer of contract rights
+Deductible:::The amount of money you must pay out-of-pocket for covered expenses before your insurance policy or financial benefit begins to cover the costs
+
+
+---Damages and Promises---
+Fraud:::Provided false statements in relations to an insurance claim.
+Representation:::statements the applicant believes to be true, which most application statements are considered. Like occupation, hobbies, and personal health history.
+Warranties:::Statements guaranteed to be true.
+Concealment:::The intentional withholding of material facts
+Injury due to accident:::what is a covered peril under health insurance.
+
+
+
+
+---Authority---
+Authorization:::The authority given by an insurer or employer to a licensee to transact insurance or adjust claims on their behalf.
+
+
+
+---Partnership and Buisness---
+Cross-purchase:::arrangements have owners insure each other to fund buyouts.
+Collateral Assignment:::A policyowner to temporarily transfer ownership rights of a life insurance policy to a lender as security for a loan.
+
+
+
+
+---Underwriting---
+Underwriting::: the process where financial institutions—like banks, insurers, or investment firms—assess the risk of a proposed financial transaction to determine its viability, terms, and pricing.
+Underwriting does not require:::an insurance license.
+Non-competent parties:::A person's legal competence to enter into a contract; incompetence is determined by age, mental capacity, or intoxication.
+Primary risk factors:::Moral hazards, physical conditions, and occupation.
+Investigative Consumer Report:::Assess character and personal habits through third-party interviews.
+Inspection Report:::assess an applicant's character and reputation.
+APS (attending physician's statement):::Is requested by the insurer to obtain medical details for underwriting purposes.
+
+
+
+---Healthcare and hospital stay---
+Utilization Review:::a systematic healthcare process where insurers and hospitals evaluate the medical necessity, appropriateness, and efficiency of treatments. It is designed to control costs and ensure patients receive the right level of care in the most suitable setting
+Hospital indemnity policy:::pays a fixed daily (or per confinement) benefit. "pays a stated benefit amount based on hospitalization duration, not actual expenses."
+Usual, customary, and reasonable fee:::How is a health provider reimbursed if they do NOT have an agreement in place with the insurance company?
+PPOs allow:::out-of-network care but at higher out-of-pocket costs for the patient.
+Mandatory second surgical opinions:::are a cost-control measure used by health insurers to evaluate the necessity of surgeries.
+Concurrent review:::monitors the necessity and duration of hospital stays to manage care and costs.
+Long-term care (LTC):::encompasses medical and non-medical services for individuals unable to perform Activities of Daily Living (ADLs) like bathing, dressing, or eating. Not acute hospital stays.
+Senile dementia:::Long-term care policies cannot exclude coverage.
+
+
+
+---Types of Insurance---
+Life insurance policy:::A legally binding contract in which an insurance company provides a guaranteed lump-sum death benefit to designated beneficiaries in exchange for regular premium payments.
+An annuity:::is a contract with an insurance company designed for long-term retirement planning. You invest a lump sum or a series of premium payments in exchange for guaranteed periodic income, either immediately or deferred to a future date.
+Individual Life Insurance:::
+Credit Life Insurance::: a specialized, optional policy designed to pay off a borrower's outstanding debt (such as a mortgage, car loan, or large credit line) if the policyholder dies before it is fully repaid.
+Cash value life insurance:::is a permanent policy where a portion of your premium goes toward an accumulating tax-deferred savings account. You can access these funds during your lifetime by taking tax-free policy loans or withdrawals, though it will reduce the ultimate death benefit.
+Modified Endowment Contract (MEC):::A designation given to cash value life insurance contracts that exceed legal tax limits .
+A Health Savings Account (HSA):::A tax-advantaged medical savings account available to individuals enrolled in a High-Deductible Health Plan (HDHP). It acts like a "401(k) for healthcare," allowing you to contribute pre-tax money, grow earnings tax-free, and withdraw funds tax-free for qualified medical expenses
+Wagering Contract:::(no insurable interest) two parties promise to exchange money or assets based entirely on the outcome of an uncertain future event.
+Business Overhead Expense (BOE):::is a policy specifically designed to cover the ongoing costs of running a business — such as rent, utilities, and employee salaries — while the owner is disabled.
+Life income:::the settlement option that provides the highest income to the annuitant but leaves nothing for a beneficiary — all payments end at death.
+Life annuity certain:::guarantees a minimum number of payments — if the annuitant dies early, the beneficiary receives the remaining guaranteed payments.
+Whole life insurance policy:::(the insurer bears the investment risk) A permanent policy that provides lifelong coverage, a guaranteed death benefit, and a built-in cash value account that grows at a fixed, tax-deferred rate. It features level premiums that never increase, but costs significantly more than term life insurance.
+Decreasing Term policy:::Overtime, the death benefit decreases while the premium stays level. This is for loan-coverage.
+Adjustable life insurance (often called universal life) is a type of permanent life insurance that lets you change your policy's features as your financial situation evolves. (Allows the policyowner to change both the premium amount and the face amount of the policy.)
+Noncancellable policies:::Guarantee renewal and guarantee the insurer cannot change premiums for the individual.
+A reinstated policy:::covers sickness starting 10 days after reinstatement to avoid pre-existing condition claims.
+Guaranteed renewable policies:::Assures renewability up to a specific age of the insured, although the company reserves the right to change the premium rate on a class basis?
+Critical Illness Plan:::Generally cover multiple illnesses and provide a lump sum upon diagnosis.
+Indemnity Plan:::An insurance policy that reimburse the insured directly for covered services.
+
+
+
+---Group Insurance---
+Group Insurance:::A broad term for insurance that covers a group of people under one master policy, usually employees of a company.
+Group term life:::(A full-time employee who has been on the job 2 years)
+Small Group Insurance:::1-50 employees.
+Group disability insurance:::Employer-sponsored coverage that replaces part of your income if illness or injury prevents you from working.
+Certificate of Insurance:::After enrolling in a group plan, an employee receives what summarizing their coverage and rights.
+Master policy:::A single contract for group insurance issued to an employer.
+Group health insurance underwriting:::evaluates the group as a single entity, not individual members.
+Non-contributory group health insurance plan:::is an employer-sponsored health insurance policy where the employer pays the entire premium cost for eligible employees. Employees are not required to make financial contributions, and no premium is deducted from their paychecks.
+
+
+---Rider---
+Rider:::An optional add-on or amendment to a base policy that alters, expands, or restricts coverage. Often referred to as an endorsement or floating provision, a rider allows you to customize your plan to fit specific needs, usually for a slightly higher premium
+Payor rider:::guarantees premium payments on a juvenile policy if the payor dies or becomes disabled.
+Waiver of premium rider:::is an optional life insurance add-on that prevents your policy from lapsing if you become seriously ill or disabled and are unable to work. The insurance company waives or pays your premiums during this time, allowing you to maintain your coverage without further out-of-pocket payments.
+Term Rider:::Provide coverage on additional family members.
+Family Term Rider:::Allows both the spouse and children to be added to the primary insured's life insurance coverage.
+
+
+---Annuity---
+Variable Annuity:::Link values to investment performance and can hedge inflation.
+Fixed immediate annuity:::You exchange a lump-sum for a guaranteed, predictable stream of income that begins right away, typically within 30 days. It functions like a personal pension, eliminating market risk and providing reliable cash flow. Payment amounts are determined by three factors: starting principal, interest rate, and the length of the income period.
+
+
+
+---Disability---
+Disability income coverage:::A contract feature that guarantees income replacement if an illness or injury prevents you from working.
+Income replacement disability policies (disability):::May pay even when some duties can still be performed, depending on the disability definition.
+Recurrent disability provisions:::You can start receiving benefits again from a disability that came back without waiting another 90 days.
+Key Person Disability Insurance:::pays benefits to the employer to offset financial losses caused by a key employee's disability.
+Partial Disability:::pays benefits when an insured can still work but cannot perform all major job duties, resulting in a loss of income.
+Accidental Death and Dismemberment (AD&D):::AD&D is a specialized supplemental insurance policy (often offered through employers) that pays a cash benefit if you die or suffer severe physical injuries (such as losing limbs or eyesight) in a covered accident.
+
+
+---Investiments---
+Traditional IRAs:::are taxable upon withdrawal.
+Roth IRA (Individual Retirement Account):::A special type of retirement savings account that allows your money to grow tax-free. ""Roth IRA contributions are not tax deductible because they are made with after-tax income.""
+S & P 500:::An indexed annuity's rate of return is linked to a market index, most commonly the S&P 500. It tracks the performance of the top 500 publicly traded companies.
+
+
+
+---Signatures---
+The insurer:::does NOT sign an individual insurance application; their approval is shown by issuing the policy.
+The beneficiary:::Their signature is NOT required on an individual life insurance application
+
+
+
+---Money and Commissions---
+Deferred Insurance Commission:::A sales commission that is paid or recognized over time, rather than issued entirely upfront
+Fee-for-service:::Providers are paid for each service rendered. A health care provider claim may be settled using this payment methods.
+
+
+
+---Submitted Claims---
+Date of disability:::Under a waiver of premium rider, premiums are waived retroactively to the date of disability
+
+
+
+
+---Certificates and Reports---
+Certificate of insurance:::A standardized document issued by an insurance company that serves as quick, verifiable proof of your active insurance coverage. It summarizes essential details like the policyholder's name, types of coverage, policy limits, and effective dates.
+A conditional receipt:::offers temporary coverage contingent on underwriting approval. (pays the initial premium, and receives a document from the agent.)
+When coverage becomes effective:::The primary distinction between the insurability and approval types of conditional receipts is when?
+Producer's report:::A confidential report from the producer to the insurer's underwriter, providing observations and context relevant to underwriting.
+Binding receipt:::A temporary agreement issued by an insurer upon receiving your application and initial premium payment. It provides immediate, provisional coverage while the company evaluates your application and goes through the underwriting process.
+Conditional Receipt:::an insurance document issued to an applicant who pays their initial premium at the time of application. It provides temporary coverage during the underwriting process, but only on the condition that the applicant meets the company's insurability standards when the application or medical exam is completed.
+Entire Contract::: A provision that ensures the application is part of the issued policy.
+
+
+
+---Taxation---
+The exchange of an annuity for a life insurance policy:::The exchange of these policies will be taxed.
+Group disability benefits:::are tax-free only when the insured pays 100% of the premiums.
+Sole proprietors::: Who can deduct 100% of health insurance costs if they meet IRS criteria. (remove that amount from their taxed income)
+With a Modified Endowment Contract (MEC):::Withdrawals are taxed using LIFO (Last In, First Out), which means the 'current' earnings (gain) are considered withdrawn first.
+Non-MEC:::Sees premiums out first (FIFO) usually tax-free first.
+A Section 125 Plan::: What is required for payroll contributions to an HSA to be treated as pre-tax income.
+
+
+---Dividends---
+Accumulate without interest:::Not a valid policy dividend option for a life insurance policyowner. (no interest)
+Annually:::Participating policy dividends are typically paid annually.
+
+
+
+
+---People and Institutions---
+Commissioner:::(sometimes called a Director) is a state-level official who regulates the insurance industry, protects consumers, and ensures companies remain financially solvent.
+Insurer:::(often called an insurance company or insurance carrier) is the entity or organization that issues the policy. In exchange for your regular premium payments, the insurer assumes the financial risk and promises to compensate you for covered losses or damages.
+DIFS ( Department of Insurance and Financial Services):::regulates banks, credit unions, insurance companies, and mortgage lenders to protect consumers.
+NAIC (National Association of Insurance Commissioners):::standard-setting and regulatory support organization. Promotes uniform insurance laws and helps protect consumers.
+HMO (Health Maintenance Organization)::: is a type of health insurance plan that provides care through a specific network of doctors and hospitals. It generally requires members to use in-network providers, select a Primary Care Provider (PCP), and get referrals to see specialists.
+PCP (Primary Care Provider):::your main healthcare professional who manages your routine health needs, preventive care, and ongoing wellness.
+Attending physician:::A fully licensed, board-certified doctor who has completed all medical training.
+HIPAA (Health Insurance Portability and Accountability Act):::Federal U.S. law that sets national standards for protecting sensitive patient health information. Must relate to health status, healthcare, or payment for healthcare and be capable of identifying the individual. (do not apply to disability income plans)
+!!!Actuaries:::assess risk but do not administer self-insured health programs.
+
+
+---Laws and Codes---
+Michigan Insurance Code, Chapter 45:::Financial loss can be defined as 'loss of income'
+Section 1035:::allows tax-free exchanges only between like-kind insurance products, but an annuity cannot be exchanged for a life insurance policy.
+Section 125 Plan:::It allows employees to pay for qualified benefits, such as health insurance premiums and dependent care, using pre-tax income, which lowers both the employee's taxable income and the employer's payroll taxes.
+Legal Purpose:::Requires that the reasons for entering into a contract must be lawful and not against public policy.
+Law of Agency:::an appointed producer acts on behalf of the insurer for authorized activities.
+Consolidated Omnibus Budget Reconciliation Act (COBRA):::Allows terminated employees to continue group health insurance by paying the premiums themselves.
+ACA (Affordable Care Act):::Cost-sharing reductions require enrollment in a silver plan.
+Courts determining the intent of the parties:::Consider the entire contract.
+
+---Clauses---
+Consideration clause:::states that the policy is issued in exchange for the application representations and the premium payment.
+Incontestable clause:::prevents a provider from voiding coverage or denying a death benefit due to misstatements, omissions, or errors on the initial application after a specific timeframe has passed. (age is commonly wrong)
+Standard Suicide Clause:::After the suicide clause period ends, the death benefit is payable.
+change-of-occupation clause:::Moving to a higher-risk job can reduce the disability benefit to the amount the premium would have bought for that class. is NOT a required provision in an accident and health insurance policy
+
+
+---Medicare (care for the old)---
+Medicare:::a federal health insurance program in the United States. It primarily covers individuals aged 65 and older, younger people with qualifying disabilities, and anyone with End-Stage Renal Disease (permanent kidney failure).
+Medicare A:::hospital insurance" portion of Original Medicare. It primarily covers inpatient care in hospitals, skilled nursing facility (SNF) care, hospice care, and some home health services.
+Medicare A is automatically provided:::When a qualified individual applies for Social Security benefits. 
+Medicare B::: It covers medically necessary outpatient services, doctor visits, preventive care, and durable medical equipment.
+Medicare B must pay:::A monthly premium, an annual deductible, and 20% of covered charges above the deductible
+Medicare C:::(commonly known as Medicare Advantage) is an alternative to Original Medicare, offered by private insurance companies approved by Medicare. It bundles your Part A (hospital) and Part B (medical) coverage into a single, comprehensive plan, and almost always includes prescription drug coverage (Part D)
+Medicare D:::optional prescription drug coverage provided by private insurance companies approved by Medicare. It helps pay for both brand-name and generic medications. You can get it as a standalone plan to supplement Original Medicare or bundled within a Medicare Advantage plan.
+To enroll in Medicare Part C, you must have:::Medicare Part A and Part B.
+Medicare eligibility begins:::After two (2) years of Social Security Disability Income entitlement. The opposite SSDI to medicare is immediate.
+Medicare Supplement:::private health insurance that helps pay your out-of-pocket costs—like deductibles, copays, and coinsurance—not covered by Original Medicare Parts A and B.
+The agent and the applicant:::When a Medicare Supplement insurance policy is being replaced, who must sign the notice of replacement?
+Medicare supplement can be canceled:::Is guaranteed renewable but can only be canceled for nonpayment of premiums.
+
+
+---Medicaid (aid the broke)---
+Medicaid:::a joint federal and state program that helps cover medical costs for individuals and families with limited income and resources.
+
+
+
+
+---Numbers---
+63 days:::In determining whether a pre-existing condition applies, the enrollee CANNOT have more than 63 days' gap in health insurance.
+17.5 hours:::An employee is to work AT LEAST 17.5 hours in a normal week to be eligible for small employer group insurance.
+6 Months:::In order to save on premiums, a life Insurance policy can legally be backdated up to 6 months.
+30 days:::The acceptance of a credit life application requires the submission of a certificate of insurance to the insured within 30 days.
+2 Years:::Health policies become incontestable for misstatements (except fraud) after 2 years from the issue date.
+60 days:::Legal action against an insurer typically cannot begin until 60 days after a claim is submitted, per policy terms.
+18 months:::Late enrollees can face a maximum exclusion period of 18 months for group health coverage.
+
+
+---Things that are Annually---
+After an initial notice regarding privacy policies and practices is provided, an insured must receive these notices:::on an annual basis.
+
+
+---Circumstances---
+Consumer privacy regulations allow an insured's finacial information to be released when:::an authorized agency makes a written request to the insurer during an insurance fraud investigation
+When may a deferred insurance commission be paid to an individual:::Individual was a licensed producer at the time of the sale.
+Who reserves the right to renew a small employer health plan?:::The employer.
+Who must be notified when you want to operate under an assumed name?:::The Commissioner
+An invitation to make an offer:::Without a premium, an application is commonly treated as what?
+
+
+---Dental and other insurance---
+preventative and diagnostic services:::In most dental plans, a deductible typically is NOT applied to
+Endodontics:::Commonly excluded or limited in dental insurance policies. (this is treatment, not diagnostic)
+
+
+
+
+---Drugs and Alcohol---
+Claim denial:::An accident and health claim involves an injury sustained while the insured was intoxicated. What is the typical claim result under an intoxication exclusion?
+
+
+~~END`;
+
+function parseNotes(raw) {
+  const lines = raw.split('\n');
+  const cards = [], broken = [];
+  let currentSection = 'Section';
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line || line === '~~END') continue;
+    if (line.startsWith('---') && line.endsWith('---') && line.length > 6) {
+      const inner = line.slice(3, -3).trim();
+      if (inner) { currentSection = inner; continue; }
+      else { broken.push(line); continue; }
+    }
+    if (line.includes(':::')) {
+      const idx = line.indexOf(':::');
+      const word = line.slice(0, idx).trim();
+      const def = line.slice(idx + 3).trim();
+      if (!word && !def) continue;
+      cards.push({ word: word || '(no term)', def: def || '(no definition)', section: currentSection });
+      continue;
+    }
+    if (line.includes('::') && !line.includes(':::')) { broken.push(line); continue; }
+    if (/^-+[^-].*[^-]-+$/.test(line) || (line.startsWith('-') && !line.startsWith('---'))) { broken.push(line); continue; }
+  }
+  return { cards, broken };
+}
+
+let allCards = [], filteredCards = [], brokenLines = [];
+let currentIndex = 0, isFlipped = false, defFirst = false;
+let currentMode = 'study';
+let themeIndex = 0;
+const themes = ['theme-0','theme-1','theme-2'];
+
+let quizCards = [], quizIndex = 0, quizGot = 0, quizMissed = 0, quizRevealed = false, quizMissedCards = [];
+
+function init() {
+  const { cards, broken } = parseNotes(RAW_NOTES);
+  allCards = cards; brokenLines = broken;
+  const sel = document.getElementById('section-filter');
+  const sections = [...new Set(cards.map(c => c.section))];
+  sections.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; sel.appendChild(o); });
+  applyFilter();
+  renderBroken();
+}
+
+function applyFilter() {
+  const val = document.getElementById('section-filter').value;
+  filteredCards = val === 'all' ? [...allCards] : allCards.filter(c => c.section === val);
+  currentIndex = 0; isFlipped = false;
+  document.getElementById('card').classList.remove('flipped');
+  renderStudy();
+  updateStatTotal();
+}
+
+function updateStatTotal() {
+  document.getElementById('stat-total').textContent = filteredCards.length + ' cards';
+}
+
+function renderStudy() {
+  if (!filteredCards.length) {
+    document.getElementById('card-front-text').textContent = 'No cards.';
+    document.getElementById('card-back-text').textContent = '';
+    document.getElementById('current-section').textContent = '';
+    document.getElementById('card-counter').textContent = '';
+    document.getElementById('progress').style.width = '0%';
+    return;
+  }
+  const c = filteredCards[currentIndex];
+  document.getElementById('card-front-text').textContent = defFirst ? c.def : c.word;
+  document.getElementById('card-back-text').textContent = defFirst ? c.word : c.def;
+  document.getElementById('current-section').textContent = c.section;
+  document.getElementById('card-counter').textContent = (currentIndex + 1) + ' / ' + filteredCards.length;
+  document.getElementById('progress').style.width = Math.round(((currentIndex + 1) / filteredCards.length) * 100) + '%';
+}
+
+function flipCard() {
+  isFlipped = !isFlipped;
+  document.getElementById('card').classList.toggle('flipped', isFlipped);
+}
+
+function navigate(dir) {
+  if (!filteredCards.length) return;
+  isFlipped = false;
+  document.getElementById('card').classList.remove('flipped');
+  currentIndex = (currentIndex + dir + filteredCards.length) % filteredCards.length;
+  renderStudy();
+}
+
+function shuffle() {
+  for (let i = filteredCards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [filteredCards[i], filteredCards[j]] = [filteredCards[j], filteredCards[i]];
+  }
+  currentIndex = 0; isFlipped = false;
+  document.getElementById('card').classList.remove('flipped');
+  renderStudy();
+}
+
+function reset() { applyFilter(); }
+
+function toggleFlip() {
+  defFirst = !defFirst;
+  const track = document.getElementById('flip-toggle-track');
+  const label = document.getElementById('flip-toggle-label');
+  track.classList.toggle('on', defFirst);
+  label.textContent = defFirst ? 'Def first' : 'Term first';
+  isFlipped = false;
+  document.getElementById('card').classList.remove('flipped');
+  renderStudy();
+  if (currentMode === 'quiz') renderQuizCard();
+}
+
+function cycleTheme() {
+  document.body.classList.remove(themes[themeIndex]);
+  themeIndex = (themeIndex + 1) % themes.length;
+  document.body.classList.add(themes[themeIndex]);
+}
+
+function setMode(mode) {
+  currentMode = mode;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('mode-' + mode).classList.add('active');
+  document.getElementById('study-view').style.display = mode === 'study' ? '' : 'none';
+  document.getElementById('study-controls').style.display = mode === 'study' ? '' : 'none';
+  document.getElementById('quiz-view').style.display = mode === 'quiz' ? '' : 'none';
+  document.getElementById('done-screen').style.display = 'none';
+  if (mode === 'quiz') startQuiz(filteredCards);
+}
+
+function startQuiz(pool) {
+  quizCards = [...pool];
+  for (let i = quizCards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [quizCards[i], quizCards[j]] = [quizCards[j], quizCards[i]];
+  }
+  quizIndex = 0; quizGot = 0; quizMissed = 0; quizMissedCards = []; quizRevealed = false;
+  document.getElementById('quiz-view').style.display = '';
+  document.getElementById('done-screen').style.display = 'none';
+  document.getElementById('quiz-card').classList.remove('flipped');
+  renderQuizCard();
+  updateQuizScore();
+}
+
+function renderQuizCard() {
+  if (quizIndex >= quizCards.length) { showDone(); return; }
+  const c = quizCards[quizIndex];
+  document.getElementById('quiz-front-text').textContent = defFirst ? c.def : c.word;
+  document.getElementById('quiz-back-text').textContent = defFirst ? c.word : c.def;
+  document.getElementById('quiz-section').textContent = c.section;
+  document.getElementById('quiz-counter').textContent = (quizIndex + 1) + ' / ' + quizCards.length;
+  document.getElementById('quiz-progress').style.width = Math.round(((quizIndex + 1) / quizCards.length) * 100) + '%';
+  quizRevealed = false;
+  document.getElementById('quiz-card').classList.remove('flipped');
+  document.getElementById('quiz-answer-row').style.display = 'none';
+  document.getElementById('quiz-wait-row').style.display = '';
+}
+
+function quizFlip() {
+  if (quizRevealed) return;
+  quizRevealed = true;
+  document.getElementById('quiz-card').classList.add('flipped');
+  document.getElementById('quiz-answer-row').style.display = 'flex';
+  document.getElementById('quiz-wait-row').style.display = 'none';
+}
+
+function quizAnswer(got) {
+  if (got) quizGot++; else { quizMissed++; quizMissedCards.push(quizCards[quizIndex]); }
+  quizIndex++;
+  updateQuizScore();
+  if (quizIndex >= quizCards.length) { showDone(); return; }
+  renderQuizCard();
+}
+
+function updateQuizScore() {
+  document.getElementById('quiz-got').textContent = '✓ ' + quizGot + ' got it';
+  document.getElementById('quiz-missed').textContent = '✗ ' + quizMissed + ' missed';
+}
+
+function showDone() {
+  document.getElementById('quiz-view').style.display = 'none';
+  document.getElementById('done-screen').style.display = '';
+  const total = quizGot + quizMissed;
+  document.getElementById('done-sub').textContent = 'You went through all ' + total + ' cards.';
+  document.getElementById('done-got').textContent = '✓ ' + quizGot + ' got it (' + Math.round(quizGot / total * 100) + '%)';
+  document.getElementById('done-missed').textContent = '✗ ' + quizMissed + ' missed';
+  const retryBtn = document.getElementById('retry-missed-btn');
+  retryBtn.style.display = quizMissedCards.length > 0 ? '' : 'none';
+}
+
+function restartQuiz(missedOnly) {
+  document.getElementById('done-screen').style.display = 'none';
+  document.getElementById('quiz-view').style.display = '';
+  startQuiz(missedOnly ? quizMissedCards : filteredCards);
+}
+
+function toggleBroken() {
+  const c = document.getElementById('broken-container');
+  c.style.display = c.style.display === 'none' ? '' : 'none';
+}
+
+function renderBroken() {
+  if (!brokenLines.length) return;
+  const el = document.getElementById('stat-broken');
+  el.style.display = '';
+  el.textContent = brokenLines.length + ' broken line' + (brokenLines.length !== 1 ? 's' : '') + ' (tap)';
+  const c = document.getElementById('broken-container');
+  const ul = brokenLines.map(b => `<li>${b.length > 80 ? b.slice(0,80)+'…' : b}</li>`).join('');
+  c.innerHTML = `<div class="broken-section"><div class="broken-title">${brokenLines.length} formatting issue${brokenLines.length!==1?'s':''}</div><ul class="broken-list">${ul}</ul></div>`;
+  c.style.display = 'none';
+}
+
+document.addEventListener('keydown', e => {
+  if (currentMode === 'study') {
+    if (e.key === 'ArrowRight') navigate(1);
+    else if (e.key === 'ArrowLeft') navigate(-1);
+    else if (e.key === ' ') { e.preventDefault(); flipCard(); }
+  } else if (currentMode === 'quiz') {
+    if (e.key === ' ') { e.preventDefault(); if (!quizRevealed) quizFlip(); }
+    else if (e.key === 'ArrowRight' && quizRevealed) quizAnswer(true);
+    else if (e.key === 'ArrowLeft' && quizRevealed) quizAnswer(false);
+  }
+});
+
+init();
+</script>
+</body>
+</html>
