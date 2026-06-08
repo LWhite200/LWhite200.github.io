@@ -27,24 +27,15 @@ body.theme-1 {
 }
 
 body.theme-2 {
-  background: linear-gradient(
-    90deg,
-    red,
-    orange,
-    yellow,
-    green,
-    cyan,
-    blue,
-    purple,
-    red
-  );
-  background-size: 800% 800%;
-  animation: rainbowShift 25s linear infinite;
+  background: linear-gradient(135deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff, #c77dff);
+  background-size: 300% 300%;
+  animation: rainbowShift 8s ease-in-out infinite;
 }
 
 @keyframes rainbowShift {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
   h2.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
   .app { max-width: 640px; margin: 0 auto; }
@@ -63,10 +54,13 @@ body.theme-2 {
   .btn:active { transform: scale(0.97); }
   .btn.primary { background: #185FA5; color: #fff; border-color: #185FA5; }
   .btn.primary:hover { background: #0C447C; }
-  .btn.good { background: #3B6D11; color: #fff; border-color: #3B6D11; font-size: 15px; flex: 1; padding: 12px; }
+  .btn.good { background: #3B6D11; color: #fff; border-color: #3B6D11; font-size: 14px; flex: 1; padding: 12px 6px; }
   .btn.good:hover { background: #27500A; }
-  .btn.bad { background: #A32D2D; color: #fff; border-color: #A32D2D; font-size: 15px; flex: 1; padding: 12px; }
+  .btn.sorta { background: #8a6000; color: #fff; border-color: #8a6000; font-size: 14px; flex: 1; padding: 12px 6px; }
+  .btn.sorta:hover { background: #6a4900; }
+  .btn.bad { background: #A32D2D; color: #fff; border-color: #A32D2D; font-size: 14px; flex: 1; padding: 12px 6px; }
   .btn.bad:hover { background: #791F1F; }
+  .score-pill.sorta { background: #FFF3CD; color: #8a6000; }
   .progress-bar { height: 3px; background: var(--color-border-tertiary, rgba(0,0,0,0.12)); border-radius: 2px; margin-bottom: 10px; overflow: hidden; }
   .progress-fill { height: 100%; background: #185FA5; border-radius: 2px; transition: width 0.3s; }
   .section-label { font-size: 12px; font-weight: 500; color: var(--color-text-secondary); letter-spacing: 0.05em; text-transform: uppercase; text-align: center; margin-bottom: 8px; min-height: 16px; }
@@ -162,6 +156,7 @@ body.theme-2 {
   <div id="quiz-view" style="display:none">
     <div class="quiz-score">
       <span class="score-pill got" id="quiz-got">✓ 0 got it</span>
+      <span class="score-pill sorta" id="quiz-sorta">〜 0 sorta</span>
       <span class="score-pill missed" id="quiz-missed">✗ 0 missed</span>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="quiz-progress"></div></div>
@@ -175,9 +170,11 @@ body.theme-2 {
       <div class="card-spacer"></div>
     </div>
     <div class="quiz-row" id="quiz-answer-row" style="display:none">
-      <button class="btn bad" onclick="quizAnswer(false)">✗ Missed it</button>
-      <button class="btn good" onclick="quizAnswer(true)">✓ Got it</button>
+      <button class="btn bad" onclick="quizAnswer('missed')">✗ Didn't know</button>
+      <button class="btn sorta" onclick="quizAnswer('sorta')">〜 Sorta</button>
+      <button class="btn good" onclick="quizAnswer('got')">✓ Got it</button>
     </div>
+    <div style="text-align:center; font-size:11px; color:var(--color-text-secondary); opacity:0.6; margin-top:4px;" id="quiz-key-hint" style="display:none">← didn't · ↓ sorta · → got it</div>
     <div class="nav-row" id="quiz-wait-row">
       <span style="font-size:13px; color:var(--color-text-secondary);">Tap the card to reveal the answer</span>
     </div>
@@ -189,11 +186,12 @@ body.theme-2 {
       <div class="done-sub" id="done-sub"></div>
       <div class="done-stats">
         <div class="done-stat got" id="done-got"></div>
+        <div class="done-stat" style="background:#FFF3CD;color:#8a6000;" id="done-sorta"></div>
         <div class="done-stat missed" id="done-missed"></div>
       </div>
       <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
         <button class="btn primary" onclick="restartQuiz(false)">Restart all</button>
-        <button class="btn" onclick="restartQuiz(true)" id="retry-missed-btn">Retry missed only</button>
+        <button class="btn" onclick="restartQuiz(true)" id="retry-missed-btn">Retry missed &amp; sorta</button>
       </div>
     </div>
   </div>
@@ -202,40 +200,57 @@ body.theme-2 {
 </div>
 
 <script>
-const RAW_NOTES = `---Basic English Terms---
-Intimidation:::The unfair trade practice of using threat or force to restrict fair trade in the transaction of insurance.
-Recipient:::An individual, organization, or entity designated to receive something.
-Sole proprietors:::An unincorporated business owned and run by one individual.
-Mortality:::the frequency of death.
-Morbidity:::measure the frequency of sickness or accidents, not death.
-Insurable interest:::Foundational legal requirement that you must have a genuine financial or personal stake in the person or property being insured.
-Adverse Selection:::An information imbalance (asymmetric information) causes one party to take advantage of undisclosed knowledge.
-Corridor (in relation to universal life insurance):::The gap between the total death benefit and the policy's cash value (the amount the investiment grew) [Death Benefit − Cash Value]
-Indemnity:::A contractual agreement where one party (the indemnitor) guarantees to compensate another party (the indemnitee) for specific losses, damages, or liabilities.
-Assignment:::Concerns the transfer of contract rights
-Deductible:::The amount of money you must pay out-of-pocket for covered expenses before your insurance policy or financial benefit begins to cover the costs
+const RAW_NOTES = `---Life Insurance Policies---
+Adjustable life insurance (often called universal life):::A type of permanent life insurance that lets you change your policy's features as your financial situation evolves. (Allows the policyowner to change both the premium amount and the face amount of the policy.)
+Cash value life insurance:::A permanent policy where a portion of your premium goes toward an accumulating tax-deferred savings account. You can access these funds during your lifetime by taking tax-free policy loans or withdrawals, though it will reduce the ultimate death benefit.
+Credit Life Insurance:::A specialized, optional policy designed to pay off a borrower's outstanding debt (such as a mortgage, car loan, or large credit line) if the policyholder dies before it is fully repaid.
+Decreasing Term policy:::Overtime, the death benefit decreases while the premium stays level. This is for loan-coverage.
+Last Survivor Life insurance:::covers two or more people with the death benefit payable upon the last person's death?
+Renewable Term Life insurance policy:::the policy can be renewed at specified intervals without evidence of insurability. Premiums usually increase with age. (at a predetermined date or age, regardless of the insured's health)
+Survivorship life policy:::multiple protection policy pays on the death of the last person
+Universal life (UL) insurance:::is a permanent life insurance policy that lasts your entire life and features flexible premiums and adjustable death benefits. It includes a cash-value savings component that earns interest, which you can borrow against or use to pay premiums—though mismanaging it risks the policy lapsing.
+Variable Universal Life Policy:::Takes the flexible premium payments and adjustable death benefits inherent to a standard universal life policy and introduces the ability to allocate cash value into a variety of separate investment subaccounts like stocks, bonds, or mutual funds
+Whole life insurance policy (aka straight life):::(the insurer bears the investment risk) A permanent policy that provides lifelong coverage, a guaranteed death benefit, and a built-in cash value account that grows at a fixed, tax-deferred rate. It features level premiums that never increase, but costs significantly more than term life insurance.
 
 
----Damages and Promises---
-Fraud:::Provided false statements in relations to an insurance claim.
-Representation:::statements the applicant believes to be true, which most application statements are considered. Like occupation, hobbies, and personal health history.
-Warranties:::Statements guaranteed to be true.
-Concealment:::The intentional withholding of material facts
-Injury due to accident:::what is a covered peril under health insurance.
+---Health Insurance---
+Critical Illness Plan:::Generally cover multiple illnesses and provide a lump sum upon diagnosis.
+Guaranteed renewable policies:::Assures renewability up to a specific age of the insured, although the company reserves the right to change the premium rate on a class basis?
+Indemnity Plan:::An insurance policy that reimburse the insured directly for covered services.
+Noncancellable policies:::Guarantee renewal and guarantee the insurer cannot change premiums for the individual.
 
 
+---Group Insurance---
+Certificate of Insurance:::After enrolling in a group plan, an employee receives what summarizing their coverage and rights.
+Group disability insurance:::Employer-sponsored coverage that replaces part of your income if illness or injury prevents you from working.
+Group health insurance underwriting:::evaluates the group as a single entity, not individual members.
+Group Insurance:::A broad term for insurance that covers a group of people under one master policy, usually employees of a company.
+Group term life:::(A full-time employee who has been on the job 2 years)
+Master policy:::A single contract for group insurance issued to an employer.
+Non-contributory group health insurance plan:::(avoids adverse selection) is an employer-sponsored health insurance policy where the employer pays the entire premium cost for eligible employees. Employees are not required to make financial contributions, and no premium is deducted from their paychecks.
+Small Group Insurance:::1-50 employees can be on this plan.
 
 
----Authority---
-Authorization:::The authority given by an insurer or employer to a licensee to transact insurance or adjust claims on their behalf.
+---Other Insurance Policies and Options---
+Business Overhead Expense (BOE):::is a policy specifically designed to cover the ongoing costs of running a business — such as rent, utilities, and employee salaries — while the owner is disabled.
+Life annuity certain:::guarantees a minimum number of payments — if the annuitant dies early, the beneficiary receives the remaining guaranteed payments.
+Life income:::the settlement option that provides the highest income to the annuitant but leaves nothing for a beneficiary — all payments end at death.
+Modified Endowment Contract (MEC):::A designation given to cash value life insurance contracts that exceed legal tax limits .
+nonforfeiture provision:::an insurance clause that guarantees policyholders will not lose their accumulated cash value or benefits if a permanent policy lapses due to missed payments or is actively canceled. It ensures the equity built into the policy remains yours.
+Reinstated policy:::covers sickness starting 10 days after reinstatement to avoid pre-existing condition claims. (need proof of insurability usually)
+Wagering Contract:::(no insurable interest) two parties promise to exchange money or assets based entirely on the outcome of an uncertain future event.
 
 
-
----Partnership and Buisness---
-Cross-purchase:::arrangements have owners insure each other to fund buyouts.
-Collateral Assignment:::A policyowner to temporarily transfer ownership rights of a life insurance policy to a lender as security for a loan.
-
-
+---People and Institutions---
+Actuaries:::Assess risk but do not administer self-insured health programs.
+Attending physician:::A fully licensed, board-certified doctor who has completed all medical training.
+Commissioner (sometimes called a Director):::A state-level official who regulates the insurance industry, protects consumers, and ensures companies remain financially solvent.
+Department of Insurance and Financial Services (DIFS):::Regulates banks, credit unions, insurance companies, and mortgage lenders to protect consumers.
+Health Maintenance Organization (HMO):::A type of health insurance plan that provides care through a specific network of doctors and hospitals. It generally requires members to use in-network providers, select a Primary Care Provider (PCP), and get referrals to see specialists.
+Insurer (often called an insurance company or insurance carrier):::The entity or organization that issues the policy. In exchange for your regular premium payments, the insurer assumes the financial risk and promises to compensate you for covered losses or damages.
+Multi-line insurers:::Companies that sell more than one type of insurance are
+National Association of Insurance Commissioners (NAIC):::Standard-setting and regulatory support organization. Promotes uniform insurance laws and helps protect consumers.
+Primary Care Provider (PCP):::Your main healthcare professional who manages your routine health needs, preventive care, and ongoing wellness.
 
 
 ---Underwriting---
@@ -246,112 +261,133 @@ Primary risk factors:::Moral hazards, physical conditions, and occupation.
 Investigative Consumer Report:::Assess character and personal habits through third-party interviews.
 Inspection Report:::assess an applicant's character and reputation.
 APS (attending physician's statement):::Is requested by the insurer to obtain medical details for underwriting purposes.
+The producer's/agent's report:::Generally provides underwriting with the producer's personal observations about the applicant.
+A substandard applicant:::Can never be rejected outright by the insurer
+The underwriting process begins:::Immediately after an insurance application is submitted and the initial premium is paid.
 
 
-
----Healthcare and hospital stay---
-Utilization Review:::a systematic healthcare process where insurers and hospitals evaluate the medical necessity, appropriateness, and efficiency of treatments. It is designed to control costs and ensure patients receive the right level of care in the most suitable setting
-Hospital indemnity policy:::pays a fixed daily (or per confinement) benefit. "pays a stated benefit amount based on hospitalization duration, not actual expenses."
-Usual, customary, and reasonable fee:::How is a health provider reimbursed if they do NOT have an agreement in place with the insurance company?
-PPOs allow:::out-of-network care but at higher out-of-pocket costs for the patient.
-Mandatory second surgical opinions:::are a cost-control measure used by health insurers to evaluate the necessity of surgeries.
-Concurrent review:::monitors the necessity and duration of hospital stays to manage care and costs.
-Long-term care (LTC):::encompasses medical and non-medical services for individuals unable to perform Activities of Daily Living (ADLs) like bathing, dressing, or eating. Not acute hospital stays.
-Senile dementia:::Long-term care policies cannot exclude coverage.
+---MIB---
+Medical Information Bureau (MIB):::To help underwriters evaluate risk
+A MIB report:::Is best described as medical impairment information used to assess life or health insurance risk.
+THe MIB:::underwriting source acts as an information exchange by collecting general medical impairment data used by insurers?
 
 
-
----Types of Insurance---
-Life insurance policy:::A legally binding contract in which an insurance company provides a guaranteed lump-sum death benefit to designated beneficiaries in exchange for regular premium payments.
-An annuity:::is a contract with an insurance company designed for long-term retirement planning. You invest a lump sum or a series of premium payments in exchange for guaranteed periodic income, either immediately or deferred to a future date.
-Individual Life Insurance:::
-Credit Life Insurance::: a specialized, optional policy designed to pay off a borrower's outstanding debt (such as a mortgage, car loan, or large credit line) if the policyholder dies before it is fully repaid.
-Cash value life insurance:::is a permanent policy where a portion of your premium goes toward an accumulating tax-deferred savings account. You can access these funds during your lifetime by taking tax-free policy loans or withdrawals, though it will reduce the ultimate death benefit.
-Modified Endowment Contract (MEC):::A designation given to cash value life insurance contracts that exceed legal tax limits .
-A Health Savings Account (HSA):::A tax-advantaged medical savings account available to individuals enrolled in a High-Deductible Health Plan (HDHP). It acts like a "401(k) for healthcare," allowing you to contribute pre-tax money, grow earnings tax-free, and withdraw funds tax-free for qualified medical expenses
-Wagering Contract:::(no insurable interest) two parties promise to exchange money or assets based entirely on the outcome of an uncertain future event.
-Business Overhead Expense (BOE):::is a policy specifically designed to cover the ongoing costs of running a business — such as rent, utilities, and employee salaries — while the owner is disabled.
-Life income:::the settlement option that provides the highest income to the annuitant but leaves nothing for a beneficiary — all payments end at death.
-Life annuity certain:::guarantees a minimum number of payments — if the annuitant dies early, the beneficiary receives the remaining guaranteed payments.
-Whole life insurance policy:::(the insurer bears the investment risk) A permanent policy that provides lifelong coverage, a guaranteed death benefit, and a built-in cash value account that grows at a fixed, tax-deferred rate. It features level premiums that never increase, but costs significantly more than term life insurance.
-Decreasing Term policy:::Overtime, the death benefit decreases while the premium stays level. This is for loan-coverage.
-Adjustable life insurance (often called universal life) is a type of permanent life insurance that lets you change your policy's features as your financial situation evolves. (Allows the policyowner to change both the premium amount and the face amount of the policy.)
-Noncancellable policies:::Guarantee renewal and guarantee the insurer cannot change premiums for the individual.
-A reinstated policy:::covers sickness starting 10 days after reinstatement to avoid pre-existing condition claims.
-Guaranteed renewable policies:::Assures renewability up to a specific age of the insured, although the company reserves the right to change the premium rate on a class basis?
-Critical Illness Plan:::Generally cover multiple illnesses and provide a lump sum upon diagnosis.
-Indemnity Plan:::An insurance policy that reimburse the insured directly for covered services.
+---Laws and Codes---
+Affordable Care Act (ACA):::Cost-sharing reductions require enrollment in a silver plan. (must cover hospitalization)
+Consolidated Omnibus Budget Reconciliation Act (COBRA):::Allows terminated employees to continue group health insurance by paying the premiums themselves.
+Courts determining the intent of the parties:::Consider the entire contract.
+Health Insurance Portability and Accountability Act (HIPAA):::Federal U.S. law that sets national standards for protecting sensitive patient health information. Must relate to health status, healthcare, or payment for healthcare and be capable of identifying the individual. (do not apply to disability income plans)
+Illegal inducement does not occur when:::You are not bribing. Giving out a promotional item to the producer is fine as you are not persuading them into anything.
+Law of Agency:::an appointed producer acts on behalf of the insurer for authorized activities.
+Legal Purpose:::Requires that the reasons for entering into a contract must be lawful and not against public policy.
+Michigan Insurance Code, Chapter 45:::Financial loss can be defined as 'loss of income'. Cannot be defined as "additional premiums.' 
+Section 1035:::allows tax-free exchanges only between like-kind insurance products, but an annuity cannot be exchanged for a life insurance policy.
+Section 125 Plan:::It allows employees to pay for qualified benefits, such as health insurance premiums and dependent care, using pre-tax income, which lowers both the employee's taxable income and the employer's payroll taxes.
 
 
+---Clauses---
+Consideration clause:::states that the policy is issued in exchange for the application representations and the premium payment.
+Incontestable clause:::prevents a provider from voiding coverage or denying a death benefit due to misstatements, omissions, or errors on the initial application after a specific timeframe has passed. (age is commonly wrong)
+Standard Suicide Clause:::After the suicide clause period ends, the death benefit is payable.
+change-of-occupation clause:::Moving to a higher-risk job can reduce the disability benefit to the amount the premium would have bought for that class. is NOT a required provision in an accident and health insurance policy
 
----Group Insurance---
-Group Insurance:::A broad term for insurance that covers a group of people under one master policy, usually employees of a company.
-Group term life:::(A full-time employee who has been on the job 2 years)
-Small Group Insurance:::1-50 employees.
-Group disability insurance:::Employer-sponsored coverage that replaces part of your income if illness or injury prevents you from working.
-Certificate of Insurance:::After enrolling in a group plan, an employee receives what summarizing their coverage and rights.
-Master policy:::A single contract for group insurance issued to an employer.
-Group health insurance underwriting:::evaluates the group as a single entity, not individual members.
-Non-contributory group health insurance plan:::is an employer-sponsored health insurance policy where the employer pays the entire premium cost for eligible employees. Employees are not required to make financial contributions, and no premium is deducted from their paychecks.
+
+---Certificates and Reports---
+Binding receipt:::A temporary agreement issued by an insurer upon receiving your application and initial premium payment. It provides immediate, provisional coverage while the company evaluates your application and goes through the underwriting process.
+Certificate of insurance:::A standardized document issued by an insurance company that serves as quick, verifiable proof of your active insurance coverage. It summarizes essential details like the policyholder’s name, types of coverage, policy limits, and effective dates.
+Conditional Receipt:::an insurance document issued to an applicant who pays their initial premium at the time of application. It provides temporary coverage during the underwriting process, but only on the condition that the applicant meets the company’s insurability standards when the application or medical exam is completed.
+Disclosure authorization response:::Is simply a legal form or receipt confirming that the applicant has granted consent to the insurance company to collect, share, or look up their private data.
+Entire Contract::: A provision that ensures the application is part of the issued policy.
+Producer's report:::A confidential report from the producer to the insurer's underwriter, providing observations and context relevant to underwriting.
+When coverage becomes effective:::The primary distinction between the insurability and approval types of conditional receipts is when?
 
 
 ---Rider---
-Rider:::An optional add-on or amendment to a base policy that alters, expands, or restricts coverage. Often referred to as an endorsement or floating provision, a rider allows you to customize your plan to fit specific needs, usually for a slightly higher premium
-Payor rider:::guarantees premium payments on a juvenile policy if the payor dies or becomes disabled.
-Waiver of premium rider:::is an optional life insurance add-on that prevents your policy from lapsing if you become seriously ill or disabled and are unable to work. The insurance company waives or pays your premiums during this time, allowing you to maintain your coverage without further out-of-pocket payments.
-Term Rider:::Provide coverage on additional family members.
+Child term rider:::is an add-on to a parent’s life insurance policy that provides coverage for dependent children. It pays a death benefit if a child passes away while the rider is active, making it a cost-effective way to cover all your children (including future ones) under a single, flat fee
 Family Term Rider:::Allows both the spouse and children to be added to the primary insured's life insurance coverage.
+Guaranteed insurability rider:::allows her to purchase additional insurance at specific dates or events without evidence of insurability.
+Payor rider:::guarantees premium payments on a juvenile policy if the payor dies or becomes disabled.
+Rider:::An optional add-on or amendment to a base policy that alters, expands, or restricts coverage. Often referred to as an endorsement or floating provision, a rider allows you to customize your plan to fit specific needs, usually for a slightly higher premium
+Term Rider:::Provide coverage on additional family members.
+Waiver of premium rider:::is an optional life insurance add-on that prevents your policy from lapsing if you become seriously ill or disabled and are unable to work. The insurance company waives or pays your premiums during this time, allowing you to maintain your coverage without further out-of-pocket payments.
 
 
 ---Annuity---
-Variable Annuity:::Link values to investment performance and can hedge inflation.
+Annuity Certain:::(also known as a period certain or term certain annuity) is a financial contract that guarantees fixed payments for a specific number of years, regardless of how long the annuitant lives.
+Deferred annuity:::an insurance contract that allows you to invest money over time and accumulate funds tax-deferred. It begins paying a guaranteed, steady stream of income at a future date you choose—usually during retirement. The interest earned is (On a tax-deferred basis) but withdrawels may be taxed.
 Fixed immediate annuity:::You exchange a lump-sum for a guaranteed, predictable stream of income that begins right away, typically within 30 days. It functions like a personal pension, eliminating market risk and providing reliable cash flow. Payment amounts are determined by three factors: starting principal, interest rate, and the length of the income period.
-
+Variable Annuity:::Link values to investment performance and can hedge inflation.
 
 
 ---Disability---
+Accidental Death and Dismemberment (AD&D):::AD&D is a specialized supplemental insurance policy (often offered through employers) that pays a cash benefit if you die or suffer severe physical injuries (such as losing limbs or eyesight) in a covered accident.
 Disability income coverage:::A contract feature that guarantees income replacement if an illness or injury prevents you from working.
 Income replacement disability policies (disability):::May pay even when some duties can still be performed, depending on the disability definition.
-Recurrent disability provisions:::You can start receiving benefits again from a disability that came back without waiting another 90 days.
 Key Person Disability Insurance:::pays benefits to the employer to offset financial losses caused by a key employee's disability.
+Loss of income:::Insurance point of view of the main risk of disability.
+Own occupation clause:::defines total disability as being unable to perform the major duties of the insured's regular occupation? Like brick layer breaks hand, but still get's full disabilty as a substitute teacher.
+Recurrent disability provisions:::You can start receiving benefits again from a disability that came back without waiting another 90 days.
 Partial Disability:::pays benefits when an insured can still work but cannot perform all major job duties, resulting in a loss of income.
-Accidental Death and Dismemberment (AD&D):::AD&D is a specialized supplemental insurance policy (often offered through employers) that pays a cash benefit if you die or suffer severe physical injuries (such as losing limbs or eyesight) in a covered accident.
+Presumptive Disability:::a provision where specific severe medical conditions are automatically assumed to qualify for disability benefits.
+
+
+---Healthcare and hospital stay---
+Concurrent review:::monitors the necessity and duration of hospital stays to manage care and costs.
+Health Savings Account (HSA):::A tax-advantaged medical savings account available to individuals enrolled in a High-Deductible Health Plan (HDHP). It acts like a "401(k) for healthcare," allowing you to contribute pre-tax money, grow earnings tax-free, and withdraw funds tax-free for qualified medical expenses
+Hospital indemnity policy:::pays a fixed daily (or per confinement) benefit. "pays a stated benefit amount based on hospitalization duration, not actual expenses."
+Mandatory second surgical opinions:::are a cost-control measure used by health insurers to evaluate the necessity of surgeries.
+Long-term care (LTC):::encompasses medical and non-medical services for individuals unable to perform Activities of Daily Living (ADLs) like bathing, dressing, or eating. Not acute hospital stays.
+PPOs allow:::out-of-network care but at higher out-of-pocket costs for the patient.
+Preferred Provider Organization (PPO):::a flexible health insurance plan that allows you to see any doctor or specialist without a referral. You pay less when using the plan’s network of "preferred" providers, but you still have the freedom to visit out-of-network doctors at a higher out-of-pocket cost.
+Senile dementia:::Long-term care policies cannot exclude coverage.
+Usual, customary, and reasonable fee:::How is a health provider reimbursed if they do NOT have an agreement in place with the insurance company?
+Utilization Review:::a systematic healthcare process where insurers and hospitals evaluate the medical necessity, appropriateness, and efficiency of treatments. It is designed to control costs and ensure patients receive the right level of care in the most suitable setting
+
+
+---Dental and other insurance---
+Dental Expense Insurance:::a specialized policy that helps pay for the costs of routine oral care, preventative treatments, and major dental procedures. (Gum disease)
+Endodontics:::Commonly excluded or limited in dental insurance policies. (this is treatment, not diagnostic)
+Preventative and Diagnostic Services:::In most dental plans, a deductible typically is NOT applied to
+
+
+---Damages and Promises---
+Fraud:::Provided false statements in relations to an insurance claim.
+Representation:::statements the applicant believes to be true, which most application statements are considered. Like occupation, hobbies, and personal health history.
+Warranties:::Statements guaranteed to be true.
+Concealment:::The intentional withholding of material facts
+Injury due to accident:::what is a covered peril under health insurance.
+Misappropriation:::A producer who diverts funds from an insurer may be found guilty of
+Illegal inducement:::Occurs when someone uses deception, fraud, or unlawful incentives to persuade another person to do something they normally wouldn’t do, such as signing a contract, committing a crime, or referring business.
+
+
+---Authority---
+Authorization:::The authority given by an insurer or employer to a licensee to transact insurance or adjust claims on their behalf.
+Apparent Authority:::A reasonable person believes the producer has authority based on the insurer's actions or representations?
+
+
+---Partnership and Business---
+Cross-purchase:::arrangements have owners insure each other to fund buyouts.
+Collateral Assignment:::A policyowner to temporarily transfer ownership rights of a life insurance policy to a lender as security for a loan.
+foreign and authorized:::An insurer incorporated in Florida is licensed and doing business in Wisconsin. In Wisconsin, this insurer is considered
+beneficiary change request:::The recording method requires the insurer to record the change in its records for it to be effective.
 
 
 ---Investiments---
-Traditional IRAs:::are taxable upon withdrawal.
+Traditional IRAs:::are taxable upon withdrawal. ((The interest earned is taxed upon distribution. When you finally withdraw (distribute) the funds, both your original tax-deductible contributions and the accumulated earnings are taxed as ordinary income))
 Roth IRA (Individual Retirement Account):::A special type of retirement savings account that allows your money to grow tax-free. ""Roth IRA contributions are not tax deductible because they are made with after-tax income.""
 S & P 500:::An indexed annuity's rate of return is linked to a market index, most commonly the S&P 500. It tracks the performance of the top 500 publicly traded companies.
 
 
-
 ---Signatures---
-The insurer:::does NOT sign an individual insurance application; their approval is shown by issuing the policy.
-The beneficiary:::Their signature is NOT required on an individual life insurance application
-
+Applicant:::Any changes to an insurance application must be initialed by...
+Beneficiary:::Their signature is NOT required on an individual life insurance application
+Insurer:::does NOT sign an individual insurance application; their approval is shown by issuing the policy.
 
 
 ---Money and Commissions---
 Deferred Insurance Commission:::A sales commission that is paid or recognized over time, rather than issued entirely upfront
 Fee-for-service:::Providers are paid for each service rendered. A health care provider claim may be settled using this payment methods.
-
-
-
----Submitted Claims---
-Date of disability:::Under a waiver of premium rider, premiums are waived retroactively to the date of disability
-
-
-
-
----Certificates and Reports---
-Certificate of insurance:::A standardized document issued by an insurance company that serves as quick, verifiable proof of your active insurance coverage. It summarizes essential details like the policyholder's name, types of coverage, policy limits, and effective dates.
-A conditional receipt:::offers temporary coverage contingent on underwriting approval. (pays the initial premium, and receives a document from the agent.)
-When coverage becomes effective:::The primary distinction between the insurability and approval types of conditional receipts is when?
-Producer's report:::A confidential report from the producer to the insurer's underwriter, providing observations and context relevant to underwriting.
-Binding receipt:::A temporary agreement issued by an insurer upon receiving your application and initial premium payment. It provides immediate, provisional coverage while the company evaluates your application and goes through the underwriting process.
-Conditional Receipt:::an insurance document issued to an applicant who pays their initial premium at the time of application. It provides temporary coverage during the underwriting process, but only on the condition that the applicant meets the company's insurability standards when the application or medical exam is completed.
-Entire Contract::: A provision that ensures the application is part of the issued policy.
-
+Paid-up dividend option:::allows a whole life insurance policyholder to use annual dividends to purchase small, fully paid-for additions of life insurance. Money normally would go in your pocket. This option automatically increases both your policy’s cash value and your overall death benefit without requiring any additional medical underwriting or out-of-pocket premiums. (The policy may be paid up early by using policy dividends)
 
 
 ---Taxation---
@@ -361,6 +397,8 @@ Sole proprietors::: Who can deduct 100% of health insurance costs if they meet I
 With a Modified Endowment Contract (MEC):::Withdrawals are taxed using LIFO (Last In, First Out), which means the 'current' earnings (gain) are considered withdrawn first.
 Non-MEC:::Sees premiums out first (FIFO) usually tax-free first.
 A Section 125 Plan::: What is required for payroll contributions to an HSA to be treated as pre-tax income.
+Deductible by the employer:::Employer contributions for employer provided health insurance are generally
+Medigap premiums:::are the only expense from your list that cannot be paid for tax-free from a Health Savings Account (HSA).
 
 
 ---Dividends---
@@ -368,35 +406,11 @@ Accumulate without interest:::Not a valid policy dividend option for a life insu
 Annually:::Participating policy dividends are typically paid annually.
 
 
-
-
----People and Institutions---
-Commissioner:::(sometimes called a Director) is a state-level official who regulates the insurance industry, protects consumers, and ensures companies remain financially solvent.
-Insurer:::(often called an insurance company or insurance carrier) is the entity or organization that issues the policy. In exchange for your regular premium payments, the insurer assumes the financial risk and promises to compensate you for covered losses or damages.
-DIFS ( Department of Insurance and Financial Services):::regulates banks, credit unions, insurance companies, and mortgage lenders to protect consumers.
-NAIC (National Association of Insurance Commissioners):::standard-setting and regulatory support organization. Promotes uniform insurance laws and helps protect consumers.
-HMO (Health Maintenance Organization)::: is a type of health insurance plan that provides care through a specific network of doctors and hospitals. It generally requires members to use in-network providers, select a Primary Care Provider (PCP), and get referrals to see specialists.
-PCP (Primary Care Provider):::your main healthcare professional who manages your routine health needs, preventive care, and ongoing wellness.
-Attending physician:::A fully licensed, board-certified doctor who has completed all medical training.
-HIPAA (Health Insurance Portability and Accountability Act):::Federal U.S. law that sets national standards for protecting sensitive patient health information. Must relate to health status, healthcare, or payment for healthcare and be capable of identifying the individual. (do not apply to disability income plans)
-!!!Actuaries:::assess risk but do not administer self-insured health programs.
-
-
----Laws and Codes---
-Michigan Insurance Code, Chapter 45:::Financial loss can be defined as 'loss of income'
-Section 1035:::allows tax-free exchanges only between like-kind insurance products, but an annuity cannot be exchanged for a life insurance policy.
-Section 125 Plan:::It allows employees to pay for qualified benefits, such as health insurance premiums and dependent care, using pre-tax income, which lowers both the employee's taxable income and the employer's payroll taxes.
-Legal Purpose:::Requires that the reasons for entering into a contract must be lawful and not against public policy.
-Law of Agency:::an appointed producer acts on behalf of the insurer for authorized activities.
-Consolidated Omnibus Budget Reconciliation Act (COBRA):::Allows terminated employees to continue group health insurance by paying the premiums themselves.
-ACA (Affordable Care Act):::Cost-sharing reductions require enrollment in a silver plan.
-Courts determining the intent of the parties:::Consider the entire contract.
-
----Clauses---
-Consideration clause:::states that the policy is issued in exchange for the application representations and the premium payment.
-Incontestable clause:::prevents a provider from voiding coverage or denying a death benefit due to misstatements, omissions, or errors on the initial application after a specific timeframe has passed. (age is commonly wrong)
-Standard Suicide Clause:::After the suicide clause period ends, the death benefit is payable.
-change-of-occupation clause:::Moving to a higher-risk job can reduce the disability benefit to the amount the premium would have bought for that class. is NOT a required provision in an accident and health insurance policy
+---Drugs and Alcohol---
+Claim denial:::An accident and health claim involves an injury sustained while the insured was intoxicated. What is the typical claim result under an intoxication exclusion?
+After an initial notice regarding privacy policies and practices is provided, an insured must receive these notices:::on an annual basis.
+Date of disability:::Under a waiver of premium rider, premiums are waived retroactively to the date of disability
+accidental death benefit (double indemnity):::Receives double the normal death benefit if death is caused by a covered accident.
 
 
 ---Medicare (care for the old)---
@@ -410,14 +424,10 @@ Medicare D:::optional prescription drug coverage provided by private insurance c
 To enroll in Medicare Part C, you must have:::Medicare Part A and Part B.
 Medicare eligibility begins:::After two (2) years of Social Security Disability Income entitlement. The opposite SSDI to medicare is immediate.
 Medicare Supplement:::private health insurance that helps pay your out-of-pocket costs—like deductibles, copays, and coinsurance—not covered by Original Medicare Parts A and B.
+Meducare Supplement A:::Basic core benefits only. A - (hospital insurance), B - (Medical insurance) -- ((Deductible payments for the first 60 days of hospitalization under Medicare hospitalization insurance))
 The agent and the applicant:::When a Medicare Supplement insurance policy is being replaced, who must sign the notice of replacement?
 Medicare supplement can be canceled:::Is guaranteed renewable but can only be canceled for nonpayment of premiums.
-
-
----Medicaid (aid the broke)---
 Medicaid:::a joint federal and state program that helps cover medical costs for individuals and families with limited income and resources.
-
-
 
 
 ---Numbers---
@@ -428,32 +438,48 @@ Medicaid:::a joint federal and state program that helps cover medical costs for 
 2 Years:::Health policies become incontestable for misstatements (except fraud) after 2 years from the issue date.
 60 days:::Legal action against an insurer typically cannot begin until 60 days after a claim is submitted, per policy terms.
 18 months:::Late enrollees can face a maximum exclusion period of 18 months for group health coverage.
+Every Year:::A Universal Life policyowner must receive a notice of cash surrender value at LEAST every
+20 or more:::Under federal continuation rules for group medical coverage, at what group size threshold does COBRA typically apply?
+!!!15 days:::An insurer must furnish to a claimant forms for filing proof of loss within ___ days upon receiving a notice of claim.
+10 days:::Kathy pays a monthly premium on her health insurance policy. How long is her grace period?
+31 days:::Greg had recently been terminated from his job that covered him for group life insurance. How long does he have to convert his coverage to an individual policy? ((Jeff recently received a termination notice regarding his employer's group health insurance plan. He has been enrolled in the plan for three and a half years. How long does Jeff have to make an application for a converted policy?))
+1%:::If a Medicare beneficiary did NOT enroll in Medicare Part D during the initial enrollment period and decides to enroll later, the beneficiary must pay a penalty of what percent for each month of delay?
+first page:::The renewability provision for an individual long-term care insurance policy must be located on the policy form's
 
 
----Things that are Annually---
-After an initial notice regarding privacy policies and practices is provided, an insured must receive these notices:::on an annual basis.
+---Test---
+Only to the extent that her unreimbursed medical expenses exceed 7.5% of her AGI (Adjusted Gross Income):::Tanya pays premiums for an individual health insurance policy and itemizes deductions. When can she deduct these premiums as medical expenses?
+Straight life (whole life):::Which annuity option will provide the highest monthly payout upon annuitization?
+Workers' compensation benefits:::What generally compensates employees for work-related injuries or illnesses?
+Social Security:::Long-Term Disability (LTD) benefits are typically coordinated with which benefit plan?
+Permanent partial disability:::Which type of disability involves less than total impairment but is considered permanent?
+Income tax and a penalty tax:::What is generally assessed when a participant withdraws retirement savings from an IRA before reaching age 59½?
+The face amount and premium will remain constant throughout the 10-year period:::Karissa purchases a 10-year level term life insurance policy with a $200,000 death benefit. Which statement is true?
+The intentionally self-inflicted injury exclusion:::Which policy exclusion restricts coverage to unexpected events?
+Under a health policy's reinstatement provision, losses from an illness are covered immediately after reinstatement. (NOT correct):::Which statement regarding the grace period and reinstatement provisions in health insurance policies is NOT correct?
+Enroll within the specified eligibility period:::What must an eligible individual do to obtain group health insurance without providing evidence of insurability?
+They are required to purchase all coverages offered by the trust. (EXCEPT):::All of the following are true of participants in multiple-employer trusts EXCEPT:
+Provide evidence of insurability to the insurer:::What must an insured do to activate the reinstatement provision of a lapsed life insurance policy?
+Until policy termination, provided proof of incapacity is supplied:::How long must an insured's unmarried child who is incapable of self-support due to a mental handicap remain covered under the parent's health policy?
+Provide funds to help pay estate taxes:::How are survivorship life insurance policies useful in estate planning?
+An authorized agency makes a written request to the insurer during an insurance fraud investigation:::When may an insured's financial information be released under consumer privacy regulations?
+The individual was a licensed producer at the time of the sale.:::When may a deferred insurance commission be paid to an individual?
+The employer:::Who reserves the right to renew a small employer health plan?
+The Commissioner:::Who must be notified when operating under an assumed name?
+An invitation to make an offer:::Without an accompanying premium, an insurance application is commonly treated as what?
 
 
----Circumstances---
-Consumer privacy regulations allow an insured's finacial information to be released when:::an authorized agency makes a written request to the insurer during an insurance fraud investigation
-When may a deferred insurance commission be paid to an individual:::Individual was a licensed producer at the time of the sale.
-Who reserves the right to renew a small employer health plan?:::The employer.
-Who must be notified when you want to operate under an assumed name?:::The Commissioner
-An invitation to make an offer:::Without a premium, an application is commonly treated as what?
+---Basic English Terms---
+Adverse Selection:::An information imbalance (asymmetric information) causes one party to take advantage of undisclosed knowledge.
+Corridor (in relation to universal life insurance):::The gap between the total death benefit and the policy's cash value (the amount the investiment grew) [Death Benefit − Cash Value]
+Indemnity:::A contractual agreement where one party (the indemnitor) guarantees to compensate another party (the indemnitee) for specific losses, damages, or liabilities.
+Insurable interest:::Foundational legal requirement that you must have a genuine financial or personal stake in the person or property being insured.
+Morbidity:::measure the frequency of sickness or accidents, not death.
+Sole proprietors:::An unincorporated business owned and run by one individual.
+Unqualified proposal:::An offer in contract law that is clear, definite, and leaves no room for negotiation.
 
 
----Dental and other insurance---
-preventative and diagnostic services:::In most dental plans, a deductible typically is NOT applied to
-Endodontics:::Commonly excluded or limited in dental insurance policies. (this is treatment, not diagnostic)
-
-
-
-
----Drugs and Alcohol---
-Claim denial:::An accident and health claim involves an injury sustained while the insured was intoxicated. What is the typical claim result under an intoxication exclusion?
-
-
-~~END`;
+---Done---`;
 
 function parseNotes(raw) {
   const lines = raw.split('\n');
@@ -487,7 +513,10 @@ let currentMode = 'study';
 let themeIndex = 0;
 const themes = ['theme-0','theme-1','theme-2'];
 
-let quizCards = [], quizIndex = 0, quizGot = 0, quizMissed = 0, quizRevealed = false, quizMissedCards = [];
+let quizCards = [], quizIndex = 0, quizGot = 0, quizSorta = 0, quizMissed = 0, quizRevealed = false;
+// quizStatus: map from card index in quizCards to { sortaStreak, needed }
+// needed: how many consecutive sortas needed to retire (starts at 2, after a miss resets to 1 more)
+let quizStatus = [], quizQueue = [], quizQueueIndex = 0;
 
 function init() {
   const { cards, broken } = parseNotes(RAW_NOTES);
@@ -584,12 +613,18 @@ function setMode(mode) {
 }
 
 function startQuiz(pool) {
+  // Shuffle pool
   quizCards = [...pool];
   for (let i = quizCards.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [quizCards[i], quizCards[j]] = [quizCards[j], quizCards[i]];
   }
-  quizIndex = 0; quizGot = 0; quizMissed = 0; quizMissedCards = []; quizRevealed = false;
+  quizGot = 0; quizSorta = 0; quizMissed = 0; quizRevealed = false;
+  // Status: each card starts with sortaStreak=0, needed=2
+  quizStatus = quizCards.map(() => ({ sortaStreak: 0, needed: 2, retired: false }));
+  // Build initial queue: indices of all cards
+  quizQueue = quizCards.map((_, i) => i);
+  quizQueueIndex = 0;
   document.getElementById('quiz-view').style.display = '';
   document.getElementById('done-screen').style.display = 'none';
   document.getElementById('quiz-card').classList.remove('flipped');
@@ -598,16 +633,26 @@ function startQuiz(pool) {
 }
 
 function renderQuizCard() {
-  if (quizIndex >= quizCards.length) { showDone(); return; }
+  const remaining = quizQueue.filter(i => !quizStatus[i].retired);
+  if (remaining.length === 0) { showDone(); return; }
+  // Find current position in queue skipping retired
+  while (quizQueueIndex < quizQueue.length && quizStatus[quizQueue[quizQueueIndex]].retired) {
+    quizQueueIndex++;
+  }
+  if (quizQueueIndex >= quizQueue.length) { showDone(); return; }
+  quizIndex = quizQueue[quizQueueIndex];
   const c = quizCards[quizIndex];
   document.getElementById('quiz-front-text').textContent = defFirst ? c.def : c.word;
   document.getElementById('quiz-back-text').textContent = defFirst ? c.word : c.def;
   document.getElementById('quiz-section').textContent = c.section;
-  document.getElementById('quiz-counter').textContent = (quizIndex + 1) + ' / ' + quizCards.length;
-  document.getElementById('quiz-progress').style.width = Math.round(((quizIndex + 1) / quizCards.length) * 100) + '%';
+  const total = quizCards.length;
+  const retired = quizStatus.filter(s => s.retired).length;
+  document.getElementById('quiz-counter').textContent = retired + ' / ' + total + ' mastered · ' + remaining.length + ' remaining';
+  document.getElementById('quiz-progress').style.width = Math.round((retired / total) * 100) + '%';
   quizRevealed = false;
   document.getElementById('quiz-card').classList.remove('flipped');
   document.getElementById('quiz-answer-row').style.display = 'none';
+  document.getElementById('quiz-key-hint').style.display = 'none';
   document.getElementById('quiz-wait-row').style.display = '';
 }
 
@@ -617,36 +662,67 @@ function quizFlip() {
   document.getElementById('quiz-card').classList.add('flipped');
   document.getElementById('quiz-answer-row').style.display = 'flex';
   document.getElementById('quiz-wait-row').style.display = 'none';
+  document.getElementById('quiz-key-hint').style.display = '';
 }
 
-function quizAnswer(got) {
-  if (got) quizGot++; else { quizMissed++; quizMissedCards.push(quizCards[quizIndex]); }
-  quizIndex++;
+function quizAnswer(result) {
+  const st = quizStatus[quizIndex];
+  if (result === 'got') {
+    quizGot++;
+    st.retired = true;
+    // Only mark as clean if never had trouble
+  } else if (result === 'sorta') {
+    quizSorta++;
+    st.hadTrouble = true;
+    st.sortaStreak++;
+    if (st.sortaStreak >= st.needed) {
+      st.retired = true;
+    } else {
+      const offset = 3 + Math.floor(Math.random() * 3);
+      const insertAt = quizQueueIndex + offset;
+      quizQueue.splice(Math.min(insertAt, quizQueue.length), 0, quizIndex);
+    }
+  } else { // missed
+    quizMissed++;
+    st.hadTrouble = true;
+    st.sortaStreak = 0;
+    st.needed = 1; // After a miss, just 1 sorta in a row retires it
+    const offset = 3 + Math.floor(Math.random() * 3);
+    const insertAt = quizQueueIndex + offset;
+    quizQueue.splice(Math.min(insertAt, quizQueue.length), 0, quizIndex);
+  }
   updateQuizScore();
-  if (quizIndex >= quizCards.length) { showDone(); return; }
+  quizQueueIndex++;
   renderQuizCard();
 }
 
 function updateQuizScore() {
   document.getElementById('quiz-got').textContent = '✓ ' + quizGot + ' got it';
+  document.getElementById('quiz-sorta').textContent = '〜 ' + quizSorta + ' sorta';
   document.getElementById('quiz-missed').textContent = '✗ ' + quizMissed + ' missed';
 }
 
 function showDone() {
   document.getElementById('quiz-view').style.display = 'none';
   document.getElementById('done-screen').style.display = '';
-  const total = quizGot + quizMissed;
-  document.getElementById('done-sub').textContent = 'You went through all ' + total + ' cards.';
-  document.getElementById('done-got').textContent = '✓ ' + quizGot + ' got it (' + Math.round(quizGot / total * 100) + '%)';
+  const total = quizCards.length;
+  document.getElementById('done-sub').textContent = 'You mastered all ' + total + ' cards!';
+  document.getElementById('done-got').textContent = '✓ ' + quizGot + ' got it';
+  document.getElementById('done-sorta').textContent = '〜 ' + quizSorta + ' sorta';
   document.getElementById('done-missed').textContent = '✗ ' + quizMissed + ' missed';
-  const retryBtn = document.getElementById('retry-missed-btn');
-  retryBtn.style.display = quizMissedCards.length > 0 ? '' : 'none';
+  document.getElementById('retry-missed-btn').style.display = (quizMissed > 0 || quizSorta > 0) ? '' : 'none';
 }
 
 function restartQuiz(missedOnly) {
   document.getElementById('done-screen').style.display = 'none';
   document.getElementById('quiz-view').style.display = '';
-  startQuiz(missedOnly ? quizMissedCards : filteredCards);
+  if (missedOnly) {
+    // Retry cards that were missed OR needed multiple sortas (weren't clean first-try gets)
+    const retryPool = quizCards.filter((_, i) => quizStatus[i].hadTrouble);
+    startQuiz(retryPool.length > 0 ? retryPool : filteredCards);
+  } else {
+    startQuiz(filteredCards);
+  }
 }
 
 function toggleBroken() {
@@ -672,8 +748,12 @@ document.addEventListener('keydown', e => {
     else if (e.key === ' ') { e.preventDefault(); flipCard(); }
   } else if (currentMode === 'quiz') {
     if (e.key === ' ') { e.preventDefault(); if (!quizRevealed) quizFlip(); }
-    else if (e.key === 'ArrowRight' && quizRevealed) quizAnswer(true);
-    else if (e.key === 'ArrowLeft' && quizRevealed) quizAnswer(false);
+    else if (e.key === '1' && quizRevealed) quizAnswer('missed');
+    else if (e.key === '2' && quizRevealed) quizAnswer('sorta');
+    else if (e.key === '3' && quizRevealed) quizAnswer('got');
+    else if (e.key === 'ArrowRight' && quizRevealed) quizAnswer('got');
+    else if (e.key === 'ArrowLeft' && quizRevealed) quizAnswer('missed');
+    else if (e.key === 'ArrowDown' && quizRevealed) quizAnswer('sorta');
   }
 });
 
