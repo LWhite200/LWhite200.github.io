@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Script Rehearsal Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #0b0f19;
+            --bg-card: #131d31;
+            --bg-hover: #1e293b;
+            --accent-primary: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.2);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
+            --border-highlight: #334155;
+            --radius: 16px;
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
+
+        .app-shell {
+            width: 100%;
+            max-width: 680px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-highlight);
+            border-radius: var(--radius);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            padding: 24px 32px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.3);
+        }
+
+        .logo-area h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            color: var(--text-main);
+        }
+
+        .logo-area p {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .badge {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .content-body {
+            padding: 32px;
+        }
+
+        /* Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .menu-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 22px 24px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .menu-card:hover {
+            border-color: var(--accent-primary);
+            background: rgba(59, 130, 246, 0.08);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px var(--accent-glow);
+        }
+
+        .menu-info h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .menu-info p {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+        }
+
+        .menu-arrow {
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .menu-card:hover .menu-arrow {
+            color: var(--accent-primary);
+            transform: translateX(4px);
+        }
+
+        /* Workspace Session */
+        .workspace-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: 1px solid var(--border-highlight);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .back-btn:hover {
+            background: var(--bg-hover);
+            color: var(--text-main);
+            border-color: var(--text-main);
+        }
+
+        .counter-display {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+            background: rgba(59, 130, 246, 0.1);
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(59, 130, 246, 0.15);
+        }
+
+        .script-card {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid var(--border-highlight);
+            border-radius: 14px;
+            padding: 36px 28px;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 24px;
+            position: relative;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
+        }
+
+        .card-tag {
+            position: absolute;
+            top: 16px;
+            left: 20px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        .card-text {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .call-meta {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            font-size: 0.75rem;
+            color: var(--accent-primary);
+            font-weight: 600;
+            background: rgba(59, 130, 246, 0.12);
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        /* Interactive controls */
+        .controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-primary);
+            color: white;
+            box-shadow: 0 4px 14px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-hover);
+            color: var(--text-main);
+            border: 1px solid var(--border-highlight);
+        }
+
+        .btn-secondary:hover {
+            background-color: #334155;
+            border-color: var(--text-muted);
+        }
+
+        .btn-full {
+            grid-column: span 2;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-shell">
+    <header>
+        <div class="logo-area">
+            <h1>Script Studio</h1>
+            <p>Interactive Rehearsal Platform</p>
+        </div>
+        <div id="header-badge" class="badge hidden">Live Session</div>
+    </header>
+
+    <div class="content-body">
+        <!-- Main Navigation Menu -->
+        <div id="main-menu" class="menu-grid">
+            <div class="menu-card" onclick="startMode('objections')">
+                <div class="menu-info">
+                    <h3>Objection Handler</h3>
+                    <p>Practice dynamic counter-responses with randomized prompts</p>
+                </div>
+                <div class="menu-arrow">&rarr;</div>
+            </div>
+            <div class="menu-card" onclick="startMode('factfinder')">
+                <div class="menu-info">
+                    <h3>Fact Finder Sequence</h3>
+                    <p>Step-by-step walkthrough of your complete client discovery framework</p>
+                </div>
+                <div class="menu-arrow">&rarr;</div>
+            </div>
+            <div class="menu-card" onclick="startMode('call')">
+                <div class="menu-info">
+                    <h3>Call Simulation</h3>
+                    <p>Live prospecting flow with variable prospect personas & branches</p>
+                </div>
+                <div class="menu-arrow">&rarr;</div>
+            </div>
+        </div>
+
+        <!-- Active Workspace -->
+        <div id="workspace" class="hidden">
+            <div class="workspace-header">
+                <button class="back-btn" onclick="returnToMenu()">&larr; Main Menu</button>
+                <div id="progress-counter" class="counter-display">Seen: 0</div>
+            </div>
+
+            <div class="script-card">
+                <div id="card-tag" class="card-tag">Objection</div>
+                <div id="call-meta" class="call-meta hidden"></div>
+                <div id="card-text" class="card-text">Loading script...</div>
+            </div>
+
+            <div id="controls-area" class="controls">
+                <!-- Injected dynamically -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Embedded Data Source (Preserved completely intact)
+    const data = {
+        objections: {
+            questions: [
+                "1. I already have insurance.",
+                "2. I alread have an agent.",
+                "3. How do you have my information?",
+                "4. What is this about? (Elligibility)",
+                "5. I am not interested.",
+                "6. Is there something changing with medicare?",
+                "7. I'm busy right now.",
+                "8. I am busy that day.",
+                "9. I am not 65 yet.",
+                "10. I am already on medicare.",
+                "11. I don't want life insurance.",
+                "12. What is this about? (medicare changes)"
+            ],
+            answers: [
+                "1. Great! My job is to make sure your current coverage is doing exactly what it is intended to do and if you even need medicare. [Move On]",
+                "2. Great! My job is not to replace any relations you have, it is to explain how medicare works and the laws and changes around retirement.",
+                "3. The government provides Bankers Life with the information of people it deems in possible need of help with medicare.",
+                "4. This is about your medicare elligibility and the options you have available to you so you do not end up spending more than you should.",
+                "5. I have ended up saving a lot of my clients who initally said they were not interested a few hundred off their monthly bill. [Move On]",
+                "6. Medicare is changing all the time, especially right now with plan D, my job is to go over your current coverage and make sure it is best able to handle your needs for the future.",
+                "7. I understand and I am busy too, I'm just stopping by...",
+                "8. I have a busy schedule too. On a day you typically don't have anything going on, would you perfer mornings or afternoons?",
+                "9. You do not need to be 65 yet, I can set you up within the 9 months before your 65th birthday.",
+                "10. Great! I'll make sure it is doing exactly what it is doing and see if there are any cheaper options available to you.",
+                "11. If you died tomorrow, would the correct people receive your belongings without loosing a big chunk to taxes?",
+                "12. It is my job to go over the changes to medicare and how it could affect your current coverage."
+            ]
+        },
+        factFinder: {
+            questions: [
+                "1. - 3 Warm Up Questions",
+                "2. - Self Introduction",
+                "3. - 3 Facts of Bankers Life",
+                "4. - Fact Finder Warm Up",
+                "5. - Health Expenses",
+                "6. - Assisted Care",
+                "7. - Final Expenses",
+                "8. - Retirement Income",
+                "9. - Fact Finder Cool down",
+                "10. - Three Circles Warm Up",
+                "11. - Checking Questions",
+                "12. - Savings Questions",
+                "13. - Nest Egg Questions",
+                "14. - The Six Evils "
+            ],
+            answers: [
+                "How long you lived here? How many grandchildren? What is your favorite part about this region?",
+                "My name is Lukas White. Before this job, I worked at the subway in Auburn making sandwhiches to pay for my college which I recently graduated from Saginaw Valley in May with a bachlors in computer science. While studying, I led a group of 8 into created an AI agent that tested the efficenty of other computer programs, which makes my clients wonder why I am an insurance sales agent, which I completely stumbled upon accident. I like how everyday I have to talk to clients and build relationships, and I enjoy saving people from paying more to the governemnt and guiding them through retirement",
+                "Bankers Life has a long history dating back to 1879, the same year the light bulb was created. It is the only 1 of 4 companies the governemnt sought help from to create medicare, so we have close ties other companies may not. It serves the retirement needs of middle-income Americans, and maintains an A (Excellent) financial strength rating.",
+                "Since Bankers started, we have become a full retirement planning company. There are 4 main areas of your retirement",
+                "The 1st area is health expenses, for most of my clients that is medicare. Medicare pricing is income and asset based and there are a few penalties and fees I want to make sure to help you avoid. As well as go over what it covers and doesn't cover and make sure you understand what is going on.",
+                "The second area is assisted care, this is when you can no longer take care of yourself as you once did and it is the number one reason for bankruptcy in retirement in the U.S. I can help you create a plan that works for you and your family.",
+                "The third area is final expenses. This can be replacement income, pensions, or life insurance. I want to make sure you have a plan in place and if you do it is functioning as you expect it to. I also help my clients avoid probate.",
+                "And lastly is retirement income. It is the engine that fuels the other 3. You can't imagine a car running without an engine so I need to make sure you don't outlive your money or pay more for your medicare than needed, because as I stated over here (health) medicare is income and asset based in pricing. I also help with tax status in retirement so we are keeping as much as we can.",
+                "I am going to asl you general questions in of these areas so I can get a complete picture of your retirement puzzle, and then help yo fit the pieces together in a way that makes the most sense for your short and long term goals. First question is the hardest one for my clients to answer... give me the legal spelling of your first and last name.",
+                "Have you heard about the three circles before?",
+                "How much monthly from working wages? Are you Drawing investment income? Do you Draw s.s.?",
+                "CD, money market, savings account high yield? On a good month, how much would you like to have in your savings account?",
+                "IS house payed off? Mutual funds, stocks, bonds?",
+                "The six evils that attack our nest eggs are: Extended Care, Probate, market fluxuations, Survivor income, taxes, and the secure act 2.0."
+            ]
+        },
+        call: {
+            name: "Roberto Blackman",
+            reasons: ["t65", "Life Insurance", "Changes to medicare", "Colonial Penn", "Orphan", "Kramer"],
+            lines: [
+                "Hello?:::Hello? (Husband answers):::Hello (Wife answers)",
+                "Great, how are you?:::Horrible.:::Ok?",
+                "I remember.:::I don't remember.:::What's this about?:::How do you have my information?",
+                "Morning/Afternoon:::I already insurance:::I have an agent.",
+                "That works.:::I am not sure.",
+                "My house is red.:::I do not want to meet at my house.",
+                "See you there."
+            ]
+        }
+    };
+
+    let state = {
+        mode: null,
+        index: 0,
+        seenCount: 0,
+        showingAnswer: false,
+        currentCallReason: "",
+        currentChosenOption: ""
+    };
+
+    function cleanText(text) {
+        return text.replace(/^\d+(\.\s*-\s*|\.\s*)/, '');
+    }
+
+    function startMode(mode) {
+        state.mode = mode;
+        state.seenCount = 0;
+        state.showingAnswer = false;
+
+        document.getElementById('main-menu').classList.add('hidden');
+        document.getElementById('workspace').classList.remove('hidden');
+        document.getElementById('header-badge').classList.remove('hidden');
+
+        if (mode === 'objections') {
+            triggerRandomObjection();
+        } else if (mode === 'factfinder') {
+            state.index = 0;
+            state.seenCount = 1;
+            render();
+        } else if (mode === 'call') {
+            state.index = 0;
+            state.seenCount = 1;
+            state.currentCallReason = data.call.reasons[Math.floor(Math.random() * data.call.reasons.length)];
+            pickRandomCallOptions();
+            render();
+        }
+    }
+
+    function returnToMenu() {
+        state.mode = null;
+        document.getElementById('workspace').classList.add('hidden');
+        document.getElementById('main-menu').classList.remove('hidden');
+        document.getElementById('header-badge').classList.add('hidden');
+    }
+
+    function triggerRandomObjection() {
+        state.index = Math.floor(Math.random() * data.objections.questions.length);
+        state.seenCount++;
+        state.showingAnswer = false;
+        render();
+    }
+
+    function toggleAnswer() {
+        state.showingAnswer = !state.showingAnswer;
+        render();
+    }
+
+    function nextFactFinder() {
+        if (state.index < data.factFinder.questions.length - 1) {
+            state.index++;
+            state.seenCount++;
+            state.showingAnswer = false;
+            render();
+        } else {
+            if(confirm("Completed Fact Finder sequence! Click OK to restart or Cancel to go back to Menu.")) {
+                startMode('factfinder');
+            } else {
+                returnToMenu();
+            }
+        }
+    }
+
+    function pickRandomCallOptions() {
+        let parts = data.call.lines[state.index].split(':::');
+        state.currentChosenOption = parts[Math.floor(Math.random() * parts.length)];
+    }
+
+    function nextCallLine() {
+        if (state.index < data.call.lines.length - 1) {
+            state.index++;
+            state.seenCount++;
+            pickRandomCallOptions();
+            render();
+        } else {
+            if(confirm("Call simulation finished! Restart simulation?")) {
+                startMode('call');
+            } else {
+                returnToMenu();
+            }
+        }
+    }
+
+    function render() {
+        const tagEl = document.getElementById('card-tag');
+        const textEl = document.getElementById('card-text');
+        const counterEl = document.getElementById('progress-counter');
+        const controlsEl = document.getElementById('controls-area');
+        const metaEl = document.getElementById('call-meta');
+
+        controlsEl.innerHTML = '';
+        metaEl.classList.add('hidden');
+
+        if (state.mode === 'objections') {
+            counterEl.innerText = `Seen: ${state.seenCount}`;
+            tagEl.innerText = "Objection Prompt";
+
+            if (!state.showingAnswer) {
+                textEl.innerText = cleanText(data.objections.questions[state.index]);
+                controlsEl.innerHTML = `
+                    <button class="btn btn-primary" onclick="toggleAnswer()">View Answer</button>
+                    <button class="btn btn-secondary" onclick="triggerRandomObjection()">Next Objection</button>
+                `;
+            } else {
+                textEl.innerText = cleanText(data.objections.answers[state.index]);
+                tagEl.innerText = "Suggested Counter-Response";
+                controlsEl.innerHTML = `
+                    <button class="btn btn-secondary" onclick="toggleAnswer()">Hide Answer</button>
+                    <button class="btn btn-primary" onclick="triggerRandomObjection()">Next Objection</button>
+                `;
+            }
+
+        } else if (state.mode === 'factfinder') {
+            counterEl.innerText = `Seen: ${state.seenCount}`;
+            
+            if (!state.showingAnswer) {
+                tagEl.innerText = "Fact Finder Step";
+                textEl.innerText = cleanText(data.factFinder.questions[state.index]);
+                controlsEl.innerHTML = `
+                    <button class="btn btn-primary" onclick="toggleAnswer()">View Answer</button>
+                    <button class="btn btn-secondary" onclick="nextFactFinder()">Next Step</button>
+                `;
+            } else {
+                tagEl.innerText = "Fact Finder Details";
+                textEl.innerText = cleanText(data.factFinder.answers[state.index]);
+                controlsEl.innerHTML = `
+                    <button class="btn btn-secondary" onclick="toggleAnswer()">Hide Answer</button>
+                    <button class="btn btn-primary" onclick="nextFactFinder()">Next Step</button>
+                `;
+            }
+
+        } else if (state.mode === 'call') {
+            counterEl.innerText = `Seen: ${state.seenCount}`;
+            tagEl.innerText = `Prospect Line (${data.call.name})`;
+            metaEl.innerText = `Reason: ${state.currentCallReason}`;
+            metaEl.classList.remove('hidden');
+
+            textEl.innerHTML = `<div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.05em;">Prospect Response:</div>"${state.currentChosenOption}"`;
+
+            controlsEl.innerHTML = `
+                <button class="btn btn-primary btn-full" onclick="nextCallLine()">Next Line</button>
+            `;
+        }
+    }
+</script>
+
+</body>
+</html>
