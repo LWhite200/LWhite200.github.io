@@ -3,21 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Script Rehearsal Studio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Depository Script Rehearsal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-base: #0b0f19;
-            --bg-card: #131d31;
-            --bg-hover: #1e293b;
-            --accent-primary: #3b82f6;
-            --accent-glow: rgba(59, 130, 246, 0.2);
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #090d16 100%);
+            --card-bg: rgba(15, 23, 42, 0.85);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --accent-primary: #6366f1;
+            --accent-primary-hover: #4f46e5;
+            --accent-glow: rgba(99, 102, 241, 0.25);
+            --accent-light: rgba(99, 102, 241, 0.15);
+            --accent-cyan: #38bdf8;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --border: #1e293b;
-            --border-highlight: #334155;
-            --radius: 16px;
-            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-subtle: #334155;
+            --menu-card-bg: #1e293b;
+            --radius-lg: 24px;
+            --radius-md: 14px;
+            --shadow-xl: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .light-theme {
+            --bg-gradient: linear-gradient(135deg, #e0e7ff 0%, #f1f5f9 50%, #dbeafe 100%);
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(255, 255, 255, 0.6);
+            --accent-primary: #4f46e5;
+            --accent-primary-hover: #4338ca;
+            --accent-glow: rgba(79, 70, 229, 0.25);
+            --accent-light: #eff6ff;
+            --accent-cyan: #0284c7;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-subtle: #e2e8f0;
+            --menu-card-bg: #ffffff;
         }
 
         * {
@@ -28,61 +48,100 @@
         }
 
         body {
-            background-color: var(--bg-base);
+            background: var(--bg-gradient);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 24px;
+            transition: background 0.3s ease;
         }
 
         .app-shell {
             width: 100%;
-            max-width: 680px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-highlight);
-            border-radius: var(--radius);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+            max-width: 720px;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
         header {
-            padding: 24px 32px;
-            border-bottom: 1px solid var(--border);
+            padding: 28px 36px;
+            border-bottom: 1px solid var(--border-subtle);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(15, 23, 42, 0.3);
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .light-theme header {
+            background: rgba(255, 255, 255, 0.5);
         }
 
         .logo-area h1 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            letter-spacing: -0.025em;
-            color: var(--text-main);
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .logo-area p {
-            font-size: 0.8125rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
             margin-top: 2px;
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .badge {
-            background: rgba(59, 130, 246, 0.1);
+            background: var(--accent-light);
             color: var(--accent-primary);
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-size: 0.75rem;
-            font-weight: 600;
-            border: 1px solid rgba(59, 130, 246, 0.2);
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle {
+            background: var(--menu-card-bg);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-main);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent-primary);
+            transform: scale(1.05);
         }
 
         .content-body {
-            padding: 32px;
+            padding: 36px;
         }
 
         /* Menu Grid */
@@ -93,44 +152,53 @@
         }
 
         .menu-card {
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 22px 24px;
+            background: var(--menu-card-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 22px 26px;
             cursor: pointer;
             transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: space-between;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
         }
 
         .menu-card:hover {
             border-color: var(--accent-primary);
-            background: rgba(59, 130, 246, 0.08);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px var(--accent-glow);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px -6px var(--accent-glow);
         }
 
         .menu-info h3 {
-            font-size: 1.05rem;
-            font-weight: 600;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
             margin-bottom: 4px;
         }
 
         .menu-info p {
-            font-size: 0.8125rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
         }
 
         .menu-arrow {
-            color: var(--text-muted);
-            font-weight: 700;
-            font-size: 1.1rem;
+            color: var(--accent-primary);
+            font-weight: 800;
+            font-size: 1.2rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: var(--transition);
         }
 
         .menu-card:hover .menu-arrow {
-            color: var(--accent-primary);
+            background: var(--accent-primary);
+            color: #ffffff;
             transform: translateX(4px);
         }
 
@@ -139,69 +207,89 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .back-btn {
-            background: transparent;
-            border: 1px solid var(--border-highlight);
+            background: var(--menu-card-bg);
+            border: 1px solid var(--border-subtle);
             color: var(--text-muted);
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 0.8125rem;
+            padding: 9px 18px;
+            border-radius: 10px;
+            font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
 
         .back-btn:hover {
-            background: var(--bg-hover);
-            color: var(--text-main);
-            border-color: var(--text-main);
+            background: var(--accent-light);
+            color: var(--accent-primary);
+            border-color: rgba(99, 102, 241, 0.3);
         }
 
         .counter-display {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--accent-primary);
-            background: rgba(59, 130, 246, 0.1);
-            padding: 6px 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(59, 130, 246, 0.15);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            background: rgba(56, 189, 248, 0.1);
+            padding: 7px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
         }
 
         .script-card {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid var(--border-highlight);
-            border-radius: 14px;
-            padding: 36px 28px;
-            min-height: 200px;
+            background: var(--menu-card-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 18px;
+            padding: 42px 32px 32px;
+            min-height: 220px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
             position: relative;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .script-card:hover {
+            border-color: var(--accent-primary);
+            box-shadow: 0 12px 30px -8px var(--accent-glow);
         }
 
         .card-tag {
             position: absolute;
             top: 16px;
             left: 20px;
-            font-size: 0.7rem;
+            font-size: 0.725rem;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            color: var(--text-muted);
-            font-weight: 700;
+            color: var(--accent-primary);
+            background: var(--accent-light);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 800;
         }
 
         .card-text {
             font-size: 1.25rem;
-            line-height: 1.6;
-            font-weight: 500;
+            line-height: 1.65;
+            font-weight: 600;
             color: var(--text-main);
+        }
+
+        .flip-hint {
+            position: absolute;
+            bottom: 12px;
+            font-size: 0.725rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.03em;
         }
 
         .call-meta {
@@ -209,26 +297,130 @@
             top: 16px;
             right: 20px;
             font-size: 0.75rem;
-            color: var(--accent-primary);
-            font-weight: 600;
-            background: rgba(59, 130, 246, 0.12);
-            padding: 4px 10px;
+            color: var(--accent-cyan);
+            font-weight: 700;
+            background: rgba(56, 189, 248, 0.1);
+            padding: 4px 12px;
             border-radius: 6px;
-            border: 1px solid rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        /* Static Custom Pages (Documents & Credits) */
+        .custom-page {
+            background: var(--menu-card-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 18px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            max-height: 420px;
+            overflow-y: auto;
+        }
+
+        .custom-page h2 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .custom-page p.subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .doc-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .doc-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-subtle);
+            padding: 14px 18px;
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .light-theme .doc-item {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .doc-item:hover {
+            border-color: var(--accent-primary);
+        }
+
+        .doc-info h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 2px;
+        }
+
+        .doc-info span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .doc-link {
+            background: var(--accent-light);
+            color: var(--accent-primary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .doc-link:hover {
+            background: var(--accent-primary);
+            color: #ffffff;
+        }
+
+        .credits-content {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        .credits-content strong {
+            color: var(--text-main);
+        }
+
+        .credit-box {
+            background: rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--accent-primary);
+            padding: 14px 18px;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .light-theme .credit-box {
+            background: rgba(0, 0, 0, 0.02);
         }
 
         /* Interactive controls */
         .controls {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
             gap: 12px;
+            flex-wrap: wrap;
         }
 
         .btn {
-            padding: 14px 20px;
-            border-radius: 10px;
-            font-size: 0.9375rem;
-            font-weight: 600;
+            flex: 1;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 700;
             cursor: pointer;
             border: none;
             transition: var(--transition);
@@ -245,23 +437,27 @@
         }
 
         .btn-primary:hover {
-            background-color: #2563eb;
-            transform: translateY(-1px);
+            background-color: var(--accent-primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--accent-glow);
         }
 
         .btn-secondary {
-            background-color: var(--bg-hover);
+            background-color: var(--menu-card-bg);
             color: var(--text-main);
-            border: 1px solid var(--border-highlight);
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
 
         .btn-secondary:hover {
-            background-color: #334155;
-            border-color: var(--text-muted);
+            background-color: var(--accent-light);
+            color: var(--accent-primary);
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-1px);
         }
 
         .btn-full {
-            grid-column: span 2;
+            flex: 1 1 100%;
         }
 
         .hidden {
@@ -277,7 +473,10 @@
             <h1>Script Studio</h1>
             <p>Interactive Rehearsal Platform</p>
         </div>
-        <div id="header-badge" class="badge hidden">Live Session</div>
+        <div class="header-actions">
+            <div id="header-badge" class="badge hidden">Live Session</div>
+            <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Light/Dark Mode">☀️</button>
+        </div>
     </header>
 
     <div class="content-body">
@@ -304,6 +503,22 @@
                 </div>
                 <div class="menu-arrow">&rarr;</div>
             </div>
+            <!-- NEW MENU ITEM: Documents Repository -->
+            <div class="menu-card" onclick="startMode('documents')">
+                <div class="menu-info">
+                    <h3>Documents & PDFs</h3>
+                    <p>Access reference materials, guides, and policy sheets</p>
+                </div>
+                <div class="menu-arrow">&rarr;</div>
+            </div>
+            <!-- NEW MENU ITEM: Credits -->
+            <div class="menu-card" onclick="startMode('credits')">
+                <div class="menu-info">
+                    <h3>Credits</h3>
+                    <p>The cinematic story of how one person built an entire empire</p>
+                </div>
+                <div class="menu-arrow">&rarr;</div>
+            </div>
         </div>
 
         <!-- Active Workspace -->
@@ -313,10 +528,17 @@
                 <div id="progress-counter" class="counter-display">Seen: 0</div>
             </div>
 
-            <div class="script-card">
+            <!-- Dynamic Card Container -->
+            <div id="script-card-container" class="script-card" onclick="handleCardClick()">
                 <div id="card-tag" class="card-tag">Objection</div>
                 <div id="call-meta" class="call-meta hidden"></div>
                 <div id="card-text" class="card-text">Loading script...</div>
+                <div id="flip-hint" class="flip-hint">Click card to reveal answer</div>
+            </div>
+
+            <!-- Static Custom Page Container (For Documents & Credits) -->
+            <div id="custom-page-container" class="custom-page hidden">
+                <!-- Injected dynamically -->
             </div>
 
             <div id="controls-area" class="controls">
@@ -337,26 +559,26 @@
                 "4. What is this about? (Eligibility)",
                 "5. I am not interested.",
                 "6. Is there something changing with Medicare?",
-                "7. I'm busy right now.",
-                "8. I am busy that day.",
-                "9. I am not 65 yet.",
-                "10. I am already on Medicare.",
-                "11. I don't want life insurance.",
-                "12. What is this about? (Medicare changes)"
+                "7. I'm busy right (now or that day).",
+                "8. I am not 65 yet.",
+                "9. I am already on Medicare.",
+                "10. I don't want life insurance.",
+                "11. What is this about? (Medicare changes)",
+                "12. I don't have medicare."
             ],
             answers: [
                 "1. Great! My job is simply to make sure your current coverage is doing what it's supposed to and that you have the right protection. [Move On]",
-                "2. Great! I'm not here to replace your agent. My job is to explain Medicare, the changes around it, and make sure you understand your options.",
+                "2. Great! I'm not here to replace your currrent agent. My job is to explain Medicare, the changes around it, and make sure you understand your options.",
                 "3. Bankers Life receives information from public and government sources regarding people who may be approaching Medicare eligibility.",
                 "4. It's regarding your Medicare eligibility and the options available to you, so you can make sure you're not paying more than you need to.",
-                "5. I understand. A lot of my clients initially felt the same way, but after reviewing their coverage, some found ways to save money. [Move On]",
+                "5. I understand how you are feeling. A majority of my clients felt the same way before I review their coverage and find ways to save them money, which I will do for you. [Move On]",
                 "6. Medicare changes every year. My job is to review your current coverage, explain any changes that may affect you, and make sure your plan still fits your needs.",
-                "7. I completely understand. I'll be brief.",
-                "8. I understand. I'll be brief. Let's find a time that works better for you.",
-                "9. That's okay. You can enroll in Medicare during the period surrounding your 65th birthday, and I can help you understand your options ahead of time.",
-                "10. Great! Then my job is simply to review what you currently have, make sure it still fits your needs, and see if there are any better options available.",
-                "11. I understand. Let me ask you this: if something happened to you tomorrow, would your family have enough money to cover your final expenses?",
-                "12. My job is to review the Medicare changes with you and explain how they could affect your current coverage."
+                "7. I completely understand, I am busy too so I'll be brief.",
+                "8. That's okay. You can enroll in Medicare during the period surrounding your 65th birthday, and I can help you understand your options ahead of time.",
+                "9. Great! Then my job is simply to review your current coverage, make sure it still fits your needs, and see if there are any better options available to you.",
+                "10. I completely understand how you are feeling. Nobody wakes up excited to talk about life insurance. But let me ask you this: if something were to happen to you tomorrow, have you already set aside a fund specifically for final expenses, or would that end up falling on your family to figure out?",
+                "11. My job is to review the Medicare changes with you and explain how they could affect your current coverage.",
+                "12. Is that because you have insurance through work or the VA? If not, you are really missing out on great health insurance, if I could, I'd sign up for it tomorrow. (Could also transition to Short-term care)"
             ]
         },
         factFinder: {
@@ -372,15 +594,15 @@
                 "9. - The Six Evils "
             ],
             answers: [
-                "How long you lived here? How many grandchildren? What is your favorite part about this region?",
+                "[1.]How long you lived here? [2.] How many grandchildren? [3.] What is your favorite part about this region?",
                 "My name is Lukas White. Before getting into insurance, I worked at Subway in Auburn while I was putting myself through college. I graduated from Saginaw Valley State University in May with a bachelor’s degree in Computer Science. While I was in college, I led a team of eight people in developing an AI agent designed to test the efficiency of other computer programs. So, naturally, a lot of my clients ask me, “How did you go from computer science to insurance?” Honestly, I kind of stumbled into insurance by accident. But what I ended up really liking about it is the people. Every day I get to talk with different clients, build relationships, and actually help people make important decisions about their future. Whether I'm helping someone with life insurance or Medicare, I enjoy taking something that can be confusing and making it easier to understand. My goal is to help people understand their options, avoid paying more than they need to, and feel confident about the decisions they're making for themselves and their families.",
                 "[1.] Bankers Life has a long history, dating all the way back to 1879, the same year the light bulb was invented. [2.] When Medicare was being created in the 1960s, the government turned to four companies for help developing the program. Out of those 4, Bankers life is the only one that is still around. That history gives us a unique connection and understanding of Medicare. [3.] Our clients are primarily middle-income Americans—people who often don’t receive the same level of attention and planning as wealthier individuals. That’s the market we specialize in serving.",
                 "Since Bankers started, we have become a full retirement planning company. There are 4 main areas of your retirement. The 1st area is health expenses, for most of my clients that is Medicare. Medicare pricing is income and asset based and there are a few penalties and fees I want to make sure to help you avoid. As well as go over what Medicare does and doesn't cover, so you have a clear understanding of your coverage and what to expect. The second area is assisted care, this is when you can no longer take care of yourself as you once did and it is the number one reason for bankruptcy in retirement in the U.S. I can help you create a plan that works for you and your family. The third area is final expenses. This can be replacement income, pensions, or life insurance. I want to make sure you have a plan in place and if you do it is functioning as you expect it to. I also help my clients avoid probate. And lastly is retirement income. It is the engine that fuels the other three. You can't imagine a car running without an engine, so I want to make sure your retirement income lasts as long as you need it to and that you're not paying more for Medicare than necessary, since, as I mentioned earlier, Medicare pricing is income and asset based. I also help with tax status in retirement so we are keeping as much as we can. I am going to ask you some general questions about these areas so I can get a complete picture of your retirement puzzle and then help you fit the pieces together in a way that makes the most sense for your short and long-term goals. First question is the hardest one for my clients to answer... what is the legal spelling of your first and last name.",
-                "Have you heard about the three circles before?",
-                "How much monthly from working wages? Are you Drawing investment income? Do you Draw s.s.?",
-                "CD, money market, savings account high yield? On a good month, how much would you like to have in your savings account?",
-                "IS house payed off? Mutual funds, stocks, bonds?",
-                "The six evils that attack our nest eggs are: Extended Care, Probate, market fluxuations, Survivor income, taxes, and the secure act 2.0."
+                "To get the full picture of your financial situation, we at Bankers use the three circles. Have you heard about the three circles before?",
+                "Your daily money hub for income and bills. [1.] How much monthly from working wages? [2.] Are you drawing social security. [3.] Are you Drawing investment income? [4.] Pensions. [5.] Rental property income. [6.] What would you say on an average month you spend on bills?",
+                "Money saved up that is non-qualified. [1.] Any CDs or money market? [2.] How much in your savings account? [3.] On a good month, how much would you like to have in your savings account?",
+                "Qualified money that we want to keep separate from bills. The biggest one for most people is their house [1.] Is your house payed off, if not, what is your monthly payment and how much do you still owe? Do you have other properties? [2.] Any annuities? IRA's (roth or regular/traditional). [3.] Mutual funds, stocks, bonds. [4.] 401k, 403b, 457, TSP. Where? [5.] How much risk tolerance are you will to have from 1-10? [6.] Do you have a Financial Advisor, when is the last time you spoke to them?",
+                "[1.] Extended Care, [2.] Probate, [3.] market fluxuations, [4.] Survivor income, [5.] Taxes, [6.] The secure act 2.0."
             ]
         },
         call: {
@@ -407,6 +629,17 @@
         currentChosenOption: ""
     };
 
+    function toggleTheme() {
+        const body = document.body;
+        const toggleBtn = document.getElementById('theme-toggle-btn');
+        body.classList.toggle('light-theme');
+        if (body.classList.contains('light-theme')) {
+            toggleBtn.innerText = "🌙";
+        } else {
+            toggleBtn.innerText = "☀️";
+        }
+    }
+
     function cleanText(text) {
         return text.replace(/^\d+(\.\s*-\s*|\.\s*)/, '');
     }
@@ -420,18 +653,30 @@
         document.getElementById('workspace').classList.remove('hidden');
         document.getElementById('header-badge').classList.remove('hidden');
 
-        if (mode === 'objections') {
-            triggerRandomObjection();
-        } else if (mode === 'factfinder') {
-            state.index = 0;
-            state.seenCount = 1;
-            render();
-        } else if (mode === 'call') {
-            state.index = 0;
-            state.seenCount = 1;
-            state.currentCallReason = data.call.reasons[Math.floor(Math.random() * data.call.reasons.length)];
-            pickRandomCallOptions();
-            render();
+        const cardContainer = document.getElementById('script-card-container');
+        const customContainer = document.getElementById('custom-page-container');
+
+        if (mode === 'objections' || mode === 'factfinder' || mode === 'call') {
+            cardContainer.classList.remove('hidden');
+            customContainer.classList.add('hidden');
+
+            if (mode === 'objections') {
+                triggerRandomObjection();
+            } else if (mode === 'factfinder') {
+                state.index = 0;
+                state.seenCount = 1;
+                render();
+            } else if (mode === 'call') {
+                state.index = 0;
+                state.seenCount = 1;
+                state.currentCallReason = data.call.reasons[Math.floor(Math.random() * data.call.reasons.length)];
+                pickRandomCallOptions();
+                render();
+            }
+        } else if (mode === 'documents' || mode === 'credits') {
+            cardContainer.classList.add('hidden');
+            customContainer.classList.remove('hidden');
+            renderCustomPage(mode);
         }
     }
 
@@ -449,7 +694,8 @@
         render();
     }
 
-    function toggleAnswer() {
+    function handleCardClick() {
+        if (state.mode === 'call') return; 
         state.showingAnswer = !state.showingAnswer;
         render();
     }
@@ -461,11 +707,18 @@
             state.showingAnswer = false;
             render();
         } else {
-            if(confirm("Completed Fact Finder sequence! Click OK to restart or Cancel to go back to Menu.")) {
-                startMode('factfinder');
-            } else {
-                returnToMenu();
-            }
+            state.index = 0;
+            state.seenCount = 1;
+            state.showingAnswer = false;
+            render();
+        }
+    }
+
+    function prevFactFinder() {
+        if (state.index > 0) {
+            state.index--;
+            state.showingAnswer = false;
+            render();
         }
     }
 
@@ -481,11 +734,88 @@
             pickRandomCallOptions();
             render();
         } else {
-            if(confirm("Call simulation finished! Restart simulation?")) {
-                startMode('call');
-            } else {
-                returnToMenu();
-            }
+            state.index = 0;
+            state.seenCount = 1;
+            state.currentCallReason = data.call.reasons[Math.floor(Math.random() * data.call.reasons.length)];
+            pickRandomCallOptions();
+            render();
+        }
+    }
+
+    function prevCallLine() {
+        if (state.index > 0) {
+            state.index--;
+            pickRandomCallOptions();
+            render();
+        }
+    }
+
+    function renderCustomPage(mode) {
+        const counterEl = document.getElementById('progress-counter');
+        const customContainer = document.getElementById('custom-page-container');
+        const controlsEl = document.getElementById('controls-area');
+
+        controlsEl.innerHTML = '';
+
+        if (mode === 'documents') {
+            counterEl.innerText = "Resource Library";
+            customContainer.innerHTML = `
+                <h2>Document Depository</h2>
+                <p class="subtitle">Quick access to reference sheets, fact finders, and PDF guides.</p>
+                <div class="doc-list">
+
+                    <!-- 
+                      HOW TO ADD MORE PDF FILES / DOCUMENTS:
+                      Simply copy a <div class="doc-item"> block below and paste it.
+                      - Change the file name in the <h4> tag.
+                      - Replace 'path/to/your-file.pdf' in the href attribute with your actual file URL or local path.
+                    -->
+                    
+                    <!-- Document Item 1 -->
+                    <div class="doc-item">
+                        <div class="doc-info">
+                            <h4>Colonial Penn or GBL leads</h4>
+                            <span>PDF Document</span>
+                        </div>
+                        <!-- Point the href to your folder and file path -->
+                        <a href="documents/CP_GBL.pdf" target="_blank" class="doc-link">Open PDF &rarr;</a>
+                    </div>
+
+                    <!-- Document Item 1 -->
+                    <div class="doc-item">
+                        <div class="doc-info">
+                            <h4>Gettysburg Address</h4>
+                            <span>PDF Document</span>
+                        </div>
+                        <!-- Point the href to your folder and file path -->
+                        <a href="documents/Getty.pdf" target="_blank" class="doc-link">Open PDF &rarr;</a>
+                    </div>
+
+                </div>
+            `;
+            controlsEl.innerHTML = `<button class="btn btn-secondary btn-full" onclick="returnToMenu()">Back to Menu</button>`;
+        } else if (mode === 'credits') {
+            counterEl.innerText = "The Mastermind";
+            customContainer.innerHTML = `
+                <h2>Credits & Special Acknowledgments</h2>
+                <p class="subtitle">Directed, coded, financed, and fueled entirely by sheer caffeine.</p>
+                <div class="credits-content">
+                    <div class="credit-box">
+                        <strong>Executive Producer, Lead Architect, QA Lead, & Sandwich Artisan:</strong><br>
+                        Lukas A. White
+                    </div>
+                    <p>
+                        Special thanks to <strong>Saginaw Valley State University</strong> for the Computer Science degree, and a heartfelt shoutout to the Auburn Subway counter where elite sandwich assembly training clearly prepared him for the high-stakes world of insurance sales and complex AI script engineering.
+                    </p>
+                    <p>
+                        Additional credit goes to no one else, because let’s be honest—while everyone else was sleeping, Lukas was training AI agents, compiling pseudo-instructions, and building full-stack web apps single-handedly. 
+                    </p>
+                    <p style="text-align: center; font-weight: 700; color: var(--accent-primary); margin-top: 12px;">
+                        🏆 "I did it all." - Lukas A. White
+                    </p>
+                </div>
+            `;
+            controlsEl.innerHTML = `<button class="btn btn-secondary btn-full" onclick="returnToMenu()">Back to Menu</button>`;
         }
     }
 
@@ -495,58 +825,72 @@
         const counterEl = document.getElementById('progress-counter');
         const controlsEl = document.getElementById('controls-area');
         const metaEl = document.getElementById('call-meta');
+        const hintEl = document.getElementById('flip-hint');
 
         controlsEl.innerHTML = '';
         metaEl.classList.add('hidden');
+        hintEl.classList.remove('hidden');
 
         if (state.mode === 'objections') {
             counterEl.innerText = `Seen: ${state.seenCount}`;
-            tagEl.innerText = "Objection Prompt";
 
             if (!state.showingAnswer) {
+                tagEl.innerText = "Objection Prompt";
                 textEl.innerText = cleanText(data.objections.questions[state.index]);
+                hintEl.innerText = "Click card to reveal answer";
                 controlsEl.innerHTML = `
-                    <button class="btn btn-primary" onclick="toggleAnswer()">View Answer</button>
-                    <button class="btn btn-secondary" onclick="triggerRandomObjection()">Next Objection</button>
+                    <button class="btn btn-primary btn-full" onclick="triggerRandomObjection()">Next Objection &rarr;</button>
                 `;
             } else {
-                textEl.innerText = cleanText(data.objections.answers[state.index]);
                 tagEl.innerText = "Suggested Counter-Response";
+                textEl.innerText = cleanText(data.objections.answers[state.index]);
+                hintEl.innerText = "Click card to view question";
                 controlsEl.innerHTML = `
-                    <button class="btn btn-secondary" onclick="toggleAnswer()">Hide Answer</button>
-                    <button class="btn btn-primary" onclick="triggerRandomObjection()">Next Objection</button>
+                    <button class="btn btn-primary btn-full" onclick="triggerRandomObjection()">Next Objection &rarr;</button>
                 `;
             }
 
         } else if (state.mode === 'factfinder') {
-            counterEl.innerText = `Seen: ${state.seenCount}`;
+            counterEl.innerText = `Step: ${state.index + 1} / ${data.factFinder.questions.length}`;
             
+            let prevBtn = state.index > 0 
+                ? `<button class="btn btn-secondary" onclick="prevFactFinder()">&larr; Previous Step</button>` 
+                : `<button class="btn btn-secondary" style="visibility: hidden;" disabled></button>`;
+
             if (!state.showingAnswer) {
-                tagEl.innerText = "Fact Finder Step";
+                tagEl.innerText = `Fact Finder Step ${state.index + 1}`;
                 textEl.innerText = cleanText(data.factFinder.questions[state.index]);
+                hintEl.innerText = "Click card to reveal details";
                 controlsEl.innerHTML = `
-                    <button class="btn btn-primary" onclick="toggleAnswer()">View Answer</button>
-                    <button class="btn btn-secondary" onclick="nextFactFinder()">Next Step</button>
+                    ${prevBtn}
+                    <button class="btn btn-primary" onclick="nextFactFinder()">Next Step &rarr;</button>
                 `;
             } else {
-                tagEl.innerText = "Fact Finder Details";
+                tagEl.innerText = `Fact Finder Details ${state.index + 1}`;
                 textEl.innerText = cleanText(data.factFinder.answers[state.index]);
+                hintEl.innerText = "Click card to view step";
                 controlsEl.innerHTML = `
-                    <button class="btn btn-secondary" onclick="toggleAnswer()">Hide Answer</button>
-                    <button class="btn btn-primary" onclick="nextFactFinder()">Next Step</button>
+                    ${prevBtn}
+                    <button class="btn btn-primary" onclick="nextFactFinder()">Next Step &rarr;</button>
                 `;
             }
 
         } else if (state.mode === 'call') {
-            counterEl.innerText = `Seen: ${state.seenCount}`;
+            counterEl.innerText = `Line: ${state.index + 1} / ${data.call.lines.length}`;
             tagEl.innerText = `Prospect Line (${data.call.name})`;
             metaEl.innerText = `Reason: ${state.currentCallReason}`;
             metaEl.classList.remove('hidden');
+            hintEl.classList.add('hidden');
 
-            textEl.innerHTML = `<div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.05em;">Prospect Response:</div>"${state.currentChosenOption}"`;
+            textEl.innerHTML = `<div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.05em; font-weight:700;">Prospect Response:</div>"${state.currentChosenOption}"`;
+
+            let prevCallBtn = state.index > 0 
+                ? `<button class="btn btn-secondary" onclick="prevCallLine()">&larr; Previous Line</button>` 
+                : `<button class="btn btn-secondary" style="visibility: hidden;" disabled></button>`;
 
             controlsEl.innerHTML = `
-                <button class="btn btn-primary btn-full" onclick="nextCallLine()">Next Line</button>
+                ${prevCallBtn}
+                <button class="btn btn-primary" onclick="nextCallLine()">Next Line &rarr;</button>
             `;
         }
     }
