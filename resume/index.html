@@ -1,158 +1,867 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Welcome - Lukas White</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700&family=Manrope&display=swap" rel="stylesheet">
+  <title>Lukas White - Resume & Projects</title>
 
-<style>
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  font-family: 'Inter', sans-serif;
-  background: #111;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  <!-- ============================================================
+       GOOGLE FONTS
+       ============================================================ -->
 
-#bg-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-/* =========================
-   WELCOME PANEL
-   ========================= */
-.welcome-container {
-  position: relative;
-  z-index: 1;
-  max-width: 500px;
-  width: 80%;
-  background: rgba(30, 30, 30, 0.55);
-  padding: 60px 40px;
-  border-radius: 16px;
-  text-align: center;
-  box-shadow: 0 0 60px rgba(0,0,0,0.7);
-  color: #d4d4d4;
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+    rel="stylesheet"
+  >
 
-  /* Start invisible */
-  opacity: 0;
-  transform: translateY(20px);
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="./style.css">
 
-  /* Animate fade-in */
-  animation: fadeIn 4.0s ease-out forwards;
-}
 
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.welcome-container h1 {
-  font-family: 'Anton', sans-serif;
-  font-size: 3rem;
-  color: #569cd6;
-  margin-bottom: 20px;
-}
-
-.welcome-container p {
-  font-size: 1.2rem;
-  color: #9cdcfe;
-  margin-bottom: 30px;
-}
-
-.continue-btn {
-  font-family: 'Manrope', sans-serif;
-  font-size: 1rem;
-  padding: 14px 30px;
-  border: none;
-  border-radius: 8px;
-  background-color: #3f51b5;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.continue-btn:hover {
-  background-color: #303f9f;
-  transform: translateY(-2px);
-}
-</style>
 </head>
-<body>
 
-<canvas id="bg-canvas"></canvas>
 
-<div class="welcome-container">
-  <h1>Welcome!</h1>
-  <p>Hi, I’m Lukas White.<br>Explore my portfolio to see projects, skills, and more.</p>
-  <button class="continue-btn" onclick="goHome()">Continue</button>
-</div>
+<body class="homepage">
 
-<script src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script>
-<script>
-const canvas = document.getElementById('bg-canvas');
-const scene = new THREE.Scene();
+  <div class="page-container fade-in">
 
-// Camera
-const camera = new THREE.PerspectiveCamera(50, window.innerWidth/window.innerHeight, 0.1, 1000);
-camera.position.z = 6;
 
-// Renderer
-const renderer = new THREE.WebGLRenderer({canvas, alpha: true, antialias: true});
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
+    <a href="../index.html" class="back-button">
+      ← Back to Main
+    </a>
 
-// Cube with thick edges
-const geometry = new THREE.BoxGeometry(3, 3, 3);
-const edges = new THREE.EdgesGeometry(geometry);
-const material = new THREE.LineBasicMaterial({ color: 0x569cd6, linewidth: 2 });
-const cube = new THREE.LineSegments(edges, material);
-scene.add(cube);
+    <!-- ==========================================================
+         HEADER
+         ========================================================== -->
 
-// Lights
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
-scene.add(ambientLight);
+    <header class="projects-header">
 
-const pointLight = new THREE.PointLight(0xffffff, 0.8);
-pointLight.position.set(5,5,5);
-scene.add(pointLight);
+      <h1>Lukas A. White</h1>
 
-// Animate cube
-function animate() {
-    requestAnimationFrame(animate);
-    cube.rotation.x += 0.004;
-    cube.rotation.y += 0.006;
-    renderer.render(scene, camera);
-}
-animate();
+      <p>
+        Computer Science graduate focused on software development,
+        systems, problem solving, and building practical technology.
+      </p>
 
-// Resize
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth/window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-});
+      <!-- PLACEHOLDER: swap in your real GitHub/LinkedIn URLs and email -->
 
-// Button
-function goHome() {
-    window.location.href = 'home.html';
-}
-</script>
+      <div class="header-links">
+
+        <a
+          href="https://github.com/LWhite200"
+          class="header-link"
+          target="_blank"
+          rel="noopener"
+        >
+          GitHub
+        </a>
+
+        <a
+          href="https://www.linkedin.com/in/lukas-white/"
+          class="header-link"
+          target="_blank"
+          rel="noopener"
+        >
+          LinkedIn
+        </a>
+
+        <a
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=lukaswhite200@gmail.com"
+          class="header-link"
+          target="_blank"
+          rel="noopener"
+        >
+          Email
+        </a>
+
+      </div>
+
+    </header>
+
+
+    <main>
+
+
+      <!-- ========================================================
+           ABOUT ME
+           ======================================================== -->
+
+      <section class="about-section">
+
+        <h2 class="section-title">
+          About Me
+        </h2>
+
+        <div class="about-card">
+
+          <div>
+
+            <h3>Software Developer &amp; Problem Solver</h3>
+
+            <p>
+              I am a Computer Science graduate from Saginaw Valley State
+              University with a strong interest in software development,
+              systems, and understanding how technology works from the
+              application level down to the underlying hardware.
+            </p>
+
+          </div>
+
+
+          <div>
+
+            <p>
+              My background includes software engineering, quality
+              assurance, databases, networking, artificial intelligence,
+              game development, embedded systems, and low-level
+              programming. I enjoy projects that require me to understand
+              a difficult problem, break it into smaller pieces, and
+              build a working solution.
+            </p>
+
+          </div>
+
+
+          <div class="about-highlight">
+
+            <strong>What I enjoy most:</strong>
+            taking complicated technical problems and turning them into
+            systems that actually work. I also enjoy working with other
+            people, learning from teammates, and taking responsibility
+            when a project needs someone to step up and organize the work.
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ========================================================
+           EDUCATION
+           ======================================================== -->
+
+      <section class="education-section">
+
+        <h2 class="section-title">
+          Education
+        </h2>
+
+        <p class="section-subtitle">
+          My academic background and the experiences that shaped my
+          approach to software development.
+        </p>
+
+
+        <div class="education-card">
+
+
+          <!-- ====================================================
+               OPTIONAL COLLEGE IMAGE
+
+               Replace the placeholder below with:
+
+               <img
+                 src="images/svsu.jpg"
+                 alt="Saginaw Valley State University"
+               >
+
+               Recommended:
+               16:9
+               Example: 1600 x 900
+               ==================================================== -->
+
+          <div class="education-image">
+
+            <div class="education-image-placeholder">
+
+              <img src="images/svsu.png" alt="Saginaw Valley State University campus" />
+
+            </div>
+
+          </div>
+
+
+          <div class="education-content">
+
+            <h3>
+              Saginaw Valley State University
+            </h3>
+
+            <div class="education-degree">
+              Bachelor of Science in Computer Science — May 2026
+            </div>
+
+            <p>
+              I originally began my college education in Electrical
+              Engineering before discovering that I was more interested
+              in the software, logic, architecture, and problem-solving
+              side of technology.
+            </p>
+
+            <p>
+              I ultimately switched to Computer Science, where I was able
+              to explore software engineering, algorithms, databases,
+              networking, artificial intelligence, systems programming,
+              and application development.
+            </p>
+
+            <p>
+              My senior capstone gave me the opportunity to take on a
+              leadership role as the QA Technical Lead for a real client
+              project, combining technical work with communication,
+              organization, and software quality assurance.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ========================================================
+           ACTIVITIES & ORGANIZATIONS
+           ======================================================== -->
+
+      <section class="activities-section">
+
+        <h2 class="section-title">
+          Activities &amp; Organizations
+        </h2>
+
+        <p class="section-subtitle">
+          Outside the classroom, I stayed involved in hands-on student
+          organizations that let me apply what I was learning in
+          different ways.
+        </p>
+
+
+        <div class="activity-grid">
+
+
+          <!-- SAE FORMULA RACING -->
+
+          <div class="activity-card">
+
+            <h3>
+              SAE Formula Racing
+            </h3>
+
+            <div class="activity-role">
+              Team Member
+            </div>
+
+            <p> Collaborated across electrical, mechanical, and software teams to help prepare a competition race car, troubleshooting real-world problems under tight deadlines and learning how different engineering systems work together. </p>
+          </div>
+
+
+          <!-- GAME DESIGN CLUB -->
+
+          <div class="activity-card">
+
+            <h3>
+              Game Design Club
+            </h3>
+
+            <div class="activity-role">
+              Member
+            </div>
+
+            <p> Contributed gameplay ideas and design concepts while collaborating with other members to evaluate, prototype, and refine ideas into practical game mechanics. </p>          
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+      <!-- ========================================================
+           PROFESSIONAL EXPERIENCE
+           ======================================================== -->
+
+      <section class="experience-section">
+
+        <h2 class="section-title">
+          Professional Experience
+        </h2>
+
+        <p class="section-subtitle">
+          Experience outside the classroom has helped me develop
+          communication, responsibility, and the ability to work directly
+          with people.
+        </p>
+
+
+        <div class="experience-card">
+
+
+          <!-- ====================================================
+               OPTIONAL JOB IMAGE
+
+               Replace the placeholder with something like:
+
+               <img
+                 src="images/bankers-life.jpg"
+                 alt="Bankers Life"
+               >
+
+               Recommended:
+               16:9
+               ==================================================== -->
+
+          <div class="experience-image">
+
+            <div class="experience-image-placeholder">
+
+              <img src="images/bankers_life.png" alt="Saginaw Valley State University campus" />
+
+            </div>
+
+          </div>
+
+
+          <div class="experience-content">
+
+            <h3>
+              Bankers Life
+            </h3>
+
+            <div class="experience-role">
+              Insurance Agent
+            </div>
+
+            <p>
+              My current professional experience has given me a very
+              different perspective from my technical education. Rather
+              than working exclusively with software, I work directly
+              with clients to understand their needs, explain complicated
+              information, and help them navigate important financial
+              decisions.
+            </p>
+
+            <ul>
+
+              <li>
+                Communicate complex insurance and retirement concepts
+                clearly with clients.
+              </li>
+
+              <li>
+                Build professional relationships through direct
+                conversations and personalized service.
+              </li>
+
+              <li>
+                Identify client needs and explain potential solutions
+                in a way that is understandable and practical.
+              </li>
+
+              <li>
+                Manage my own prospecting, scheduling, follow-up,
+                and client communication.
+              </li>
+
+            </ul>
+
+            <div class="about-highlight">
+
+              <strong>What this taught me:</strong>
+              technical ability is only part of being effective.
+              Understanding people, communicating clearly, and taking
+              ownership of a problem are skills that apply to every
+              professional environment.
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ====================================================
+             SUBWAY
+             ==================================================== -->
+
+        <div class="experience-card">
+
+          <div class="experience-image">
+
+            <div class="experience-image-placeholder">
+
+              <img
+                src="images/subway.png"
+                alt="Subway restaurant"
+              />
+
+            </div>
+
+          </div>
+
+          <div class="experience-content">
+
+            <h3>
+              Subway
+            </h3>
+
+            <div class="experience-role">
+              Team Member
+            </div>
+
+            <p>
+              Before starting my current career, I worked at Subway all
+              through college. It was my first real job juggling a fast
+              pace with a full course load, and it taught me a lot about
+              staying organized and steady when things get busy.
+            </p>
+
+            <ul>
+
+              <li>
+                Kept up with a steady rush of customers &mdash; often
+                200+ a day &mdash; without letting speed get in the way
+                of accuracy or a good attitude.
+              </li>
+
+              <li>
+                Trained new hires and helped them get comfortable with
+                the pace and the routine.
+              </li>
+
+              <li>
+                Helped the store earn a 99/100 health inspection score
+                by staying on top of cleanliness and food safety day to
+                day.
+              </li>
+
+              <li>
+                Worked closely with coworkers to keep things running
+                smoothly, especially during rushes.
+              </li>
+
+            </ul>
+
+            <div class="about-highlight">
+
+              <strong>What this taught me:</strong>
+              being reliable and easy to work with counts for just as
+              much as technical skill. Staying calm under pressure and
+              taking ownership of my work are habits I picked up here
+              that still shape how I approach every project since.
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+      </section>
+
+
+      <!-- ========================================================
+           WHAT I BRING
+           ======================================================== -->
+
+      <section class="strengths-section">
+
+        <h2 class="section-title">
+          What I Bring
+        </h2>
+
+        <p class="section-subtitle">
+          A combination of technical experience, curiosity, leadership,
+          and communication.
+        </p>
+
+
+        <div class="strength-grid">
+
+
+          <!-- Problem Solving -->
+
+          <div class="strength-card">
+
+            <h3>
+              Problem Solving
+            </h3>
+
+            <p>
+              I enjoy breaking complicated problems into smaller pieces,
+              understanding the underlying cause, and developing practical
+              solutions instead of only treating the symptoms.
+            </p>
+
+          </div>
+
+
+          <!-- Technical Range -->
+
+          <div class="strength-card">
+
+            <h3>
+              Technical Range
+            </h3>
+
+            <p>
+              My projects have exposed me to languages and environments
+              including C, C#, Java, Python, JavaScript, SQL, Linux,
+              networking, embedded systems, and Wii homebrew development.
+            </p>
+
+          </div>
+
+
+          <!-- Leadership -->
+
+          <div class="strength-card">
+
+            <h3>
+              Leadership
+            </h3>
+
+            <p>
+              I am comfortable taking ownership of technical work,
+              organizing tasks, helping teammates through problems, and
+              stepping into leadership roles when a project needs
+              direction.
+            </p>
+
+          </div>
+
+
+          <!-- Curiosity -->
+
+          <div class="strength-card">
+
+            <h3>
+              Curiosity
+            </h3>
+
+            <p>
+              Many of my personal projects come from simply wanting to
+              understand how something works. That curiosity has led me
+              into areas ranging from AI agents to operating systems,
+              graphics, and hardware.
+            </p>
+
+          </div>
+
+
+          <!-- Communication -->
+
+          <div class="strength-card">
+
+            <h3>
+              Communication
+            </h3>
+
+            <p>
+              Working directly with clients and teammates has taught me
+              how to explain technical ideas clearly, listen to different
+              perspectives, and keep projects moving toward a shared goal.
+            </p>
+
+          </div>
+
+
+          <!-- Adaptability -->
+
+          <div class="strength-card">
+
+            <h3>
+              Adaptability
+            </h3>
+
+            <p>
+              I have worked across very different technical environments,
+              and I am comfortable learning unfamiliar tools and concepts
+              when a project requires them.
+            </p>
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+      <!-- ========================================================
+           FEATURED PROJECTS
+           ======================================================== -->
+
+      <section class="featured-projects">
+
+        <h2 class="section-title">
+          Featured Projects
+        </h2>
+
+        <p class="section-subtitle">
+          A selection of larger projects that demonstrate my experience
+          across software engineering, systems, AI, graphics, and
+          application development.
+        </p>
+
+
+        <div class="project-buttons">
+
+
+          <!-- ====================================================
+               QA CAPSTONE
+               ==================================================== -->
+
+          <div
+            class="project-item"
+            onclick="location.href='projects/qa_capstone.html'"
+          >
+
+            <img
+              src="images/capstone/QACapstone.png"
+              alt="QA Capstone"
+            >
+
+            <h3>
+              QA Capstone Lead
+            </h3>
+
+          </div>
+
+
+          <!-- ====================================================
+               LOAD BALANCED SYSTEM
+               ==================================================== -->
+
+          <div
+            class="project-item"
+            onclick="location.href='projects/load_balancer.html'"
+          >
+
+            <img
+              src="images/load_balance/load_balance.png"
+              alt="Load-Balanced System"
+            >
+
+            <h3>
+              Load-Balanced System
+            </h3>
+
+          </div>
+
+
+          <!-- ====================================================
+               WII HOMEBREW
+               ==================================================== -->
+
+          <div
+            class="project-item"
+            onclick="location.href='projects/island_gen.html'"
+          >
+
+            <img
+              src="images/3Disland/3Disland.png"
+              alt="3D Island Wii Homebrew"
+            >
+
+            <h3>
+              3D Island — Wii Homebrew
+            </h3>
+
+          </div>
+
+
+          <!-- ====================================================
+               WEB APPLICATION
+               ==================================================== -->
+
+          <div
+            class="project-item"
+            onclick="location.href='projects/web_app.html'"
+          >
+
+            <img
+              src="images/webApp/webApp.png"
+              alt="Web App Node.js"
+            >
+
+            <h3>
+              Web App — Node.js
+            </h3>
+
+          </div>
+
+
+          <!-- ====================================================
+               AI INDEPENDENT STUDY
+               ==================================================== -->
+
+          <div
+            class="project-item"
+            onclick="location.href='projects/ai_study.html'"
+          >
+
+            <img
+              src="images/AIstudy/AIstudy.png"
+              alt="AI Independent Study"
+            >
+
+            <h3>
+              AI Independent Study
+            </h3>
+
+          </div>
+
+
+          <!-- ====================================================
+               SAE Formula Racing
+               ==================================================== -->
+
+          <div
+            class="project-item"
+            onclick="location.href='projects/formula_racing.html'"
+          >
+
+            <img
+              src="images/formulaRacing/formulaRacing.png"
+              alt="SAE Formula Racing"
+            >
+
+            <h3>
+              SAE Formula Racing
+            </h3>
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+      <!-- ========================================================
+           OTHER PROJECTS
+           ======================================================== -->
+
+      <section class="other-projects">
+
+        <h2 class="section-title">
+          Other Projects
+        </h2>
+
+
+        <div class="other-grid">
+
+
+          <!-- ====================================================
+               LINUX KERNEL MODULE
+               ==================================================== -->
+
+          <div class="other-card">
+
+            <h3>
+              Linux Kernel Module
+            </h3>
+
+            <p>
+              To better understand how operating systems function at
+              a low level, I explored development within the Linux
+              kernel environment. This project focused on interacting
+              directly with core system components rather than
+              user-space applications.
+            </p>
+
+            <p>
+              I developed the module in C while working with memory
+              access, kernel structures, system-level debugging tools,
+              and the constraints of kernel development.
+            </p>
+
+          </div>
+
+
+          <!-- ====================================================
+               SIMULATION & SYSTEMS
+               ==================================================== -->
+
+          <div class="other-card">
+
+            <h3>
+              Simulation &amp; Systems Experiments
+            </h3>
+
+            <p>
+              I explored simulation development to better understand
+              how systems evolve over time and how individual
+              components interact within defined environments.
+            </p>
+
+            <p>
+              These projects involved rule-based logic, state
+              management, interaction systems, and performance
+              experimentation.
+            </p>
+
+          </div>
+
+
+          <!-- ====================================================
+               COLLABORATIVE DEVELOPMENT
+               ==================================================== -->
+
+          <div class="other-card">
+
+            <h3>
+              Collaborative Development Projects
+            </h3>
+
+            <p>
+              Throughout my academic experience, I participated in
+              multiple team-based software and game development
+              projects. These environments emphasized collaboration,
+              adaptability, and shared ownership.
+            </p>
+
+            <p>
+              I contributed through feature development, debugging,
+              design discussions, and system integration while working
+              with teammates toward shared deadlines.
+            </p>
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+    </main>
+
+  </div>
+
+
+  <!-- ============================================================
+       FADE IN
+       ============================================================ -->
+
+  <script>
+
+    window.addEventListener('DOMContentLoaded', () => {
+
+      const page = document.querySelector('.fade-in');
+
+      if (page) {
+        page.style.opacity = '1';
+      }
+
+    });
+
+  </script>
 
 </body>
 </html>

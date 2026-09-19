@@ -2,91 +2,318 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>3D Island Generator - Lukas White</title>
+
+  <!-- Makes the page work properly on phones -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>3D Island — Wii Homebrew — Lukas White</title>
+
+  <!-- ============================================================
+       GOOGLE FONTS
+       ============================================================ -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- ============================================================
+       MAIN SITE STYLESHEET
+       ============================================================ -->
+
   <link rel="stylesheet" href="../style.css">
+
+
 </head>
 
-<body>
-<header>
-  <button onclick="location.href='../projects.html'">Back</button>
-  <h1>3D Island Generator</h1>
-  <a href="https://github.com/LWhite200/Island_Game" target="_blank">Github Link</a>
-</header>
 
-<main>
+<body class="homepage">
 
-<section>
-  <h2>Screenshots</h2>
+  <div class="page-container fade-in">
 
-  <div style="
-    max-width: 900px;
-    margin: 20px auto 0 auto;
-  ">
-    <div style="
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 25px;
-    ">
 
-      <img src="../images/3Disland.png" style="
-        width: 60%;
-        aspect-ratio: 1 / 1;
-        object-fit: cover;
-        border-radius: 10px;
-        border: 2px solid #333;
-        background-color: #1e1e1e;
-      ">
+    <!-- ==========================================================
+         BACK TO PROJECTS
+         ========================================================== -->
 
-      <img src="../images/island2.png" style="
-        width: 60%;
-        aspect-ratio: 1 / 1;
-        object-fit: cover;
-        border-radius: 10px;
-        border: 2px solid #333;
-        background-color: #1e1e1e;
-      ">
+    <a href="../index.html" class="back-button">
+      ← Back to Projects
+    </a>
 
-      <img src="../images/island3.png" style="
-        width: 60%;
-        aspect-ratio: 1 / 1;
-        object-fit: cover;
-        border-radius: 10px;
-        border: 2px solid #333;
-        background-color: #1e1e1e;
-      ">
 
-      <img src="../images/island4.png" style="
-        width: 60%;
-        aspect-ratio: 1 / 1;
-        object-fit: cover;
-        border-radius: 10px;
-        border: 2px solid #333;
-        background-color: #1e1e1e;
-      ">
+    <!-- ==========================================================
+         PROJECT HEADER
+         ========================================================== -->
 
-    </div>
+    <header class="project-header">
+
+      <h1>3D Island — Wii Homebrew</h1>
+
+      <p class="project-subtitle">
+        A personal project to build a real-time, procedurally
+        generated 3D island world for the Nintendo Wii — written
+        entirely in C with no game engine, just low-level graphics
+        programming.
+      </p>
+
+
+      <!-- Technology / skill tags -->
+
+      <div class="tech-list">
+
+        <span class="tech-tag">C</span>
+
+        <span class="tech-tag">DevKitPro</span>
+
+        <span class="tech-tag">GRRLIB</span>
+
+        <span class="tech-tag">GX / GCCORE</span>
+
+        <span class="tech-tag">Low-Level Graphics</span>
+
+        <span class="tech-tag">Procedural Generation</span>
+
+      </div>
+
+
+      <div class="project-links">
+
+        <a
+          href="https://github.com/LWhite200/Island_Game"
+          class="project-link-btn github"
+          target="_blank"
+          rel="noopener"
+        >
+          View on GitHub
+        </a>
+
+      </div>
+
+    </header>
+
+
+    <main>
+
+
+      <!-- ========================================================
+           OVERVIEW
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>Overview</h2>
+
+        <p>
+          This was a personal project to see how far I could push the
+          Wii's hardware without leaning on a game engine. I built a
+          real-time 3D island generation engine from scratch in C,
+          using DevKitPro and GX directly — meaning every part of the
+          rendering pipeline, from the graphics to the physics, is
+          something I wrote myself rather than something an engine
+          handed to me.
+        </p>
+
+        <p>
+          The world is semi-infinite and procedurally generated, made
+          up of ocean and island terrain that's created on the fly as
+          the player explores, rather than loaded from fixed level
+          data.
+        </p>
+
+      </section>
+
+
+      <!-- ========================================================
+           KEY CONTRIBUTIONS
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>Key Contributions</h2>
+
+        <ul>
+
+          <li>
+            Built a procedural terrain generation system for
+            semi-infinite ocean and island environments.
+          </li>
+
+          <li>
+            Wrote a custom rendering pipeline directly against the
+            Wii's GX graphics library.
+          </li>
+
+          <li>
+            Built the physics system governing player and boat
+            movement, including collision handling.
+          </li>
+
+          <li>
+            Designed a dynamic camera system that tracks the player
+            smoothly through the generated world.
+          </li>
+
+          <li>
+            Profiled and optimized the rendering and simulation loops
+            to stay within the Wii's tight memory and CPU limits.
+          </li>
+
+        </ul>
+
+        <div class="highlight">
+
+          <strong>Technical highlight:</strong>
+
+          Real-time collision detection and kd-tree spatial queries
+          keep the world responsive while terrain is generated and
+          despawned on the fly — a big part of making a "semi-infinite"
+          world feel seamless on hardware this constrained.
+
+        </div>
+
+      </section>
+
+
+      <!-- ========================================================
+           SCREENSHOTS
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>Screenshots</h2>
+
+        <p>
+          A look at the generated terrain and in-game environment.
+        </p>
+
+
+        <div class="project-images">
+
+
+          <!-- IMAGE 1 -->
+
+          <div class="project-image">
+
+            <img
+              src="images/island_gen_1.png"
+              alt="3D Island Wii Homebrew terrain screenshot"
+            >
+
+            <div class="image-caption">
+              Generated island terrain — 16:9 recommended.
+            </div>
+
+          </div>
+
+
+          <!-- IMAGE 2 -->
+
+          <div class="project-image">
+
+            <img
+              src="images/island_gen_2.png"
+              alt="3D Island Wii Homebrew ocean or boat screenshot"
+            >
+
+            <div class="image-caption">
+              Ocean / boat movement — 16:9 recommended.
+            </div>
+
+          </div>
+
+
+          <!-- IMAGE 3 -->
+
+          <div class="project-image">
+
+            <img
+              src="images/island_gen_3.png"
+              alt="3D Island Wii Homebrew camera view"
+            >
+
+            <div class="image-caption">
+              Dynamic camera in action — 16:9 recommended.
+            </div>
+
+          </div>
+
+
+          <!-- IMAGE 4 -->
+
+          <div class="project-image">
+
+            <img
+              src="images/island_gen_4.png"
+              alt="3D Island Wii Homebrew additional screenshot"
+            >
+
+            <div class="image-caption">
+              Additional gameplay view — 16:9 recommended.
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <p class="image-note">
+          Recommended screenshot aspect ratio: <strong>16:9</strong>
+          (approximately 1600 × 900 pixels).
+        </p>
+
+      </section>
+
+
+      <!-- ========================================================
+           WHAT I LEARNED
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>What I Learned</h2>
+
+        <p>
+          Working this close to the hardware, with no engine to fall
+          back on, forced me to actually understand what a game engine
+          normally does for you — rendering, physics, memory
+          management, all of it. It's the project that pushed my
+          low-level C and graphics programming the furthest, and gave
+          me a real appreciation for performance constraints most
+          modern development doesn't force you to think about.
+        </p>
+
+      </section>
+
+
+    </main>
+
   </div>
-</section>
 
-<section>
-  <h2>About</h2>
-  <p>
-    Developed a real-time 3D island generation engine for Nintendo Wii using low-level
-    graphics programming. Built entirely in C using devkitPro and GX without a game engine.
-  </p>
-</section>
 
-<section>
-  <h2>Key Contributions</h2>
-  <ul>
-    <li>Created procedural terrain generation system</li>
-    <li>Implemented custom rendering pipeline using GX</li>
-    <li>Built physics system for player and boat movement</li>
-    <li>Designed dynamic camera system</li>
-    <li>Optimized performance for Wii hardware</li>
-  </ul>
-</section>
+  <!-- ============================================================
+       FADE-IN SCRIPT
+       ============================================================ -->
 
-</main>
+  <script>
+
+    window.addEventListener('DOMContentLoaded', () => {
+
+      const page = document.querySelector('.fade-in');
+
+      if (page) {
+        page.style.opacity = '1';
+      }
+
+    });
+
+  </script>
+
 </body>
 </html>

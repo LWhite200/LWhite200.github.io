@@ -2,38 +2,302 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Web Application - Lukas White</title>
+
+  <!-- Makes the page work properly on phones -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Web-Based Study Tool — Lukas White</title>
+
+  <!-- ============================================================
+       GOOGLE FONTS
+       ============================================================ -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- ============================================================
+       MAIN SITE STYLESHEET
+       ============================================================ -->
+
   <link rel="stylesheet" href="../style.css">
+
+
 </head>
 
-<body>
-<header>
-  <button onclick="location.href='../projects.html'">Back</button>
-  <h1>Web Application</h1>
-  <a href="https://github.com/LWhite200/realtime-docs" target="_blank">Github Link</a>
-</header>
 
-<main>
+<body class="homepage">
 
-<section>
-  <h2>About</h2>
-  <p>
-    Developed a full-stack web application featuring dynamic UI, backend logic,
-    and database integration.
-  </p>
-</section>
+  <div class="page-container fade-in">
 
-<section>
-  <h2>Key Contributions</h2>
-  <ul>
-    <li>Built responsive frontend interface</li>
-    <li>Integrated backend services and APIs</li>
-    <li>Designed relational database structure</li>
-    <li>Implemented validation and error handling</li>
-    <li>Maintained consistent client-server data flow</li>
-  </ul>
-</section>
 
-</main>
+    <!-- ==========================================================
+         BACK TO PROJECTS
+         ========================================================== -->
+
+    <a href="../index.html" class="back-button">
+      ← Back to Projects
+    </a>
+
+
+    <!-- ==========================================================
+         PROJECT HEADER
+         ========================================================== -->
+
+    <header class="project-header">
+
+      <h1>Web-Based Study Tool</h1>
+
+      <p class="project-subtitle">
+        A full-stack study platform built with a four-person team,
+        combining a word processor, flashcards, and an interactive
+        diagram tool into one place students could actually use to
+        study.
+      </p>
+
+
+      <!-- Technology / skill tags -->
+
+      <div class="tech-list">
+
+        <span class="tech-tag">HTML</span>
+
+        <span class="tech-tag">CSS</span>
+
+        <span class="tech-tag">JavaScript</span>
+
+        <span class="tech-tag">Node.js</span>
+
+        <span class="tech-tag">Express</span>
+
+        <span class="tech-tag">MongoDB</span>
+
+        <span class="tech-tag">AWS</span>
+
+        <span class="tech-tag">JWT Auth</span>
+
+      </div>
+
+
+      <div class="project-links">
+
+        <a
+          href="https://github.com/LWhite200/realtime-docs"
+          class="project-link-btn github"
+          target="_blank"
+          rel="noopener"
+        >
+          View on GitHub
+        </a>
+
+      </div>
+
+    </header>
+
+
+    <main>
+
+
+      <!-- ========================================================
+           OVERVIEW
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>Overview</h2>
+
+        <p>
+          This started as a group project with a simple goal: build one
+          tool that covers the different ways people actually study,
+          instead of switching between five different apps. The result
+          was a full-stack academic productivity platform that combines
+          a word processor, flashcards with text-to-speech, and an
+          interactive drag-and-drop diagram tool in a single workspace.
+        </p>
+
+        <p>
+          Everything is backed by a real database and account system,
+          so notes, flashcards, and diagrams are saved and available
+          from any device, not just stuck in one browser tab.
+        </p>
+
+      </section>
+
+
+      <!-- ========================================================
+           MY ROLE
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>My Role — Team Lead</h2>
+
+        <p>
+          I led a team of four on this project, which meant more than
+          just writing my own features. I mentored teammates through
+          Node.js, Express, and database integration as they picked
+          those tools up, and kept an eye on scope and deadlines so the
+          project stayed realistic for a semester timeline.
+        </p>
+
+        <div class="highlight">
+
+          <strong>Key responsibility:</strong>
+
+          Balancing hands-on development with helping teammates get
+          unstuck on the backend, while keeping the overall feature set
+          scoped to something we could actually finish and polish.
+
+        </div>
+
+      </section>
+
+
+      <!-- ========================================================
+           WHAT I BUILT
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>What I Built</h2>
+
+        <ul>
+
+          <li>
+            A full-stack academic productivity platform with a
+            built-in word processor, flashcards (including
+            text-to-speech), and a drag-and-drop diagram tool.
+          </li>
+
+          <li>
+            JWT-based authentication and full CRUD functionality, with
+            MongoDB handling persistence for user accounts, documents,
+            and study materials.
+          </li>
+
+          <li>
+            A responsive frontend that holds up across both desktop and
+            mobile, tested for consistent behavior across browsers.
+          </li>
+
+          <li>
+            Backend services and REST APIs connecting the frontend to
+            the database, deployed on AWS.
+          </li>
+
+        </ul>
+
+      </section>
+
+
+      <!-- ========================================================
+           PROJECT SCREENSHOTS
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>Project Screenshots</h2>
+
+        <p>
+          Screenshots of the word processor, flashcard system, and
+          diagram tool can go here.
+        </p>
+
+
+        <div class="project-images">
+
+
+          <!-- IMAGE 1 -->
+
+          <div class="project-image">
+
+            <img
+              src="images/web_app_1.png"
+              alt="Web-Based Study Tool word processor view"
+            >
+
+            <div class="image-caption">
+              Word processor / notes view — 16:9 recommended.
+            </div>
+
+          </div>
+
+
+          <!-- IMAGE 2 -->
+
+          <div class="project-image">
+
+            <img
+              src="images/web_app_2.png"
+              alt="Web-Based Study Tool flashcards and diagram view"
+            >
+
+            <div class="image-caption">
+              Flashcards or diagram tool view — 16:9 recommended.
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <p class="image-note">
+          Recommended screenshot aspect ratio: <strong>16:9</strong>
+          (approximately 1600 × 900 pixels).
+        </p>
+
+      </section>
+
+
+      <!-- ========================================================
+           WHAT I LEARNED
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>What I Learned</h2>
+
+        <p>
+          Leading a team taught me that the technical work is often the
+          easier half. Keeping four people aligned on scope, unblocking
+          teammates on unfamiliar tools, and still shipping a polished
+          product by the deadline pushed my project management and
+          mentoring skills just as much as it pushed my code.
+        </p>
+
+      </section>
+
+
+    </main>
+
+  </div>
+
+
+  <!-- ============================================================
+       FADE-IN SCRIPT
+       ============================================================ -->
+
+  <script>
+
+    window.addEventListener('DOMContentLoaded', () => {
+
+      const page = document.querySelector('.fade-in');
+
+      if (page) {
+        page.style.opacity = '1';
+      }
+
+    });
+
+  </script>
+
 </body>
 </html>

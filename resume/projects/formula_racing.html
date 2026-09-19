@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Makes the page work properly on phones -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Formula SAE — Data Systems — Lukas White</title>
+
+  <!-- ============================================================
+       GOOGLE FONTS
+       ============================================================ -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- ============================================================
+       MAIN SITE STYLESHEET
+       ============================================================ -->
+
+  <link rel="stylesheet" href="../style.css">
+
+
+</head>
+
+
+<body class="homepage">
+
+  <div class="page-container fade-in">
+
+
+    <!-- ==========================================================
+         BACK TO PROJECTS
+         ========================================================== -->
+
+    <a href="../index.html" class="back-button">
+      ← Back to Projects
+    </a>
+
+
+    <!-- ==========================================================
+         PROJECT HEADER
+         ========================================================== -->
+
+    <header class="project-header">
+
+      <h1>Formula SAE — Timing, Telemetry &amp; Bodywork</h1>
+
+      <p class="project-subtitle">
+        A set of hardware and electronics projects built for our
+        Formula SAE race car — a lap timing system, a custom vehicle
+        telemetry logger, and hands-on composite bodywork — built
+        because commercial equivalents were out of budget for a
+        student team.
+      </p>
+
+
+      <!-- Technology / skill tags -->
+
+      <div class="tech-list">
+
+        <span class="tech-tag">Arduino</span>
+
+        <span class="tech-tag">C++</span>
+
+        <span class="tech-tag">Sensors &amp; Signal Handling</span>
+
+        <span class="tech-tag">SD Card / SPI</span>
+
+        <span class="tech-tag">Electrical Engineering</span>
+
+        <span class="tech-tag">Composite Materials</span>
+
+      </div>
+
+      <!--
+        No repo link for this one — it's mostly hardware/firmware
+        built for the car rather than a standalone codebase. Add a
+        <div class="project-links"> block here (see the other
+        project pages for the exact markup) if you put the firmware
+        up on GitHub later.
+      -->
+
+      <div class="project-links">
+
+        <a
+          href="https://github.com/LWhite200/Formula_Racing"
+          class="project-link-btn github"
+          target="_blank"
+          rel="noopener"
+        >
+          View on GitHub
+        </a>
+
+      </div>
+
+
+
+
+
+    </header>
+
+
+    <main>
+
+
+      <!-- ========================================================
+           OVERVIEW
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>Overview</h2>
+
+        <p>
+          As part of our Formula SAE team, I worked across electrical,
+          mechanical, and software subsystems to help get our
+          competition car ready for annual SAE events. A recurring
+          theme across that work was building things ourselves that a
+          bigger program would just buy — commercial data acquisition
+          systems were well outside a student team's budget, so several
+          of my contributions were custom hardware and firmware built
+          from scratch to fill that gap.
+        </p>
+
+      </section>
+
+
+      <!-- ========================================================
+           LAP TIMING SYSTEM
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>Lap Timing System</h2>
+
+        <p>
+          I designed and built a custom lap-timing system using an
+          Arduino and garage-door sensors to detect vehicle pass
+          events in real time, applying foundational electrical
+          engineering principles to get reliable readings out of
+          hardware that was never meant for this.
+        </p>
+
+        <p>
+          When the hardware display we'd planned to use turned out to
+          be unreliable, I diagnosed the issue and implemented a
+          fallback that routed serial output directly to a console
+          instead, so we could keep monitoring lap times without
+          losing data. The whole system went through several hardware
+          revisions, refined through iterative testing with the rest
+          of the team.
+        </p>
+
+      </section>
+
+
+      <!-- ========================================================
+           VEHICLE TELEMETRY LOGGER
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>Vehicle Telemetry Data Logger</h2>
+
+        <p>
+          We needed a way to log real-time vehicle telemetry during
+          testing runs, and since commercial data acquisition systems
+          were out of budget, I built a custom data logger using an
+          Arduino and C++ instead.
+        </p>
+
+        <p>
+          That meant interfacing multiple sensors, handling SPI bus
+          communication to write data to an SD card reliably at high
+          speeds, and writing firmware that could hold up under actual
+          vehicle vibration without dropping packets or crashing mid
+          run — the kind of reliability problem that only shows up
+          once you're testing on a real car instead of a bench.
+        </p>
+
+        <div class="highlight">
+
+          <strong>Key challenge:</strong>
+
+          Getting high-speed SD card writes to hold up reliably under
+          real vehicle vibration, without dropping telemetry packets
+          or crashing the firmware mid-run.
+
+        </div>
+
+      </section>
+
+
+      <!-- ========================================================
+           CORNERING DATA & SUSPENSION TUNING
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>Cornering Data Acquisition</h2>
+
+        <p>
+          I also built a data-logging system to capture cornering
+          behavior — things like steering input and lateral load —
+          which the team used to inform toe and camber adjustments for
+          better handling.
+        </p>
+
+        <p>
+          <em>
+            Note: I'm still tightening the wording on exactly how this
+            data was used (logged for post-run analysis vs. feeding
+            into a live adjustment) — let me know and I'll lock this
+            section in.
+          </em>
+        </p>
+
+      </section>
+
+
+      <!-- ========================================================
+           COMPOSITE BODYWORK
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>Composite Bodywork Fabrication</h2>
+
+        <p>
+          Outside the electronics, I also worked hands-on fabricating
+          aerodynamic body panels using fiberglass cloth and resin
+          layup techniques, balancing weight reduction against
+          structural durability for competition use. That meant
+          getting familiar with composite resin chemistry and curing
+          processes well enough to meet both performance and safety
+          requirements.
+        </p>
+
+      </section>
+
+
+      <!-- ========================================================
+           SCREENSHOTS / PHOTOS
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>Photos</h2>
+
+        <p>
+          Photos of the car, the timing/telemetry hardware, or the
+          bodywork can go here.
+        </p>
+
+
+        <div class="project-images">
+
+
+          <!-- IMAGE 1 -->
+
+          <div class="project-image">
+
+            <img
+              src="images/formula_racing_1.png"
+              alt="Formula SAE car or hardware photo"
+            >
+
+            <div class="image-caption">
+              The car, or the timing/telemetry hardware — 16:9
+              recommended.
+            </div>
+
+          </div>
+
+
+          <!-- IMAGE 2 -->
+
+          <div class="project-image">
+
+            <img
+              src="images/formula_racing_2.png"
+              alt="Formula SAE bodywork or team photo"
+            >
+
+            <div class="image-caption">
+              Bodywork fabrication or the team at competition — 16:9
+              recommended.
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <p class="image-note">
+          Recommended screenshot aspect ratio: <strong>16:9</strong>
+          (approximately 1600 × 900 pixels).
+        </p>
+
+      </section>
+
+
+      <!-- ========================================================
+           WHAT I LEARNED
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>What I Learned</h2>
+
+        <p>
+          Working on the racing team meant constantly moving between
+          disciplines — writing firmware one week, laying up fiberglass
+          the next — and coordinating with teammates whose expertise
+          didn't overlap much with mine. It's where I got most of my
+          hands-on electrical engineering experience, and it taught me
+          how to build something reliable under real deadline and
+          budget pressure instead of ideal conditions.
+        </p>
+
+      </section>
+
+
+    </main>
+
+  </div>
+
+
+  <!-- ============================================================
+       FADE-IN SCRIPT
+       ============================================================ -->
+
+  <script>
+
+    window.addEventListener('DOMContentLoaded', () => {
+
+      const page = document.querySelector('.fade-in');
+
+      if (page) {
+        page.style.opacity = '1';
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lukas A. White — Arcade & Games Hub</title>
+    <!-- Tailwind CSS for modern responsive utility styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes floatGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(234, 88, 12, 0.4), 0 0 30px rgba(139, 92, 246, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(234, 88, 12, 0.7), 0 0 50px rgba(219, 39, 119, 0.5); }
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: 
+                radial-gradient(circle at 50% 20%, #2e1065 0%, #09090b 70%, #000000 100%);
+            color: #f4f4f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 2.5rem 1.5rem;
+            overflow-x: hidden;
+        }
+
+        .animated-title {
+            background: linear-gradient(135deg, #ffff00, #ff5722, #e91e63, #9c27b0, #00bcd4);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: floatGradient 8s ease infinite;
+        }
+
+        .game-card {
+            background: linear-gradient(135deg, rgba(24, 24, 27, 0.9), rgba(39, 39, 42, 0.8));
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .game-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: rgba(255, 255, 0, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 255, 0, 0.2);
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, #18181b, #27272a);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            border-color: #ffff00;
+            background: linear-gradient(135deg, #27272a, #3f3f46);
+        }
+    </style>
+</head>
+<body class="selection:bg-yellow-400 selection:text-black">
+
+    <div class="w-full max-w-4xl text-center mb-10 mt-4">
+        <h1 class="text-xs md:text-sm uppercase tracking-[0.3em] text-zinc-400 font-bold mb-2">Lukas A. White &bull; Arcade Zone</h1>
+        <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight animated-title drop-shadow-md">THE GAMING HUB</h2>
+        <p class="text-zinc-400 text-sm md:text-base mt-2 max-w-md mx-auto">Choose your ultimate experience below and jump straight into the action.</p>
+    </div>
+
+    <div class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        
+        <!-- Casino Game Card -->
+        <a href="casino.html" class="game-card group relative flex flex-col justify-between p-6 rounded-2xl overflow-hidden text-left">
+            <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-amber-500 to-yellow-300"></div>
+            <div>
+                <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-2xl mb-4 text-amber-400 group-hover:scale-110 transition-transform">
+                    🎰
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-yellow-400 transition-colors">Casino Royale</h3>
+                <p class="text-zinc-400 text-sm leading-relaxed">Test your luck at slots, blackjack, and high-stakes arcade gambling minigames.</p>
+            </div>
+            <div class="mt-6 flex items-center text-xs font-bold text-yellow-400 uppercase tracking-wider">
+                <span>Play Now</span>
+                <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </div>
+        </a>
+
+        <!-- LetterBound Game Card -->
+        <a href="LetterBound.html" class="game-card group relative flex flex-col justify-between p-6 rounded-2xl overflow-hidden text-left">
+            <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-purple-500 to-indigo-500"></div>
+            <div>
+                <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-2xl mb-4 text-purple-400 group-hover:scale-110 transition-transform">
+                    🔤
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">LetterBound</h3>
+                <p class="text-zinc-400 text-sm leading-relaxed">Engage your mind with fast-paced word puzzles, spelling challenges, and vocabulary quests.</p>
+            </div>
+            <div class="mt-6 flex items-center text-xs font-bold text-purple-400 uppercase tracking-wider">
+                <span>Play Now</span>
+                <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </div>
+        </a>
+
+        <!-- CollectionGame Game Card -->
+        <a href="CollectionGame.html" class="game-card group relative flex flex-col justify-between p-6 rounded-2xl overflow-hidden text-left">
+            <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-pink-500 to-orange-500"></div>
+            <div>
+                <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center text-2xl mb-4 text-pink-400 group-hover:scale-110 transition-transform">
+                    ⭐
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-pink-400 transition-colors">Collection Game</h3>
+                <p class="text-zinc-400 text-sm leading-relaxed">Catch falling items, dodge obstacles, rack up points, and set new high scores.</p>
+            </div>
+            <div class="mt-6 flex items-center text-xs font-bold text-pink-400 uppercase tracking-wider">
+                <span>Play Now</span>
+                <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </div>
+        </a>
+
+    </div>
+
+    <div class="w-full max-w-md flex flex-col items-center gap-4">
+        <a href="../index.html" class="back-btn w-full py-4 px-6 rounded-xl font-bold text-yellow-400 text-center shadow-lg flex items-center justify-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m7 7H3"></path></svg>
+            Return to Main Portal
+        </a>
+        <p class="text-xs text-zinc-500">&copy; 2026 Lukas A. White. All Rights Reserved.</p>
+    </div>
+
+</body>
+</html>

@@ -2,47 +2,313 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Load Balanced System - Lukas White</title>
+
+  <!-- Makes the page work properly on phones -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Load-Balanced System — Lukas White</title>
+
+  <!-- ============================================================
+       GOOGLE FONTS
+       ============================================================ -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- ============================================================
+       MAIN SITE STYLESHEET
+       ============================================================ -->
+
   <link rel="stylesheet" href="../style.css">
+
+
 </head>
 
-<body>
-<header>
-  <button onclick="location.href='../projects.html'">Back</button>
-  <h1>Load Balanced System</h1>
-</header>
 
-<main>
+<body class="homepage">
 
-<section>
-  <h2>About</h2>
-  <p>
-    Built a distributed system capable of handling concurrent requests using load balancing
-    techniques to improve scalability, reliability, and performance.
-  </p>
-</section>
+  <div class="page-container fade-in">
 
-<section>
-  <h2>Key Contributions</h2>
-  <ul>
-    <li>Implemented request distribution logic across multiple services</li>
-    <li>Designed scalable architecture supporting horizontal expansion</li>
-    <li>Handled failure cases with redundancy strategies</li>
-    <li>Optimized system performance under heavy load</li>
-    <li>Tested system behavior with simulated traffic</li>
-  </ul>
-</section>
 
-<section>
-  <h2>Screenshots</h2>
-  <div class="screenshot-grid">
-    <img src="../images/lb1.png">
-    <img src="../images/lb2.png">
-    <img src="../images/lb3.png">
-    <img src="../images/lb4.png">
+    <!-- ==========================================================
+         BACK TO PROJECTS
+         ========================================================== -->
+
+    <a href="../index.html" class="back-button">
+      ← Back to Projects
+    </a>
+
+
+    <!-- ==========================================================
+         PROJECT HEADER
+         ========================================================== -->
+
+    <header class="project-header">
+
+      <h1>Load-Balanced Client-Server Sales System</h1>
+
+      <p class="project-subtitle">
+        A multi-threaded client-server application built for a class
+        project, designed to handle over a thousand concurrent
+        transactions using load balancing across server threads.
+      </p>
+
+
+      <!-- Technology / skill tags -->
+
+      <div class="tech-list">
+
+        <span class="tech-tag">Java</span>
+
+        <span class="tech-tag">SQLite</span>
+
+        <span class="tech-tag">Multi-threading</span>
+
+        <span class="tech-tag">Network Programming</span>
+
+        <span class="tech-tag">Load Balancing</span>
+
+        <span class="tech-tag">JavaFX</span>
+
+      </div>
+
+      <!--
+        No GitHub link added yet for this one — drop a
+        <div class="project-links"> block here (see the other
+        project pages for the exact markup) once you have a repo
+        link to share.
+      -->
+
+      <div class="project-links">
+
+        <a
+          href="https://github.com/LWhite200/Java3"
+          class="project-link-btn github"
+          target="_blank"
+          rel="noopener"
+        >
+          View on GitHub
+        </a>
+
+      </div>
+
+      
+
+    </header>
+
+
+    <main>
+
+
+      <!-- ========================================================
+           OVERVIEW
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>Overview</h2>
+
+        <p>
+          This project grew out of a class assignment on distributed
+          systems, but I pushed it further than the assignment asked
+          for. I built a multi-threaded client-server application that
+          can support over 1,000 concurrent transactions, handling
+          real-time network communication, error handling, and data
+          serialization between clients and the server.
+        </p>
+
+      </section>
+
+
+      <!-- ========================================================
+           HOW IT WORKS
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>How It Works</h2>
+
+        <p>
+          Incoming requests get distributed across multiple service
+          threads rather than handled one at a time, which is what
+          lets the system stay responsive under heavy concurrent load.
+          The architecture is built to scale horizontally, and I built
+          in redundancy strategies to handle failure cases gracefully
+          instead of letting one bad connection take down the system.
+        </p>
+
+        <p>
+          On the data side, SQLite handles storage for sales records,
+          with SQL queries written to keep everything accurate and
+          consistent even with many transactions happening at once. A
+          JavaFX GUI sits on top for product entry, receipt generation,
+          and sales tracking, so the whole thing is usable end to end
+          rather than just a backend exercise.
+        </p>
+
+        <div class="highlight">
+
+          <strong>Key responsibility:</strong>
+
+          Designing the load balancing and redundancy logic that keeps
+          the system reliable under heavy concurrent traffic, then
+          proving it out with simulated load testing.
+
+        </div>
+
+      </section>
+
+
+      <!-- ========================================================
+           KEY CONTRIBUTIONS
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>Key Contributions</h2>
+
+        <ul>
+
+          <li>
+            Implemented request distribution logic across multiple
+            server threads.
+          </li>
+
+          <li>
+            Designed a scalable architecture that supports horizontal
+            expansion.
+          </li>
+
+          <li>
+            Built redundancy strategies to handle failure cases without
+            taking down the whole system.
+          </li>
+
+          <li>
+            Tuned system performance to hold up under heavy simulated
+            load.
+          </li>
+
+          <li>
+            Tested behavior under simulated traffic to validate the
+            load balancing approach before calling it done.
+          </li>
+
+        </ul>
+
+      </section>
+
+
+      <!-- ========================================================
+           SCREENSHOTS
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>Screenshots</h2>
+
+        <p>
+          Screenshots of the JavaFX interface and system in action can
+          go here.
+        </p>
+
+
+        <div class="project-images">
+
+
+          <!-- IMAGE 1 -->
+
+          <div class="project-image">
+
+            <img
+              src="images/load_balancer_1.png"
+              alt="Load-Balanced System JavaFX interface screenshot"
+            >
+
+            <div class="image-caption">
+              JavaFX sales interface — 16:9 recommended.
+            </div>
+
+          </div>
+
+
+          <!-- IMAGE 2 -->
+
+          <div class="project-image">
+
+            <img
+              src="images/load_balancer_2.png"
+              alt="Load-Balanced System load testing results"
+            >
+
+            <div class="image-caption">
+              Load testing / performance results — 16:9 recommended.
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <p class="image-note">
+          Recommended screenshot aspect ratio: <strong>16:9</strong>
+          (approximately 1600 × 900 pixels).
+        </p>
+
+      </section>
+
+
+      <!-- ========================================================
+           WHAT I LEARNED
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>What I Learned</h2>
+
+        <p>
+          This was my first real dive into distributed systems concepts
+          outside of a textbook — actually building load balancing and
+          redundancy logic instead of just reading about it. It gave me
+          a much better sense of what "scalable" really requires in
+          practice, and how much of reliability comes down to planning
+          for failure cases up front instead of patching them in later.
+        </p>
+
+      </section>
+
+
+    </main>
+
   </div>
-</section>
 
-</main>
+
+  <!-- ============================================================
+       FADE-IN SCRIPT
+       ============================================================ -->
+
+  <script>
+
+    window.addEventListener('DOMContentLoaded', () => {
+
+      const page = document.querySelector('.fade-in');
+
+      if (page) {
+        page.style.opacity = '1';
+      }
+
+    });
+
+  </script>
+
 </body>
 </html>

@@ -2,47 +2,401 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>QA Capstone Lead - Lukas White</title>
+
+  <!-- Makes the page work properly on phones -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>QA Capstone — Lukas White</title>
+
+  <!-- ============================================================
+       GOOGLE FONTS
+       ============================================================ -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- ============================================================
+       MAIN SITE STYLESHEET
+       ============================================================
+
+       This assumes this project page is inside:
+
+           /projects/qa_capstone.html
+
+       and your main stylesheet is:
+
+           /style.css  (one level up, at the site root)
+
+       Every future /projects/*.html page should use this same
+       "../style.css" link so all project pages share one stylesheet.
+       ============================================================ -->
+
   <link rel="stylesheet" href="../style.css">
+
+
 </head>
 
-<body>
-<header>
-  <button onclick="location.href='../projects.html'">Back</button>
-  <h1>QA Capstone Lead</h1>
-</header>
 
-<main>
+<body class="homepage">
 
-<section>
-  <h2>About</h2>
-  <p>
-    Served as QA Lead for a multi-developer capstone project, ensuring system stability,
-    feature completeness, and release readiness through structured testing and validation.
-  </p>
-</section>
+  <div class="page-container fade-in">
 
-<section>
-  <h2>Key Contributions</h2>
-  <ul>
-    <li>Designed and executed comprehensive test cases across UI, backend, and database layers</li>
-    <li>Tracked and documented bugs with clear reproduction steps</li>
-    <li>Validated CRUD operations and data integrity</li>
-    <li>Collaborated with developers to debug and verify fixes</li>
-    <li>Reduced regression issues before final release</li>
-  </ul>
-</section>
 
-<section>
-  <h2>Screenshots</h2>
-  <div class="screenshot-grid">
-    <img src="../images/qa1.png">
-    <img src="../images/qa2.png">
-    <img src="../images/qa3.png">
-    <img src="../images/qa4.png">
+    <!-- ==========================================================
+         BACK TO PROJECTS
+         ========================================================== -->
+
+    <a href="../index.html" class="back-button">
+      ← Back to Projects
+    </a>
+
+
+    <!-- ==========================================================
+         PROJECT HEADER
+         ==========================================================
+
+         FOR OTHER PROJECTS:
+
+         Change:
+
+             <h1>QA Capstone Project</h1>
+
+         to the new project's name.
+
+         Also change the subtitle and technology tags below.
+         ========================================================== -->
+
+    <header class="project-header">
+
+      <h1>CS Capstone Project — QA Technical Lead</h1>
+
+      <p class="project-subtitle">
+        A collaborative software engineering project developing a
+        pet foster management system for Midland County Pit Stop,
+        a nonprofit animal rescue organization.
+      </p>
+
+
+      <!-- Technology / skill tags -->
+
+      <div class="tech-list">
+
+        <span class="tech-tag">C#</span>
+
+        <span class="tech-tag">SQL</span>
+
+        <span class="tech-tag">Software QA</span>
+
+        <span class="tech-tag">Test Planning</span>
+
+        <span class="tech-tag">Database Design</span>
+
+        <span class="tech-tag">Windows Desktop</span>
+
+        <span class="tech-tag">Leadership</span>
+
+      </div>
+
+
+      <!-- PLACEHOLDER: replace href with the real repo URL -->
+
+      <div class="project-links">
+
+        <a
+          href="https://github.com/LWhite200/QA_Capstone"
+          class="project-link-btn github"
+          target="_blank"
+          rel="noopener"
+        >
+          View on GitHub
+        </a>
+
+      </div>
+
+    </header>
+
+
+    <main>
+
+
+      <!-- ========================================================
+           OVERVIEW
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>Overview</h2>
+
+        <p>
+          For my senior Computer Science capstone project, I worked
+          with a team to develop a pet foster management system for
+          Midland County Pit Stop, a nonprofit rescue organization
+          that has placed thousands of animals since 2018.
+        </p>
+
+        <p>
+          The application was designed to help the organization
+          manage information and workflows surrounding animals,
+          fosters, volunteers, adoptions, supplies, scheduling,
+          and financial records.
+        </p>
+
+      </section>
+
+
+      <!-- ========================================================
+           MY ROLE
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>My Role — QA Technical Lead</h2>
+
+        <p>
+          I served as the team's QA Technical Lead, responsible
+          for planning and coordinating the project's software
+          quality assurance efforts.
+        </p>
+
+        <p>
+          Rather than only testing individual features, I worked
+          to establish a structured testing process that could
+          verify the application against both technical requirements
+          and the real-world needs of the client.
+        </p>
+
+
+        <div class="highlight">
+
+          <strong>Key responsibility:</strong>
+
+          I defined and executed test plans across the application's
+          major modules and worked with the development team to
+          identify, document, and resolve issues.
+
+        </div>
+
+      </section>
+
+
+      <!-- ========================================================
+           QA RESPONSIBILITIES
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>Testing &amp; Quality Assurance</h2>
+
+        <ul>
+
+          <li>
+            Defined and executed test plans for core application
+            modules.
+          </li>
+
+          <li>
+            Tested pet profiles, adoption records, foster and
+            volunteer tracking, supply requests, calendar and
+            reminder functionality, and financial reporting.
+          </li>
+
+          <li>
+            Validated role-based access controls to ensure users
+            could only access functionality appropriate to their
+            assigned roles.
+          </li>
+
+          <li>
+            Tested SQL data integrity and verified that information
+            remained consistent across application workflows.
+          </li>
+
+          <li>
+            Validated contract generation and financial recordkeeping
+            against client requirements.
+          </li>
+
+          <li>
+            Documented defects and worked with developers to
+            reproduce and resolve problems.
+          </li>
+
+        </ul>
+
+      </section>
+
+
+      <!-- ========================================================
+           TECHNICAL WORK
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>Technical Work</h2>
+
+        <p>
+          The project combined a C# Windows desktop application
+          with a SQL database. This required testing both the
+          application's user-facing behavior and the underlying
+          data operations.
+        </p>
+
+        <p>
+          A significant part of the QA process involved verifying
+          that actions performed through the application produced
+          the correct database results and that related records
+          remained consistent.
+        </p>
+
+        <p>
+          I also considered different user roles and workflows,
+          testing the application from the perspective of the
+          different people who would interact with the system.
+        </p>
+
+      </section>
+
+
+      <!-- ========================================================
+           PROJECT PICTURES
+           ========================================================
+
+           IMAGE RECOMMENDATION:
+
+           Use 16:9 images whenever possible.
+
+           Ideal size:
+               1600 x 900
+
+           Examples of good images for this project:
+
+           1. Main application screen
+           2. QA/test plan
+           3. Database diagram
+           4. Testing results
+           5. A particularly interesting application workflow
+
+           To add an image, replace:
+
+               images/qa_capstone_1.png
+
+           with your actual image path.
+
+           If the images are stored in:
+
+               /projects/images/
+
+           use:
+
+               images/qa_capstone_1.png
+
+           If they are stored in the main:
+
+               /images/
+
+           folder, use:
+
+               ../images/qa_capstone_1.png
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>Project Screenshots</h2>
+
+        <p>
+          Screenshots and diagrams from the project can be displayed
+          here to demonstrate the application and development process.
+        </p>
+
+
+        <div class="project-images">
+
+
+          <!-- IMAGE 1 -->
+
+          <div class="project-image">
+
+            <img
+              src="../images/capstone/capstone1.png"
+              alt="QA Capstone application screenshot"
+            >
+
+          </div>
+
+
+          <!-- IMAGE 2 -->
+
+          <div class="project-image">
+
+            <img
+              src="../images/capstone/capstone2.png"
+              alt="QA Capstone testing or database screenshot"
+            >
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+      <!-- ========================================================
+           WHAT I LEARNED
+           ======================================================== -->
+
+      <section class="project-section">
+
+        <h2>What I Learned</h2>
+
+        <p>
+          This project gave me practical experience with software
+          quality assurance in a collaborative development environment.
+          I learned how important structured testing is when software
+          needs to satisfy real client requirements rather than only
+          function in controlled demonstrations.
+        </p>
+
+        <p>
+          Serving as QA Technical Lead also strengthened my ability
+          to organize technical work, communicate issues clearly,
+          and work with developers to resolve problems while keeping
+          the overall project requirements in mind.
+        </p>
+
+      </section>
+
+
+    </main>
+
   </div>
-</section>
 
-</main>
+
+  <!-- ============================================================
+       FADE-IN SCRIPT
+       ============================================================ -->
+
+  <script>
+
+    window.addEventListener('DOMContentLoaded', () => {
+
+      const page = document.querySelector('.fade-in');
+
+      if (page) {
+        page.style.opacity = '1';
+      }
+
+    });
+
+  </script>
+
 </body>
 </html>
